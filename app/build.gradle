@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'danerfei'
+            keyPassword 'asd123'
+            storeFile file('D:/slb_key/danerfei_keystore.jks')
+            storePassword 'asd123'
+        }
+    }
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.slb.ttdandroidframework"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 14
+        versionName "1.4"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.config
+        }
+        live {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+    lintOptions {
+        abortOnError false
+    }
+    dexOptions {
+        jumboMode true
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation project(':widget')
+    implementation project(':frame')
+    //    compile 'com.github.pires:obd-java-api:1.0-RC16'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'info.hoang8f:android-segmented:1.0.6'
+    //    compile 'com.github.lecho:hellocharts-android:v1.5.8'
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.lzy.net:okserver:2.0.5'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.tencent.bugly:nativecrashreport:3.1.2'
+    compile 'com.tencent.bugly:crashreport_upgrade:1.2.3'
+    compile 'com.contrarywind:Android-PickerView:3.2.3'
+    compile 'org.apache.commons:commons-lang3:3.7'
+    implementation files('D:/pp/obd-Android//libs/obd-java-api-1.2-SNAPSHOT.jar')
+    compile 'com.lai.weavey:dialog:2.0.1'
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:fitsSystemWindows="true"
+    >
+
+    <FrameLayout
+        android:id="@+id/mainFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_2B3139"
+        android:layout_above="@+id/Cv"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/Cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+        <RadioGroup
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/color_3C444F">
+            <RadioButton
+                android:id="@+id/rb_home"
+                android:drawableTop="@drawable/slt_main_bottom_home"
+                android:text="@string/diagnostics"
+                style="@style/tab_bottom"/>
+            <RadioButton
+                android:id="@+id/rb_data"
+                android:drawableTop="@drawable/slt_main_bottom_data"
+                android:text="@string/live_data"
+                style="@style/tab_bottom"/>
+            <RadioButton
+                android:id="@+id/rb_history"
+                android:drawableTop="@drawable/slt_main_bottom_history"
+                android:text="@string/history"
+                style="@style/tab_bottom"/>
+            <RadioButton
+                android:id="@+id/rb_mine"
+                android:drawableTop="@drawable/slt_main_bottom_mine"
+                android:text="@string/my_device"
+                style="@style/tab_bottom"/>
+
+        </RadioGroup>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

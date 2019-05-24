@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#2B3139">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edtName"
+            style="@style/edit_padding_10"
+            android:completionThreshold="1"
+            android:hint="@string/Vehicle_profile"
+            android:lines="1"
+            android:background="#3C444F"
+            android:layout_marginTop="15dp"/>
+        <TextView
+            android:id="@+id/edtYear"
+            style="@style/edit_padding_10"
+            android:completionThreshold="1"
+            android:hint="@string/Vehicle_Year"
+            android:lines="1"
+            android:background="#3C444F"
+            android:layout_marginTop="15dp"/>
+        <TextView
+            android:id="@+id/edtMake"
+            style="@style/edit_padding_10"
+            android:completionThreshold="1"
+            android:hint="@string/Vehicle_Make"
+            android:lines="1"
+            android:background="#3C444F"
+            android:layout_marginTop="15dp"/>
+        <TextView
+            android:id="@+id/edtModel"
+            style="@style/edit_padding_10"
+            android:completionThreshold="1"
+            android:hint="@string/Vehicle_Model"
+            android:lines="1"
+            android:background="#3C444F"
+            android:layout_marginTop="15dp"/>
+        <Button
+            android:id="@+id/btnComfirm"
+            style="@style/btn_bottom_single"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_30"
+            android:text="@string/YES" />
+    </LinearLayout>
+</LinearLayout>

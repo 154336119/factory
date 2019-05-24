@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2B3139"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#3C444F"
+        android:gravity="center"
+        android:padding="@dimen/distance_10"
+        android:text="@string/register_title"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/logo" />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/match_wrap_margin_distance_bg"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edtMobile"
+            style="@style/edit_padding_10"
+            android:layout_margin="10dp"
+            android:completionThreshold="1"
+            android:drawableLeft="@mipmap/ic_phone"
+            android:hint="@string/email_address"
+            android:lines="1" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edtVCode"
+                style="@style/edit_padding_10"
+                android:hint="@string/enter_the_validation_code"
+                android:layout_margin="10dp"
+                android:lines="1"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@mipmap/ic_a"/>
+            <com.slb.ttdandroidframework.weight.CountTimerButton
+                android:id="@+id/BtnGetCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/send_the_validation_code"
+                android:textColor="#00A4EF"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_20"/>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/edtPwd"
+            style="@style/edit_padding_10"
+            android:layout_margin="10dp"
+            android:drawableLeft="@mipmap/ic_pw"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:lines="1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/distance_10"
+                android:text="免费注册"
+                android:textColor="#B3B3B3" />
+
+            <TextView
+                android:id="@+id/tvwForgotPwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/distance_10"
+                android:text="找回密码"
+                android:textColor="#B3B3B3" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnRegister"
+            style="@style/btn_bottom_single"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_30"
+            android:text="@string/register_immediately" />
+    </LinearLayout>
+</LinearLayout>
