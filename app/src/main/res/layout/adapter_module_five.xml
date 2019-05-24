@@ -63,9 +63,9 @@
         android:background="#2B3139"
         android:layout_toRightOf="@+id/TvPID"
         />
-    <com.slb.ttdandroidframework.weight.MyListView
+    <com.slb.factory.weight.MyListView
         android:id="@+id/MyListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"></com.slb.ttdandroidframework.weight.MyListView>
+        android:visibility="gone"></com.slb.factory.weight.MyListView>
 </LinearLayout>

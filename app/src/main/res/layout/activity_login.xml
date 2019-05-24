@@ -4,33 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#2B3139">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_gravity="center_horizontal"
-        android:padding="@dimen/distance_10"
-        android:text="@string/sign_in_title"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:background="#3C444F"/>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal">
+    android:fitsSystemWindows="true"
+    android:background="@color/bg">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/IvLoginBg"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/logo" />
-    </RelativeLayout>
+            android:src="@mipmap/certified_bg" />
     <LinearLayout
         style="@style/match_wrap_margin_distance_bg"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
             <EditText
                 android:id="@+id/edtMobile"
                 style="@style/edit_padding_10"

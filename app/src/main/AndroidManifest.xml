@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.slb.ttdandroidframework"
+          package="com.slb.factory"
                 android:testOnly="true">
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -18,121 +18,121 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
     <application
-        android:name="com.slb.ttdandroidframework.MyApplication"
+        android:name="com.slb.factory.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:debuggable="false"
         android:theme="@style/App_Theme">
-        <activity android:name=".ui.activity.LoginActivity" android:launchMode="singleTask">
+        <activity android:name="com.slb.factory.ui.activity.LoginActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.RegisterActivity"
+            android:name="com.slb.factory.ui.activity.old.RegisterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".MainActivity"
+            android:name="com.slb.factory.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.ReadErrorCodeActivity"
+            android:name="com.slb.factory.ui.activity.old.ReadErrorCodeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.FreezeFrameActivity"
+            android:name="com.slb.factory.ui.activity.old.FreezeFrameActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.EmissionTestActivity"
+            android:name="com.slb.factory.ui.activity.old.EmissionTestActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.ResetPasswordActivity"
+            android:name="com.slb.factory.ui.activity.old.ResetPasswordActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.DeviceActivity"
+            android:name="com.slb.factory.ui.activity.old.DeviceActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.TroubleLightSActivity"
+            android:name="com.slb.factory.ui.activity.old.TroubleLightSActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.MailboxVerificationActivity"
+            android:name="com.slb.factory.ui.activity.old.MailboxVerificationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.ChoiseDataActivity"
+            android:name="com.slb.factory.ui.activity.old.ChoiseDataActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.ObdInfoActivity"
+            android:name="com.slb.factory.ui.activity.old.ObdInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.CarInfoActivity"
+            android:name="com.slb.factory.ui.activity.old.CarInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.SubmitErrorCodeActivity"
+            android:name="com.slb.factory.ui.activity.old.SubmitErrorCodeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.ModPasswordActivity"
+            android:name="com.slb.factory.ui.activity.old.ModPasswordActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.ModNickNameActivity"
+            android:name="com.slb.factory.ui.activity.old.ModNickNameActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.SettingActivity"
+            android:name="com.slb.factory.ui.activity.old.SettingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <service
-            android:name=".util.io.ObdGatewayService"
+            android:name="com.slb.factory.util.io.ObdGatewayService"
             android:exported="false"
             android:launchMode="singleInstance" />
         <service
-            android:name=".util.io.ChoiseObdGatewayService"
+            android:name="com.slb.factory.util.io.ChoiseObdGatewayService"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".ui.activity.HistoryDetailActivity"
+            android:name="com.slb.factory.ui.activity.old.HistoryDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.Mode6Activity"
+            android:name="com.slb.factory.ui.activity.old.Mode6Activity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.Mode5Activity"
+            android:name="com.slb.factory.ui.activity.old.Mode5Activity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.NewReadErrorCodeActivity"
+            android:name="com.slb.factory.ui.activity.old.NewReadErrorCodeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.ScanLIstActivity"
+            android:name="com.slb.factory.ui.activity.old.ScanLIstActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.AddDeviceListActivity"
+            android:name="com.slb.factory.ui.activity.old.AddDeviceListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.NewMode6Activity"
+            android:name="com.slb.factory.ui.activity.old.NewMode6Activity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.NewMode5Activity"
+            android:name="com.slb.factory.ui.activity.old.NewMode5Activity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
     </application>

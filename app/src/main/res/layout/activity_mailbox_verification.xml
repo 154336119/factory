@@ -31,7 +31,7 @@
                 android:lines="1"
                 android:drawablePadding="5dp"
                 android:drawableLeft="@mipmap/ic_a"/>
-            <com.slb.ttdandroidframework.weight.CountTimerButton
+            <com.slb.factory.weight.CountTimerButton
                 android:id="@+id/BtnGetCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

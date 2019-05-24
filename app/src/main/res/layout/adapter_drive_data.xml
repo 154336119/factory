@@ -24,10 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="#2B3648">
-        <com.slb.ttdandroidframework.weight.hellocharts.view.LineChartView
+        <com.slb.factory.weight.hellocharts.view.LineChartView
             android:id="@+id/LineChartView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-        </com.slb.ttdandroidframework.weight.hellocharts.view.LineChartView>
+        </com.slb.factory.weight.hellocharts.view.LineChartView>
     </RelativeLayout>
 </LinearLayout>

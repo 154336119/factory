@@ -3,8 +3,8 @@
     <style name="App_Theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <!--<item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>-->
-        <item name="colorPrimary">#3C444F</item>
-        <item name="colorPrimaryDark">#FF3C444F</item>
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#ffffff</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="actionMenuTextColor">@drawable/tool_bar_text_color</item>
@@ -516,4 +516,5 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/tab_height</item>
     </style>
+
 </resources>

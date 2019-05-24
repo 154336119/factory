@@ -112,10 +112,10 @@
                 android:layout_alignParentRight="true"
                 />
         </RelativeLayout>
-        <com.slb.ttdandroidframework.weight.MyListView
+        <com.slb.factory.weight.MyListView
             android:id="@+id/MyListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </com.slb.ttdandroidframework.weight.MyListView>
+        </com.slb.factory.weight.MyListView>
     </LinearLayout>
 </LinearLayout>

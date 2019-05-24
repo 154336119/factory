@@ -33,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hwangjr.rxbus.RxBus;
-import com.orhanobut.logger.Logger;
+import com.jaeger.library.StatusBarUtil;
 import com.slb.frame.R;
 import com.slb.frame.dialog.CustomDialog;
 import com.slb.frame.ui.toolbar.ToolbarBack;
@@ -113,6 +113,7 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
     @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setTransparent(this);
         keepScreenLongLight(this);
         //注册rxbus
         if (rxBusRegist()){
@@ -127,6 +128,7 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
         initView();
         initData();
         addFragment(savedInstanceState);
+//        setStatusBar();
         //无数据类初始化
 //        mLoadingAndRetryManager=LoadingAndRetryManager.generate(this, new OnLoadingAndRetryListener() {
 //            @Override
@@ -505,4 +507,8 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
                 });
          dialog.create().show();
     }
+
+    /**
+     * 顶部状态栏和actionbar颜色统一
+     */
 }
