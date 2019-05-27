@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/distance_bg">
+        <TextView
+            android:id="@+id/mTvWarning1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传营业执照"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="8dp"
+            />
+        <RelativeLayout
+            android:id="@+id/BtnCard1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/distance_bg">
+
+            <ImageView
+                android:id="@+id/IvCard1"
+                android:layout_width="@dimen/distance_104"
+                android:layout_height="@dimen/distance_104"
+                android:src="@mipmap/image_add"
+                android:scaleType="fitXY"/>
+            <ImageView
+                android:id="@+id/iv_delete1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@mipmap/icon_delete"
+                android:layout_alignRight="@+id/IvCard1"
+                android:paddingLeft="@dimen/distance_10"
+                android:paddingBottom="@dimen/distance_10"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnComfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/slt_btn_bottom_square"
+        android:enabled="false"
+        android:text="提交审核"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

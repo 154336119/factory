@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/distance_bg">
+
+        <TextView
+            android:id="@+id/mTvWarning1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textColor="#4e4e4e"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:text="请上传转账凭证" />
+        <TextView
+            android:id="@+id/mTvWarning12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/mTvWarning1"
+            android:textColor="#b3b3b3"
+            android:text="最多上传3张" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRvProofs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/distance_16"
+            android:paddingRight="@dimen/distance_16"
+            android:paddingTop="@dimen/distance_8"
+            android:paddingBottom="@dimen/distance_8"
+            android:background="@color/colors_a5"
+            android:layout_marginTop="@dimen/distance_1"
+            android:layout_below="@+id/mTvWarning1">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnComfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/slt_btn_bottom_square"
+        android:enabled="false"
+        android:text="确认上传"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

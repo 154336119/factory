@@ -6,11 +6,11 @@
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#ffffff</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="android:fitsSystemWindows">true</item>
         <item name="actionMenuTextColor">@drawable/tool_bar_text_color</item>
         <item name="android:windowBackground">@color/colors_d1</item>
-        <item name="toolbar_navigationIcon">@mipmap/ic_back</item>
-        <item name="toolbar_title_textcolor">@android:color/white</item>
+        <item name="toolbar_navigationIcon">@mipmap/ic_back_black</item>
+        <item name="toolbar_title_textcolor">@android:color/black</item>
         <item name="android:textViewStyle">@style/BaseTextView</item>
         <item name="android:buttonStyle">@style/btn_bottom_single</item>
         <item name="android:editTextStyle">@style/edit_base</item>
@@ -116,6 +116,12 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/t4</item>
         <item name="android:padding">@dimen/distance_drawablePadding</item>
+    </style>
+    <!--底部按钮 -方形  -->
+    <style name="btn_bottom_single_square" parent="btn_base">
+        <item name="android:background">@drawable/slt_btn_bottom_square</item>
+        <item name="android:textColor">@color/colors_a5</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
     <!--底部按钮 -->
     <style name="btn_bottom_single" parent="btn_base">

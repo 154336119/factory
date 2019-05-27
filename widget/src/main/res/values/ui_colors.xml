@@ -15,6 +15,7 @@
     <color name="colors_d2">#E0E0E0</color>
     <color name="colors_d3">#FFDFDF</color>
     <color name="colors_00A4EF">#00A4EF</color>
+    <color name="colors_c1c1c1">#c1c1c1</color>
     <color name="tabTextColor">@color/colors_a2</color>
     <color name="tabSelectColor">@color/colors_a1</color>
     <color name="tabIndicatorcolor">@color/colors_a1</color>

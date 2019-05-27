@@ -107,7 +107,7 @@
 <string name="text_noerrors">There were no errors found.!</string>
 <!--注册-->
 <string name="register_title">注册</string>
-<string name="enter_the_validation_code">输入验证码</string>
+<string name="enter_the_validation_code">获取验证码</string>
 <string name="send_the_validation_code">发送验证码</string>
 <string name="register_immediately">注册</string>
 <!--登录-->
@@ -275,4 +275,8 @@
     <string name="Please_choise_the_vehicle">请选择车辆</string>
     <string name="Please_choise_start_date">请选择开始时间</string>
     <string name="Please_choise_end_date">请选择结束时间</string>
+
+
+
+    <string name="image_error">图片异常</string>
 </resources>

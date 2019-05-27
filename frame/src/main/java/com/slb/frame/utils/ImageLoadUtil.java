@@ -61,6 +61,7 @@ public  class ImageLoadUtil implements ImageLoader {
      * @param imageView
      */
     public static void loadImage(Context context, String url, ImageView imageView){
+
         Glide.with(context).load(addheaderUrl(url)).error( getErrorDrawable()).placeholder(getPlaceholderDrawable()).into(imageView);
     }
 

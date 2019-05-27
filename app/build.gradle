@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'cn.leo.plugin.magic'
 android {
     signingConfigs {
         config {
@@ -70,4 +70,5 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.7'
     implementation files('D:/pp/obd-Android//libs/obd-java-api-1.2-SNAPSHOT.jar')
     compile 'com.lai.weavey:dialog:2.0.1'
+    api 'com.github.nanchen2251:CompressHelper:1.0.5'
 }

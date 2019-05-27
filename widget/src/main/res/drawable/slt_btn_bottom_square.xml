@@ -3,7 +3,6 @@
     <item android:state_enabled="true" android:state_pressed="true">
         <shape android:shape="rectangle">
             <solid android:color="@color/colors_00A4EF" />
-            <corners android:radius="@dimen/btn_bottom_radius"></corners>
             <size android:height="@dimen/btn_bottom_height"></size>
 
         </shape>
@@ -11,7 +10,6 @@
     <item android:state_enabled="true" android:state_pressed="false">
         <shape android:shape="rectangle" >
             <solid android:color="@color/colors_00A4EF" />
-            <corners android:radius="@dimen/btn_bottom_radius"></corners>
             <size android:height="@dimen/btn_bottom_height"></size>
 
         </shape>
@@ -20,7 +18,6 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle" >
             <solid android:color="@color/colors_c1c1c1" />
-            <corners android:radius="@dimen/btn_bottom_radius"></corners>
             <size android:height="@dimen/btn_bottom_height"></size>
 
         </shape>
