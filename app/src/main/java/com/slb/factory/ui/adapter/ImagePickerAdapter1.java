@@ -2,6 +2,7 @@ package com.slb.factory.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,18 +146,26 @@ public class ImagePickerAdapter1 extends RecyclerView.Adapter<ImagePickerAdapter
             }
         }
 
+
         @Override
         public void onClick(View v) {
             if(v.getId()==R.id.iv_delete){
 //                notifyItemRemoved(clickPosition);
                 mData.remove(clickPosition);
                 oldData.remove(clickPosition);
+                if (getItemCount() < maxImgCount) {
+                    if(!TextUtils.isEmpty(mData.get(getItemCount()-1).getPath())){
+                        mData.add(new File(""));
+                    }
+                    isAdded = true;
+                } else {
+                    isAdded = false;
+                }
                 notifyDataSetChanged();
                 return;
             }
-            notifyDataSetChanged();
-
             if (listener != null) listener.onItemClick(v, clickPosition);
         }
+
     }
 }

@@ -18,6 +18,8 @@ import com.slb.factory.ui.SharedPreferencesUtil;
 import com.slb.factory.util.config.BizcContant;
 import com.slb.factory.util.io.AbstractGatewayService;
 import com.tencent.bugly.Bugly;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -40,7 +42,11 @@ public class MyApplication extends Application{
         Bugly.init(getApplicationContext(), "60be1128c4", false);
         SharedPreferencesUtil.getInstance(this, BizcContant.SP_OBD);
     }
-
+    private void initShare(){
+        UMConfigure.init(this,"5cee3747570df3fbb300100","umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        //友盟相关平台配置。注意友盟官方新文档中没有这项配置，但是如果不配置会吊不起来相关平台的授权界面
+//        PlatformConfig.setWeixin("你的微信APPID", "你的微信AppSecret");//微信APPID和AppSecret
+    }
 
     private void initLogUtils(){
         Logger.addLogAdapter(new AndroidLogAdapter());

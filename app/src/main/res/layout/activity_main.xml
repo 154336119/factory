@@ -11,7 +11,7 @@
         android:id="@+id/mainFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_2B3139"
+        android:background="#f1f1f1"
         android:layout_above="@+id/Cv"/>
 
     <android.support.v7.widget.CardView
@@ -25,26 +25,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/color_3C444F">
+            android:background="@color/white">
             <RadioButton
                 android:id="@+id/rb_home"
                 android:drawableTop="@drawable/slt_main_bottom_home"
-                android:text="@string/diagnostics"
+                android:text="首页"
                 style="@style/tab_bottom"/>
             <RadioButton
-                android:id="@+id/rb_data"
-                android:drawableTop="@drawable/slt_main_bottom_data"
-                android:text="@string/live_data"
-                style="@style/tab_bottom"/>
-            <RadioButton
-                android:id="@+id/rb_history"
-                android:drawableTop="@drawable/slt_main_bottom_history"
-                android:text="@string/history"
+                android:id="@+id/rb_buy"
+                android:drawableTop="@drawable/slt_main_bottom_buy"
+                android:text="购物车"
                 style="@style/tab_bottom"/>
             <RadioButton
                 android:id="@+id/rb_mine"
                 android:drawableTop="@drawable/slt_main_bottom_mine"
-                android:text="@string/my_device"
+                android:text="我的"
                 style="@style/tab_bottom"/>
 
         </RadioGroup>

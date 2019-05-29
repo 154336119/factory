@@ -17,9 +17,11 @@ android {
         versionCode 14
         versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        manifestPlaceholders = [qqappid: "123123213"]
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -52,6 +54,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:multidex:1.0.1'
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation project(':widget')
     implementation project(':frame')
@@ -71,4 +75,10 @@ dependencies {
     implementation files('D:/pp/obd-Android//libs/obd-java-api-1.2-SNAPSHOT.jar')
     compile 'com.lai.weavey:dialog:2.0.1'
     api 'com.github.nanchen2251:CompressHelper:1.0.5'
+    api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    // 分享
+    compile 'com.umeng.sdk:common:1.5.1'
+    compile 'com.umeng.sdk:share-core:6.9.1'
+    compile 'com.umeng.sdk:share-wechat:6.9.1'
+
 }

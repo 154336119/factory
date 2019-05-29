@@ -28,6 +28,7 @@ allprojects {
         maven{
             url 'http://192.168.0.252:8081/nexus/content/repositories/releases/'
         }
+        maven{url "http://125.69.150.167:18081/nexus/content/repositories/releases/"}
     }
 }
 

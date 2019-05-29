@@ -11,6 +11,7 @@ import com.slb.factory.R;
 import com.slb.factory.ui.contract.LoginContract;
 import com.slb.factory.ui.presenter.LoginPresenter;
 import com.slb.factory.weight.CountTimerButton;
+import com.slb.factory.weight.ShareDialog;
 import com.slb.frame.ui.activity.BaseMvpActivity;
 import com.slb.frame.utils.statusbarutil.StatusBarUtil;
 
@@ -67,6 +68,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
             case R.id.btnLogin:
                 break;
             case R.id.TvWxLogin:
+                showShareDialog();
                 break;
         }
     }
@@ -79,5 +81,23 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
 //        StatusBarUtil.setTranslucentStatus(this);
 ////        设置状态栏的颜色
             StatusBarUtil.setStatusBarColor(this, Color.TRANSPARENT);
+    }
+
+    public void showShareDialog(){
+        ShareDialog dialog = new ShareDialog();
+        dialog.setOnButtonClick(new ShareDialog.OnButtonClick() {
+
+            @Override
+            public void onBtnVxFriend() {
+
+            }
+
+            @Override
+            public void onBtnVxCircle() {
+
+            }
+        });
+        ///
+        dialog.show(getSupportFragmentManager(), "Dialog");
     }
 }

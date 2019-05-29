@@ -123,6 +123,12 @@
         <item name="android:textColor">@color/colors_a5</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+    <!--底部按钮 -渐变 -->
+    <style name="btn_bottom_single_gradual" parent="btn_base">
+        <item name="android:background">@drawable/slt_btn_button_gradual</item>
+        <item name="android:textColor">@color/colors_a5</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
     <!--底部按钮 -->
     <style name="btn_bottom_single" parent="btn_base">
         <item name="android:background">@drawable/slt_btn_bottom</item>

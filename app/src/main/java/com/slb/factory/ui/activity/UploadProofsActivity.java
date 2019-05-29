@@ -50,6 +50,12 @@ public class UploadProofsActivity
     private ImagePicker mImagePicker;
     private List<File> mProofList = new ArrayList<>();
     private AgencyVoucherShownType mSource = AgencyVoucherShownType.UPLOAD;
+
+    @Override
+    protected String setToolbarTitle() {
+        return "上传转账凭证";
+    }
+
     @Override
     public void initView() {
         super.initView();

@@ -37,7 +37,7 @@
             android:paddingRight="@dimen/distance_16"
             android:paddingTop="@dimen/distance_8"
             android:paddingBottom="@dimen/distance_8"
-            android:background="@color/colors_a5"
+            android:background="@color/white"
             android:layout_marginTop="@dimen/distance_1"
             android:layout_below="@+id/mTvWarning1">
         </android.support.v7.widget.RecyclerView>

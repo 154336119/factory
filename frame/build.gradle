@@ -97,7 +97,8 @@ dependencies {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
         exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
     }
-    compile 'com.lzy.widget:imagepicker:0.5.5'
+//    compile 'com.lzy.widget:imagepicker:0.5.5'
+    api 'com.ttd.tools:imagepicker:1.0.1'
     //万能Adapter
     compile 'com.zhy:base-rvadapter:3.0.3'
 

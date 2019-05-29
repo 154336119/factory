@@ -15,7 +15,7 @@ import com.github.pires.obd.commands.protocol.SelectProtocolCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 import com.github.pires.obd.exceptions.UnsupportedCommandException;
 import com.hwangjr.rxbus.RxBus;
-import com.slb.factory.MainActivity;
+import com.slb.factory.ui.activity.MainActivity;
 import com.slb.factory.event.ObdConnectStateEvent;
 import com.slb.factory.util.BluetoothUtil;
 
@@ -209,7 +209,6 @@ public class ObdGatewayService extends AbstractGatewayService {
                 ((MainActivity) ctx).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ((MainActivity) ctx).stateUpdate(job2);
                     }
                 });
 //                System.out.println("***************************************************");

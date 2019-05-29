@@ -2,17 +2,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="true" android:state_pressed="true">
         <shape android:shape="rectangle">
-            <stroke android:color="@color/colors_b2" android:width="@dimen/distance_1"/>
-            <corners android:radius="@dimen/btn_bottom_radius"></corners>
+            <stroke android:color="@color/colors_0293ff" android:width="@dimen/distance_1"/>
+            <corners android:radius="@dimen/btn_small_radius"></corners>
             <size android:height="@dimen/btn_bottom_height"></size>
 
         </shape>
     </item>
     <item android:state_enabled="true" android:state_pressed="false">
         <shape android:shape="rectangle" >
-            <stroke android:color="@color/colors_b1" android:width="@dimen/distance_1"/>
+            <stroke android:color="@color/colors_0293ff" android:width="@dimen/distance_1"/>
 
-            <corners android:radius="@dimen/btn_bottom_radius"></corners>
+            <corners android:radius="@dimen/btn_small_radius"></corners>
             <size android:height="@dimen/btn_bottom_height"></size>
 
         </shape>
@@ -20,8 +20,8 @@
 
     <item android:state_enabled="false">
         <shape android:shape="rectangle" >
-            <stroke android:color="@color/colors_b3" android:width="@dimen/distance_1"/>
-            <corners android:radius="@dimen/btn_bottom_radius"></corners>
+            <stroke android:color="@color/colors_0293ff" android:width="@dimen/distance_1"/>
+            <corners android:radius="@dimen/btn_small_radius"></corners>
             <size android:height="@dimen/btn_bottom_height"></size>
 
         </shape>

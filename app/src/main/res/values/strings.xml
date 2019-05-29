@@ -279,4 +279,12 @@
 
 
     <string name="image_error">图片异常</string>
+    <string name="choise_pay_wx">将本二维码保存至相册\n打开微信\n微信首页右上角点击“扫一扫”\n在相册中选择此二维码\n扫码成功后进行转账\n转账后，请返回本APP上传转账凭证</string>
+    <string name="choise_pay_zfb">将本二维码保存至相册\n打开支付宝\n支付宝首页右上角点击“扫一扫”\n在相册中选择此二维码\n扫码成功后进行转账\n转账后，请返回本APP上传转账凭证</string>
+
+    <string name="public_1">常州西柯汽车科技有限公司</string>
+    <string name="public_2">91320412MA1UQWXM5X</string>
+    <string name="public_3">01011012010000028137</string>
+    <string name="public_4">江苏江南农村商业银行股份有限公司常州市武进支行</string>
+
 </resources>

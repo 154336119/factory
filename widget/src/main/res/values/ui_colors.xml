@@ -16,9 +16,13 @@
     <color name="colors_d3">#FFDFDF</color>
     <color name="colors_00A4EF">#00A4EF</color>
     <color name="colors_c1c1c1">#c1c1c1</color>
-    <color name="tabTextColor">@color/colors_a2</color>
-    <color name="tabSelectColor">@color/colors_a1</color>
-    <color name="tabIndicatorcolor">@color/colors_a1</color>
+    <color name="tabTextColor">@color/colors_a5a5a5</color>
+    <color name="tabSelectColor">@color/colors_545454</color>
+    <color name="tabIndicatorcolor">@color/colors_0293ff</color>
     <color name="colors_d4">#B3B3B3</color>
     <color name="colors_7ED321">#7ED321</color>
+    <color name="colors_5ebaff">#5ebaff</color>
+    <color name="colors_a5a5a5">#a5a5a5</color>
+    <color name="colors_545454">#545454</color>
+    <color name="colors_0293ff">#0293ff</color>
 </resources>

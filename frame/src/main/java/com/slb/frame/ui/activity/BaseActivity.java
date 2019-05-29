@@ -521,4 +521,8 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
 //        设置状态栏的颜色
         StatusBarUtil.setStatusBarColor(this, Color.WHITE);
     }
+
+    public void setUnderLineVisible(int ishow){
+        mUnderLine.setVisibility(ishow);
+    }
 }
