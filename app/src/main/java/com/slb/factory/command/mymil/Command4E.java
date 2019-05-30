@@ -1,8 +1,8 @@
 package com.slb.factory.command.mymil;
 
 import com.github.pires.obd.commands.ObdCommand;
-import com.slb.frame.utils.DateUtils;
 import com.slb.factory.Base;
+import com.slb.frame.utils.DateUtils;
 import com.slb.factory.R;
 
 /**

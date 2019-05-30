@@ -1,8 +1,8 @@
 package com.slb.factory.http.service.client;
 
 
-import com.slb.frame.http2.retrofit.BaseRetrofitClient;
 import com.slb.factory.Base;
+import com.slb.frame.http2.retrofit.BaseRetrofitClient;
 import com.slb.factory.http.okhttpclient.CodeOkhttpClient;
 
 /**

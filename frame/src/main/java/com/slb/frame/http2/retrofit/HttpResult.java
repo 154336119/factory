@@ -13,31 +13,32 @@ public class HttpResult<T,A> {
      * msg : 成功
      */
 
-    private int status;
-    private String message;
-    private HttpDataResutl<T,A> result;
+    private int code;
+    private String msg;
+    private HttpDataResutl<T,A> data;
 
-    public int getStatus() {
-        return status;
+
+    public int getCode() {
+        return code;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public HttpDataResutl<T, A> getResult() {
-        return result;
+    public HttpDataResutl<T, A> getData() {
+        return data;
     }
 
-    public void setResult(HttpDataResutl<T, A> result) {
-        this.result = result;
+    public void setData(HttpDataResutl<T, A> data) {
+        this.data = data;
     }
 }

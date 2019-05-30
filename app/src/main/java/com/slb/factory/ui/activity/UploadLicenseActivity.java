@@ -11,22 +11,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.hwangjr.rxbus.RxBus;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewActivity;
 import com.nanchen.compresshelper.CompressHelper;
+import com.slb.factory.Base;
 import com.slb.factory.BizsConstant;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.AgencyVoucherShownType;
-import com.slb.factory.http.bean.InvestorProofEntity;
+import com.slb.factory.http.bean.old.InvestorProofEntity;
 import com.slb.factory.ui.contract.UploadLicenseContract;
 import com.slb.factory.ui.presenter.UploadLicensePresenter;
 import com.slb.factory.util.LocalImageLoader;
-import com.slb.frame.ui.activity.BaseActivity;
 import com.slb.frame.ui.activity.BaseMvpActivity;
-import com.slb.frame.ui.presenter.AbstractBasePresenter;
 import com.slb.frame.utils.ImageLoadUtil;
 import com.slb.frame.utils.ImagePickerUtils;
 
@@ -55,6 +53,11 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     AgencyVoucherShownType mSource;
     /** 营业执照*/
     private InvestorProofEntity mIdCard1 = new InvestorProofEntity();
+    private String mQnToken;
+    @Override
+    public void getPicTokenSuccess(String token) {
+        mQnToken = token;
+    }
 
     @Override
     protected String setToolbarTitle() {
@@ -64,7 +67,9 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     @Override
     public void initView() {
         super.initView();
+        ButterKnife.bind(this);
         mImagePicker = ImagePickerUtils.cardSetting(this);
+        mPresenter.getPicToken(Base.getUserEntity().getToken());
     }
 
     @Override
@@ -75,7 +80,6 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
     }
 
     @OnClick({R.id.iv_delete1, R.id.BtnCard1, R.id.btnComfirm})
@@ -92,6 +96,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
                 }
                 break;
             case R.id.btnComfirm:
+                mPresenter.uploadLicense(Base.getUserEntity().getToken(),mIdCard1.getLocalurl());
                 break;
         }
     }
@@ -153,21 +158,22 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
                     if(mIdCard1.isLocalImg()){
                         tempProofs.add(mIdCard1);
                         //还未调试
-//                        mPresenter.uploadImageFile(tempProofs);
+                        mPresenter.uploadQiNiu(file,mQnToken);
                     }
                     ivDelete1.setVisibility(View.VISIBLE);
                     btnComfirm.setEnabled(true);
                 }
             }
 
-        }else if(resultCode == ImagePicker.RESULT_CODE_BACK) {
-            if (data != null  && requestCode == BizsConstant.REQUEST_CODE_PROOF_IMG_PREVIEW){
-                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
-                if(images==null || images.size()==0){
-                    delCard(mIdCard1,IvCard1,ivDelete1,R.mipmap.image_add);
-                }
-            }
         }
+//        else if(resultCode == ImagePicker.RESULT_CODE_BACK) {
+//            if (data != null  && requestCode == BizsConstant.REQUEST_CODE_PROOF_IMG_PREVIEW){
+//                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
+//                if(images==null || images.size()==0){
+//                    delCard(mIdCard1,IvCard1,ivDelete1,R.mipmap.image_add);
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -178,5 +184,11 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     @Override
     public UploadLicenseContract.IPresenter initPresenter() {
         return new UploadLicensePresenter();
+    }
+
+    @Override
+    public void uploadQiNiuSuccess(String img) {
+        mIdCard1.setLocalImg(false);
+        mIdCard1.setLocalurl(img);
     }
 }

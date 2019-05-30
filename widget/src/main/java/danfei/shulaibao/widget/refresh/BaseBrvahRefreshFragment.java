@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -17,6 +19,7 @@ import com.slb.frame.utils.rx.RxUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import danfei.shulaibao.widget.AdapterDefaultEnum;
 import danfei.shulaibao.widget.R;
 import rx.Observable;
 import rx.Subscriber;
@@ -32,7 +35,7 @@ public abstract class BaseBrvahRefreshFragment<V,T extends IBaseFragmentPresente
     public final static int PAGE_SIZE=10;
     private SwipeRefreshLayout mRefresh;
     protected BaseQuickAdapter mAdapter;
-
+    private AdapterDefaultEnum mDefaultEnum = AdapterDefaultEnum.DEFAULT;
     private int mTotalPage;
     public int mCurrentPage;
     private int mTotalCounter;
@@ -55,9 +58,21 @@ public abstract class BaseBrvahRefreshFragment<V,T extends IBaseFragmentPresente
 
     protected void setIntentData(){}
 
+    protected AdapterDefaultEnum setAdapterDefaultEnum(){
+        return AdapterDefaultEnum.DEFAULT;
+    }
+
     private View setEmptyView(){
         LayoutInflater inflater= LayoutInflater.from(_mActivity);
         ViewGroup empty= (ViewGroup) inflater.inflate(setEmptyLatyouId(),null);
+
+        AdapterDefaultEnum adapterDefaultEnum =mDefaultEnum==AdapterDefaultEnum.DEFAULT?setAdapterDefaultEnum():mDefaultEnum;
+        ImageView imageView = empty.findViewById(R.id.mIvTag);
+        imageView.setImageResource(adapterDefaultEnum.getImageResId());
+        TextView textView = empty.findViewById(R.id.mTvWarning);
+        textView.setText(adapterDefaultEnum.getTextString());
+        mDefaultEnum = AdapterDefaultEnum.DEFAULT;
+
         ViewGroup.LayoutParams params=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         empty.setLayoutParams(params);
         return empty;
@@ -80,8 +95,8 @@ public abstract class BaseBrvahRefreshFragment<V,T extends IBaseFragmentPresente
     public void initView(View view) {
         mRefresh= (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mCurrentPage=FIRST_PAGE;
-        super.initView(view);
         setIntentData();
+        super.initView(view);
         //设置下拉刷新控件偏移量
         mRefresh.setOnRefreshListener(this);
         //网络请求

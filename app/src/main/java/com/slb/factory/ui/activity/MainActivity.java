@@ -5,28 +5,11 @@ import android.support.annotation.IdRes;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.slb.factory.R;
 import com.slb.frame.ui.activity.BaseActivity;
 import com.slb.frame.ui.fragment.BaseFragment;
-import com.slb.factory.event.RefreshHistoryObdEvent;
-import com.slb.factory.event.RefreshMineObdListtEvent;
-import com.slb.factory.event.RefreshMineVehicleListtEvent;
-import com.slb.factory.event.RefreshVehicleListtEvent;
-import com.slb.factory.http.bean.ObdSEntity;
-import com.slb.factory.http.bean.UserEntity;
-import com.slb.factory.http.bean.VehiclesEntity;
-import com.slb.factory.http.callback.ActivityDialogCallback;
-import com.slb.factory.http.dns.DnsFactory;
-import com.slb.factory.http.model.LzyResponse;
-import com.slb.factory.ui.fragment.old.DataFragment;
-import com.slb.factory.ui.fragment.old.HistoryFragment;
 import com.slb.factory.ui.fragment.HomeFragment;
 import com.slb.factory.ui.fragment.MineFragment;
-import com.slb.factory.util.io.ObdCommandJob;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -15,8 +15,6 @@ import com.nanchen.compresshelper.CompressHelper;
 import com.slb.factory.BizsConstant;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.AgencyVoucherShownType;
-import com.slb.factory.http.bean.OssRemoteFile;
-import com.slb.factory.ui.adapter.ImagePickerAdapter;
 import com.slb.factory.ui.adapter.ImagePickerAdapter1;
 import com.slb.factory.ui.contract.UploadlProofsContract;
 import com.slb.factory.ui.presenter.UploadProofsPresenter;
@@ -36,7 +34,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leo.permission.PermissionRequest;
 
-import static com.slb.factory.BizsConstant.REQUEST_CODE_PROOF_IMGPICK;
 import static com.slb.factory.BizsConstant.REQUEST_CODE_PROOF_IMG_PICK;
 
 public class UploadProofsActivity

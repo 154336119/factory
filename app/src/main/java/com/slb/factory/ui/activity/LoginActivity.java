@@ -1,5 +1,6 @@
 package com.slb.factory.ui.activity;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.slb.factory.ui.presenter.LoginPresenter;
 import com.slb.factory.weight.CountTimerButton;
 import com.slb.factory.weight.ShareDialog;
 import com.slb.frame.ui.activity.BaseMvpActivity;
+import com.slb.frame.utils.ActivityUtil;
 import com.slb.frame.utils.statusbarutil.StatusBarUtil;
 
 import butterknife.BindView;
@@ -64,8 +66,10 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.BtnGetCode:
+                mPresenter.getCode(edtMobile.getText().toString());
                 break;
             case R.id.btnLogin:
+                mPresenter.login(edtMobile.getText().toString(),edtVCode.getText().toString());
                 break;
             case R.id.TvWxLogin:
                 showShareDialog();
@@ -83,6 +87,9 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
             StatusBarUtil.setStatusBarColor(this, Color.TRANSPARENT);
     }
 
+    /**
+     * 测试
+     */
     public void showShareDialog(){
         ShareDialog dialog = new ShareDialog();
         dialog.setOnButtonClick(new ShareDialog.OnButtonClick() {
@@ -97,7 +104,23 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
 
             }
         });
-        ///
         dialog.show(getSupportFragmentManager(), "Dialog");
+    }
+
+    @Override
+    public void varifyCodeSuccess() {
+
+    }
+
+    @Override
+    public void showCountdown() {
+        BtnGetCode.startCountTimer();
+    }
+
+    @Override
+    public void goUploadLicenseActivity() {
+        //测试
+        ActivityUtil.next(this,OrderListActiivty.class);
+//        ActivityUtil.next(this,UploadLicenseActivity.class);
     }
 }

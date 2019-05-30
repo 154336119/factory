@@ -3,8 +3,8 @@ package com.slb.factory.command.mil;
 import com.github.pires.obd.commands.ObdCommand;
 import com.github.pires.obd.commands.control.DtcNumberCommand;
 import com.github.pires.obd.enums.AvailableCommandNames;
-import com.slb.factory.http.bean.EmissionTestEntity;
-import com.slb.factory.http.bean.EmissionTestSmallEntity;
+import com.slb.factory.http.bean.old.EmissionTestEntity;
+import com.slb.factory.http.bean.old.EmissionTestSmallEntity;
 import com.slb.factory.util.ByteUtils;
 import com.slb.factory.util.config.EmissionTestUtil;
 

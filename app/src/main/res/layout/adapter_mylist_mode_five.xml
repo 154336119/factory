@@ -4,75 +4,72 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#353C46">
-    <LinearLayout
-        android:id="@+id/Rl01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/TvDes"
-        android:layout_marginTop="10dp">
+    android:background="@color/white"
+    android:paddingTop="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+    <ImageView
+        android:id="@+id/IvImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/Rl01"
+        android:src="@mipmap/weixin"
+        android:layout_marginRight="10dp"/>
         <TextView
-            android:id="@+id/TvMax"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:id="@+id/mTvProductName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="最大值：无"
-            android:textColor="@color/white"/>
-        <TextView
-            android:id="@+id/TvMin"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="最小值：无"
-            android:textColor="@color/white"/>
+            android:textSize="17sp"
+            android:textColor="#4a4a4a"
+            android:layout_toRightOf="@+id/IvImg"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="3dp"
+            android:lineSpacingExtra="3dp"/>
 
-        <TextView
-            android:id="@+id/TvValue"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="当前值：无"
-            android:textColor="@color/white"/>
-        <LinearLayout
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/white">
-            <ImageView
-                android:id="@+id/IvState"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@mipmap/ic_un_connect"
-                android:layout_centerInParent="true"/>
-        </LinearLayout>
-    </LinearLayout>
     <TextView
-        android:id="@+id/TvDes"
+        android:id="@+id/mTvColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="描述"
-        android:layout_toRightOf="@+id/TvNum"
-        android:layout_marginLeft="40dp"
-        android:textColor="@color/white"
-        android:layout_marginTop="10dp"/>
+        android:layout_below="@+id/mTvProductName"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/IvImg"
+        android:lineSpacingExtra="3dp"
+        android:text="编号"
+        android:textColor="#bababa"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/mTvMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/IvImg"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@+id/IvImg"
+        android:gravity="bottom"
+        android:lineSpacingExtra="3dp"
+        android:text="编号"
+        android:textColor="#ff381d"
+        android:textSize="15sp" />
+
     <TextView
         android:id="@+id/TvNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/IvImg"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:text="编号"
-        android:layout_marginLeft="40dp"
-        android:textColor="@color/white"
-        android:layout_marginTop="10dp"/>
-    <ImageView
+        android:textColor="#545454" />
+    <View
+        android:id="@+id/Line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#2B3139"
-        android:layout_below="@+id/Rl01"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="0.5px"
+        android:background="#f1f1f1"
+        android:layout_below="@+id/IvImg"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
 </RelativeLayout>

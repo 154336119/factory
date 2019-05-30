@@ -80,5 +80,6 @@ dependencies {
     compile 'com.umeng.sdk:common:1.5.1'
     compile 'com.umeng.sdk:share-core:6.9.1'
     compile 'com.umeng.sdk:share-wechat:6.9.1'
-
+    //七牛
+    compile 'com.qiniu:qiniu-android-sdk:7.3.15'
 }

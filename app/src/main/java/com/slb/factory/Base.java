@@ -7,7 +7,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.slb.factory.http.bean.UserEntity;
 import com.slb.factory.util.SharedPreferencesUtils;
 import com.slb.factory.util.config.BizcContant;
-import com.slb.factory.util.io.AbstractGatewayService;
 
 import static com.slb.factory.util.config.BizcContant.SP_USER;
 
@@ -31,12 +30,6 @@ public class Base {
     private static int mEnvironment;
 
     private static UserEntity mUserEntity;
-    private static AbstractGatewayService service;
-
-
-    public void setService(AbstractGatewayService service) {
-        this.service = service;
-    }
 
     public static void  initialize(@NonNull Context context) {
         mContext = context;

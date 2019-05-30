@@ -1,7 +1,7 @@
 package com.slb.factory.command.mode6;
 
 import com.slb.factory.command.ObdCommand;
-import com.slb.factory.http.bean.ModeSixEntity;
+import com.slb.factory.http.bean.old.ModeSixEntity;
 import com.slb.factory.util.ByteUtils;
 import com.slb.factory.util.config.Mode6Enum;
 

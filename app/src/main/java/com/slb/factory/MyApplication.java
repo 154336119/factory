@@ -16,10 +16,8 @@ import com.orhanobut.logger.Logger;
 import com.slb.frame.http2.retrofit.HttpLoggingInterceptor;
 import com.slb.factory.ui.SharedPreferencesUtil;
 import com.slb.factory.util.config.BizcContant;
-import com.slb.factory.util.io.AbstractGatewayService;
 import com.tencent.bugly.Bugly;
 import com.umeng.commonsdk.UMConfigure;
-import com.umeng.socialize.PlatformConfig;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +40,7 @@ public class MyApplication extends Application{
         Bugly.init(getApplicationContext(), "60be1128c4", false);
         SharedPreferencesUtil.getInstance(this, BizcContant.SP_OBD);
     }
+
     private void initShare(){
         UMConfigure.init(this,"5cee3747570df3fbb300100","umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
         //友盟相关平台配置。注意友盟官方新文档中没有这项配置，但是如果不配置会吊不起来相关平台的授权界面
@@ -87,32 +86,7 @@ public class MyApplication extends Application{
                 .setRetryCount(3);                              //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
     }
 
-    public static AbstractGatewayService getService() {
-        return service;
-    }
-
-    public static AbstractGatewayService service;
-
-    public static ServiceConnection getServiceConn() {
-        return serviceConn;
-    }
-
-    public static ServiceConnection serviceConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName className, IBinder binder) {
-            service = ((AbstractGatewayService.AbstractGatewayServiceBinder) binder).getService();
-            service.setContext(Base.getContext());
-            try {
-                service.startService();
-            } catch (IOException ioe) {
-//                btStatusTextView.setText(getString(R.string.status_bluetooth_error_connecting));
-//                doUnbindService();
-            }
-        }
         @Override
         protected Object clone() throws CloneNotSupportedException {return super.clone();}
-        @Override
-        public void onServiceDisconnected(ComponentName className) {}
-    };
 
 }

@@ -6,7 +6,7 @@ import com.github.pires.obd.commands.ObdCommand;
 import com.orhanobut.logger.Logger;
 import com.slb.factory.Base;
 import com.slb.factory.R;
-import com.slb.factory.http.bean.ErrorCodeEntity;
+import com.slb.factory.http.bean.old.ErrorCodeEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

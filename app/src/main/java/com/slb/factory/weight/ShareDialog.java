@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import com.orhanobut.logger.Logger;
 import com.slb.factory.R;
 
-import static com.slb.factory.Base.getContext;
-
 @SuppressLint("ValidFragment")
 public class ShareDialog extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;

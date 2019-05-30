@@ -3,7 +3,7 @@ package com.slb.factory.ui.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.slb.factory.R;
-import com.slb.factory.http.bean.DataEntity;
+import com.slb.factory.http.bean.old.DataEntity;
 
 import java.util.List;
 

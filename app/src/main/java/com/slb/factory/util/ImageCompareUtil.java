@@ -1,8 +1,8 @@
 package com.slb.factory.util;
 
 import com.lzy.imagepicker.bean.ImageItem;
-import com.slb.factory.http.bean.InvestorProofEntity;
-import com.slb.factory.http.bean.OssRemoteFile;
+import com.slb.factory.http.bean.old.InvestorProofEntity;
+import com.slb.factory.http.bean.old.OssRemoteFile;
 
 import java.io.File;
 import java.util.ArrayList;

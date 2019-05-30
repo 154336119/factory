@@ -1,20 +1,16 @@
 package com.slb.factory.http.service;
 
 public class ComServiceUrl {
-    /**
-     * 用户-注册
-     */
-    public static String regist = "regist";
 
     /**
-     * 用户-获取邮箱注册验证码
+     * 用户-获取验证码
      */
-    public static String verifycode = "regist/verifycode";
+    public static String verifycode = "app/common/sms";
 
     /**
      * 用户-登录
      */
-    public static String login = "login";
+    public static String login = "app/user/login";
 
     /**
      * 用户-获取用户信息

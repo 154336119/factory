@@ -14,9 +14,9 @@ import rx.functions.Func1;
 public class HttpResultFun<T,A> implements Func1<HttpResult<T,A>,HttpDataResutl<T,A>> {
     @Override
     public HttpDataResutl<T, A> call(HttpResult<T, A> taHttpResult) {
-        if(taHttpResult.getStatus() != 0){
-            throw new ResultException(taHttpResult.getStatus(),taHttpResult.getMessage());
+        if(taHttpResult.getCode() != 200){
+            throw new ResultException(taHttpResult.getCode(),taHttpResult.getMsg());
         }
-        return taHttpResult.getResult();
+        return taHttpResult.getData();
     }
 }

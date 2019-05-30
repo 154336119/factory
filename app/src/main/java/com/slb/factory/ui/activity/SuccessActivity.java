@@ -1,12 +1,11 @@
 package com.slb.factory.ui.activity;
 
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.slb.factory.BizsConstant;
 import com.slb.factory.R;
-import com.slb.factory.http.bean.SuccessTypeEnum;
+import com.slb.factory.http.bean.old.SuccessTypeEnum;
 import com.slb.frame.ui.activity.BaseActivity;
 
 import butterknife.BindView;

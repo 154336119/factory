@@ -1,6 +1,6 @@
 package com.slb.factory.util.config;
 
-import com.slb.factory.http.bean.EmissionTestSmallEntity;
+import com.slb.factory.http.bean.old.EmissionTestSmallEntity;
 
 import java.util.ArrayList;
 import java.util.List;

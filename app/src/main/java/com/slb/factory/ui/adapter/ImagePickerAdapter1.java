@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.slb.factory.BizsConstant;
 import com.slb.factory.R;
-import com.slb.factory.http.bean.OssRemoteFile;
 import com.slb.frame.utils.ImageLoadUtil;
 
 import java.io.File;

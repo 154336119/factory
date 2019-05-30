@@ -129,6 +129,13 @@
         <item name="android:textColor">@color/colors_a5</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+    <!-- 小按钮-->
+    <style name="btn_small_gradual" parent="btn_small_base">
+        <item name="android:background">@drawable/slt_btn_button_gradual</item>
+        <item name="android:textColor">@color/colors_a5</item>
+        <item name="android:paddingLeft">@dimen/distance_10</item>
+        <item name="android:paddingRight">@dimen/distance_10</item>
+    </style>
     <!--底部按钮 -->
     <style name="btn_bottom_single" parent="btn_base">
         <item name="android:background">@drawable/slt_btn_bottom</item>

@@ -1,6 +1,6 @@
 package com.slb.factory.event;
 
-import com.slb.factory.http.bean.HistoryErrorCodeEntity;
+import com.slb.factory.http.bean.old.HistoryErrorCodeEntity;
 
 import java.util.List;
 

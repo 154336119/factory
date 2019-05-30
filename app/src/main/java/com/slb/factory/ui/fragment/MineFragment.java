@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.slb.factory.ui.contract.MineContract;
+import com.slb.factory.ui.presenter.MinePresenter;
 import com.slb.frame.ui.fragment.BaseMvpFragment;
 import com.slb.factory.R;
-import com.slb.factory.ui.contract.old.MineContract;
-import com.slb.factory.ui.presenter.old.MinePresenter;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

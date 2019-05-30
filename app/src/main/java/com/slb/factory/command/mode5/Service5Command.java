@@ -3,7 +3,7 @@ package com.slb.factory.command.mode5;
 import com.github.pires.obd.commands.ObdCommand;
 import com.slb.factory.Base;
 import com.slb.factory.R;
-import com.slb.factory.http.bean.MoudleFiveEntity;
+import com.slb.factory.http.bean.old.MoudleFiveEntity;
 import com.slb.factory.util.ByteUtils;
 import com.slb.factory.util.config.Mode5Util;
 

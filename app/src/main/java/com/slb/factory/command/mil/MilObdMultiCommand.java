@@ -1,7 +1,7 @@
 package com.slb.factory.command.mil;
 
 import com.github.pires.obd.commands.ObdCommand;
-import com.slb.factory.http.bean.TroubleLightSEntity;
+import com.slb.factory.http.bean.old.TroubleLightSEntity;
 
 import java.io.IOException;
 import java.io.InputStream;
