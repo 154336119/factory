@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/IvImg"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/Rl01"
+        android:src="@mipmap/weixin"
+        android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/mTvProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="#4a4a4a"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="asdasdasdasd"
+            android:layout_toRightOf="@+id/IvImg"
+            android:layout_marginTop="3dp"
+            android:lineSpacingExtra="3dp"/>
+
+    <TextView
+        android:id="@+id/mTvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mTvProductName"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@+id/IvImg"
+        android:lineSpacingExtra="3dp"
+        android:text="编号"
+        android:textColor="#bababa"
+        android:textSize="15sp" />
+    <!--和倒计时只会出现一个 -->
+    <TextView
+        android:id="@+id/mTvStateDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mTvAmount"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@+id/IvImg"
+        android:gravity="bottom"
+        android:lineSpacingExtra="3dp"
+        android:text="编号"
+        android:textColor="#ff381d"
+        android:textSize="15sp" />
+        <!--倒计时 -->
+        <TextView
+            android:id="@+id/mTvNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:lineSpacingExtra="3dp"
+            android:text="编号"
+            android:layout_marginBottom="6dp"
+            android:textColor="#bababa"
+            android:layout_toRightOf="@+id/IvImg"
+            android:layout_above="@+id/Btn"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即抢购"
+            android:textSize="17sp"
+            style="@style/btn_small_gradual"
+            android:layout_alignBottom="@+id/IvImg"
+            android:layout_toRightOf="@+id/IvImg"
+            android:layout_marginBottom="5dp"/>
+
+</RelativeLayout>

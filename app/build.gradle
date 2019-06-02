@@ -82,4 +82,8 @@ dependencies {
     compile 'com.umeng.sdk:share-wechat:6.9.1'
     //七牛
     compile 'com.qiniu:qiniu-android-sdk:7.3.15'
+    //banner
+    compile 'com.youth.banner:banner:1.4.10'  //最新版本
+    //SmartRefreshLayout
+    implementation "com.scwang.smartrefresh:SmartRefreshLayout:1.0.4"
 }

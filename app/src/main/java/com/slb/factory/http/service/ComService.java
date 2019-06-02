@@ -1,11 +1,17 @@
 package com.slb.factory.http.service;
 
+import com.slb.factory.http.bean.Brand;
+import com.slb.factory.http.bean.Goods;
 import com.slb.factory.http.bean.MsgEntity;
 import com.slb.factory.http.bean.OrderEntity;
+import com.slb.factory.http.bean.Seckill;
 import com.slb.factory.http.bean.UserEntity;
+import com.slb.frame.http2.retrofit.HttpMjListResult;
 import com.slb.frame.http2.retrofit.HttpMjResult;
 import com.slb.frame.http2.retrofit.HttpResult;
 import com.slb.frame.http2.rxjava.HttpMjEntityFun;
+
+import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -74,5 +80,27 @@ public interface ComService {
             @Field("pageSize") int pageSize,
             @Field("pageIndex") int pageNum
     );
+
+    /**
+     * 首页 热门品牌列表
+     */
+    @FormUrlEncoded
+    @POST("/app/product/brand/hotList"  )
+    Observable<HttpMjResult<List<Brand>>> getHotBrandList(@Field("token") String token);
+
+    /**
+     * 首页 限时秒杀
+     */
+    @FormUrlEncoded
+    @POST("/app/qiniu/uptoken"  )
+    Observable<HttpMjResult<List<Seckill>>> getLimited(@Field("token") String token);
+
+    /**
+     * 用户- 热门商品
+     */
+    @FormUrlEncoded
+    @POST("/app/qiniu/uptoken"  )
+    Observable<HttpMjResult<HttpMjListResult<Goods>>> getHotGoods(@Field("pageSize") int pageSize,
+                                                    @Field("pageIndex") int pageNum);
 
 }

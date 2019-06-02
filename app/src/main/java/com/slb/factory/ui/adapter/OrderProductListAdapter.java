@@ -12,7 +12,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.ProductEntity;
 import com.slb.factory.ui.adapter.base.CommonBaseAdapter;
-import com.slb.factory.util.LocalImageLoader;
 
 
 /**
@@ -29,7 +28,7 @@ public class OrderProductListAdapter extends CommonBaseAdapter<ProductEntity> {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		if (null == convertView) {
 			mHolder = new ViewHolder();
-			convertView = mLayoutInflater.inflate(R.layout.adapter_mylist_mode_five, parent, false);
+			convertView = mLayoutInflater.inflate(R.layout.adapter_mylist_order_product, parent, false);
 			mHolder.mTvProductName = (TextView) convertView.findViewById(R.id.mTvProductName);
 			mHolder.mTvColor = (TextView) convertView.findViewById(R.id.mTvColor);
 			mHolder.mTvMoney = (TextView) convertView.findViewById(R.id.mTvMoney);

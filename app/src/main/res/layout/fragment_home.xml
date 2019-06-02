@@ -6,13 +6,47 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="#f1f1f1">
-    <ScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefreshLayout_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="match_parent">
+        <!--Banner轮播条-->
+        <com.youth.banner.Banner
+            android:id="@+id/HomeBanner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            circle:image_scale_type="center_crop"
+            circle:scroll_time="500">
+        </com.youth.banner.Banner>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="热门品牌"/>
+        <!--热门品牌 -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RvHotSellingBrand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
-    </ScrollView>
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="限时秒杀"/>
+        <!--限时秒杀 -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RvLimitedTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:text="热销商品"/>
+        <!--热销商品 -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RvHotGoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

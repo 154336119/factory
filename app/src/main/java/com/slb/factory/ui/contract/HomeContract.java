@@ -9,7 +9,11 @@ import com.slb.frame.ui.view.IBaseLoadingDialogView;
 
 public class HomeContract {
 	public interface IView extends IBaseLoadingDialogView {
+
 	}
 	public interface IPresenter<T> extends IBaseFragmentPresenter<T> {
+		void getHotBrandList();
+		void getLimited();
+		void getHotGoods();
 	}
 }
