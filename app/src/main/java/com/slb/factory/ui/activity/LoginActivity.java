@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.slb.factory.R;
 import com.slb.factory.ui.contract.LoginContract;
 import com.slb.factory.ui.presenter.LoginPresenter;
@@ -66,6 +67,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.BtnGetCode:
+                Logger.d("sdsd");
                 mPresenter.getCode(edtMobile.getText().toString());
                 break;
             case R.id.btnLogin:
