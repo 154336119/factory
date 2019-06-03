@@ -100,7 +100,7 @@ public interface ComService {
      */
     @FormUrlEncoded
     @POST("/app/qiniu/uptoken"  )
-    Observable<HttpMjResult<HttpMjListResult<Goods>>> getHotGoods(@Field("pageSize") int pageSize,
+    Observable<HttpMjListResult<Goods>> getHotGoods(@Field("pageSize") int pageSize,
                                                     @Field("pageIndex") int pageNum);
 
 }

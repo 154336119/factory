@@ -1329,7 +1329,7 @@ public class DateUtils {
 	
 	   /**
      * 以友好的方式显示时间
-     * 
+     *
      * @param sdate yyyy-MM-dd HH：mm:ss
      * @return
      */
@@ -1555,5 +1555,6 @@ public class DateUtils {
 		long minutes = (mss % (1000 * 60 * 60)) / (1000 * 60);
 		return days + " Days," + hours + " Hours," + minutes + " Minutes ";
 	}
+
 
 }

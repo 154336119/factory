@@ -287,4 +287,6 @@
     <string name="public_3">01011012010000028137</string>
     <string name="public_4">江苏江南农村商业银行股份有限公司常州市武进支行</string>
 
+    <string name="order_limit_num"><Data><![CDATA[<font color="#ff5353">已抢%1$s份</font><font color="#999999">|</font><font color="#ff5353">剩%2$s份</font>]]></Data></string>
+
 </resources>

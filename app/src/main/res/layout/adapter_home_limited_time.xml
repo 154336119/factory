@@ -20,36 +20,61 @@
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:textColor="#4a4a4a"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end"
             android:text="asdasdasdasd"
             android:layout_toRightOf="@+id/IvImg"
             android:layout_marginTop="3dp"
             android:lineSpacingExtra="3dp"/>
-
-    <TextView
-        android:id="@+id/mTvAmount"
+    <LinearLayout
+        android:id="@+id/LlAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@+id/mTvProductName"
         android:layout_marginTop="6dp"
-        android:layout_toRightOf="@+id/IvImg"
-        android:lineSpacingExtra="3dp"
-        android:text="编号"
-        android:textColor="#bababa"
-        android:textSize="15sp" />
+        android:layout_toRightOf="@+id/IvImg">
+        <TextView
+            android:id="@+id/mTvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:text="秒杀价："
+            android:textColor="#bababa"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/TvNewAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="编号"
+            android:textColor="#ff381d"
+            />
+        <TextView
+            android:id="@+id/TvOldAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/IvImg"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="编号"
+            android:layout_marginLeft="5dp"
+            android:textColor="#bbbbbb"
+            />
+    </LinearLayout>
     <!--和倒计时只会出现一个 -->
     <TextView
         android:id="@+id/mTvStateDes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mTvAmount"
+        android:layout_below="@+id/LlAmount"
         android:layout_marginTop="6dp"
         android:layout_toRightOf="@+id/IvImg"
         android:gravity="bottom"
         android:lineSpacingExtra="3dp"
         android:text="编号"
-        android:textColor="#ff381d"
+        android:textColor="#4a4a4a"
         android:textSize="15sp" />
         <!--倒计时 -->
         <TextView
@@ -60,19 +85,20 @@
             android:lineSpacingExtra="3dp"
             android:text="编号"
             android:layout_marginBottom="6dp"
-            android:textColor="#bababa"
+            android:textColor="#ff381d"
             android:layout_toRightOf="@+id/IvImg"
             android:layout_above="@+id/Btn"
             android:textSize="15sp" />
         <TextView
             android:id="@+id/Btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/distance_30"
             android:text="立即抢购"
-            android:textSize="17sp"
+            android:textSize="15sp"
             style="@style/btn_small_gradual"
             android:layout_alignBottom="@+id/IvImg"
             android:layout_toRightOf="@+id/IvImg"
+            android:enabled="false"
             android:layout_marginBottom="5dp"/>
 
 </RelativeLayout>

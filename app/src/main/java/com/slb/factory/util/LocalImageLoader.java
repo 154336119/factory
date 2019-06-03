@@ -1,6 +1,7 @@
 package com.slb.factory.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -11,7 +12,7 @@ import com.lzy.imagepicker.loader.ImageLoader;
  * Created by Administrator on 2017/11/22.
  */
 
-public class LocalImageLoader implements ImageLoader {
+public class LocalImageLoader extends com.youth.banner.loader.ImageLoader implements ImageLoader{
     @Override
     public void displayImage(Activity activity, String path, ImageView imageView, int width, int height) {
         Glide.with(activity)                             //配置上下文
@@ -35,5 +36,10 @@ public class LocalImageLoader implements ImageLoader {
                 .placeholder(com.slb.frame.R.mipmap.default_image)     //设置占位图片
                 .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存全尺寸
                 .into(imageView);
+    }
+
+    @Override
+    public void displayImage(Context context, Object path, ImageView imageView) {
+        Glide.with(context).load(path).into(imageView);
     }
 }
