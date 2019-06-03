@@ -28,8 +28,6 @@ public class HomeContract {
 		void finishLoadmoreWithNoMoreData();
 	}
 	public interface IPresenter<T> extends IBaseFragmentPresenter<T> {
-		void start();
-
 		//
 		void onLoadMore();
 		//

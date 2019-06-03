@@ -17,6 +17,7 @@ import com.slb.factory.R;
 import com.slb.factory.http.bean.Brand;
 import com.slb.factory.http.bean.Seckill;
 import com.slb.frame.utils.DateUtils;
+import com.slb.frame.utils.ImageLoadUtil;
 
 import java.util.List;
 
@@ -38,13 +39,14 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 		TextView tvOldAmount = baseViewHolder.getView(R.id.TvOldAmount);
 		//数量
 		TextView tvCount = baseViewHolder.getView(R.id.mTvNum);
-		Glide.with(mContext)
-				.load(entity.getHead_img())
-				.error(com.slb.frame.R.mipmap.default_image)
-				.placeholder(com.slb.frame.R.mipmap.default_image)
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.into(imageView);
-		baseViewHolder.setText(R.id.TvName, entity.getProduct_name());
+		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
+//		Glide.with(mContext)
+//				.load(entity.getHead_img())
+//				.error(com.slb.frame.R.mipmap.default_image)
+//				.placeholder(com.slb.frame.R.mipmap.default_image)
+//				.diskCacheStrategy(DiskCacheStrategy.ALL)
+//				.into(imageView);
+		baseViewHolder.setText(R.id.mTvProductName, entity.getProduct_name());
 		baseViewHolder.setText(R.id.TvNewAmount, entity.getSeckill_price()+"");
 		tvOldAmount.setText(entity.getOriginal_price()+"");
 		tvOldAmount.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );

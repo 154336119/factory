@@ -37,14 +37,10 @@ public class HomePresenter extends AbstractBaseFragmentPresenter<HomeContract.IV
     //每页的大小
     private static final int PAGE_SIZE = 10;
     //当前是第几页
-    private int mCurrentPage = 0;
+    private int mCurrentPage = 1;
     //是否没有更多数据了
     private boolean isNoMoreData = false;
 
-    @Override
-    public void start() {
-
-    }
 
     @Override
     public void onLoadMore() {
@@ -81,14 +77,14 @@ public class HomePresenter extends AbstractBaseFragmentPresenter<HomeContract.IV
 
     @Override
     public void onRefresh() {
-        mCurrentPage = 0;
+        mCurrentPage = 1;
         isNoMoreData = false;
         mView.setRefreshFooter(new CustomRefreshFooter(Base.getContext(), "加载中…"));
         //重置没有更多数据状态
         mView.resetNoMoreData();
         final HomeMergeEntity homeMergeEntity=new HomeMergeEntity();
-        Observable<HttpMjResult<List<Brand>>> brandList = RetrofitSerciveFactory.provideComService().getHotBrandList(Base.getUserEntity().getToken());
-        Observable<HttpMjResult<List<Seckill>>> seckillList = RetrofitSerciveFactory.provideComService().getLimited(Base.getUserEntity().getToken());
+        Observable<HttpMjResult<List<Brand>>> brandList = RetrofitSerciveFactory.provideComService().getHotBrandList(null);
+        Observable<HttpMjResult<List<Seckill>>> seckillList = RetrofitSerciveFactory.provideComService().getLimited(null);
         Observable<HttpMjListResult<Goods>> goodsList = RetrofitSerciveFactory.provideComService().getHotGoods(PAGE_SIZE, mCurrentPage);
 
          Observable.zip(brandList, seckillList, goodsList, new Func3<HttpMjResult<List<Brand>>, HttpMjResult<List<Seckill>>, HttpMjListResult<Goods>, HomeMergeEntity>() {
@@ -123,10 +119,19 @@ public class HomePresenter extends AbstractBaseFragmentPresenter<HomeContract.IV
                 }
                 return homeMergeEntity;
             }
-        }).lift(new BindFragmentPrssenterOpterator<>(this))
-                .compose(RxUtil.applySchedulersForRetrofit())
-                .subscribe(new BaseSubscriber<Object>(mView) {
-                    @Override
+        }) .lift(new BindFragmentPrssenterOpterator<HomeMergeEntity>(this))
+                 .compose(RxUtil.<HomeMergeEntity>applySchedulersForRetrofit())
+                 .subscribe(new BaseSubscriber<HomeMergeEntity>(mView) {
+                     @Override
+                     public void onNext(HomeMergeEntity homeMergeEntity) {
+                         super.onNext(homeMergeEntity);
+                         mView.setHotBrandListData(homeMergeEntity.getmBrandList());
+                         mView.setSeckillListData(homeMergeEntity.getmSeckillList());
+                         mView.setHotGoodListData(homeMergeEntity.getmGoodsList());
+
+                     }
+
+                     @Override
                     public void onStart() {
                         super.onStart();
                     }
@@ -137,41 +142,6 @@ public class HomePresenter extends AbstractBaseFragmentPresenter<HomeContract.IV
                     }
                 });
 
-//
-//        //合并接口
-//        Observable.zip(brandList, seckillList, goodsList, new Func3<HttpMjResult<List<Brand>>, HttpMjResult<List<Seckill>>, HttpMjListResult<Goods>, HomeMergeEntity>() {
-//            @Override
-//            public HomeMergeEntity call(HttpMjResult<List<Brand>> listHttpMjResult, HttpMjResult<List<Seckill>> listHttpMjResult2, HttpMjListResult<Goods> httpMjListResultHttpMjResult) {
-//                isNull(listHttpMjResult);
-//                isNull(listHttpMjResult2);
-//                if (httpMjListResultHttpMjResult.getCode() != null && httpMjListResultHttpMjResult.getCode() != 200) {
-//                    throw new ResultException(httpMjListResultHttpMjResult.getCode(), httpMjListResultHttpMjResult.getMsg());
-//                }
-//
-//                HomeMergeEntity entity = new HomeMergeEntity();
-//                //牌子
-//                if (listHttpMjResult.getData() != null) {
-//                    entity.setmBrandList(listHttpMjResult.getData());
-//                } else {
-//                    entity.setmBrandList(new ArrayList<Brand>());
-//                }
-//                //秒杀
-//                if (listHttpMjResult2.getData() != null) {
-//                    entity.setmSeckillList(listHttpMjResult2.getData());
-//                } else {
-//                    entity.setmSeckillList(new ArrayList<Seckill>());
-//                }
-//                //商品
-//                if (httpMjListResultHttpMjResult.getData().getList() != null) {
-//                    entity.setmGoodsList(httpMjListResultHttpMjResult.getData().getList());
-//                } else {
-//                    entity.setmGoodsList(new ArrayList<Goods>());
-//                }
-//                return entity;
-//            }
-//        }).lift(new BindFragmentPrssenterOpterator<>(this))
-//                .compose(RxUtil.applySchedulersForRetrofit())
-//                .subscribe(new BaseSubscriber<HomeMergeEntity>(mView){});
     }
 
     //热门品牌

@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.Brand;
 import com.slb.factory.http.bean.Goods;
+import com.slb.frame.utils.ImageLoadUtil;
 
 import java.util.List;
 
@@ -30,12 +31,13 @@ public class HomeBrandsListAdapter extends BaseQuickAdapter<Brand, BaseViewHolde
 	@Override
 	protected void convert(BaseViewHolder baseViewHolder, Brand entity) {
 		ImageView imageView = baseViewHolder.getView(R.id.IvImg);
-		Glide.with(mContext)
-				.load(entity.getIcon())
-				.error(com.slb.frame.R.mipmap.default_image)
-				.placeholder(com.slb.frame.R.mipmap.default_image)
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.into(imageView);
+		ImageLoadUtil.loadCircleImage(mContext,entity.getIcon(),imageView);
+//		Glide.with(mContext)
+//				.load(entity.getIcon())
+//				.error(com.slb.frame.R.mipmap.default_image)
+//				.placeholder(com.slb.frame.R.mipmap.default_image)
+//				.diskCacheStrategy(DiskCacheStrategy.ALL)
+//				.into(imageView);
 		baseViewHolder.setText(R.id.TvName, entity.getName());
 
 	}

@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             mFragments[HOME_HOME] = HomeFragment.newInstance();
-            mFragments[HOME_BUY] = HomeFragment.newInstance();
+            mFragments[HOME_BUY] = MineFragment.newInstance();
             mFragments[HOME_MINE] = MineFragment.newInstance();
             loadMultipleRootFragment(R.id.mainFrame, HOME_HOME,
                     mFragments[HOME_HOME],
@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     mFragments[HOME_MINE]);
         } else {
             mFragments[HOME_HOME] = findFragment(HomeFragment.class);
-            mFragments[HOME_BUY] = findFragment(HomeFragment.class);
+            mFragments[HOME_BUY] = findFragment(MineFragment.class);
             mFragments[HOME_MINE] = findFragment(MineFragment.class);
         }
     }

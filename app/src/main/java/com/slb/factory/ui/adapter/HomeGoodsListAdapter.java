@@ -20,6 +20,7 @@ import com.slb.factory.http.bean.ProductEntity;
 import com.slb.factory.ui.adapter.base.CommonBaseAdapter;
 import com.slb.factory.weight.MyListView;
 import com.slb.frame.utils.DateUtils;
+import com.slb.frame.utils.ImageLoadUtil;
 
 import java.util.List;
 
@@ -39,12 +40,7 @@ public class HomeGoodsListAdapter extends BaseQuickAdapter<Goods, BaseViewHolder
 	protected void convert(BaseViewHolder baseViewHolder, Goods entity) {
 		ImageView imageView = baseViewHolder.getView(R.id.IvImg);
 		TextView tvOldAmount = baseViewHolder.getView(R.id.TvOldAmount);
-		Glide.with(mContext)
-				.load(entity.getHead_img())
-				.error(com.slb.frame.R.mipmap.default_image)
-				.placeholder(com.slb.frame.R.mipmap.default_image)
-				.diskCacheStrategy(DiskCacheStrategy.ALL)
-				.into(imageView);
+		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
 
 		baseViewHolder.setText(R.id.TvDes, entity.getName());
 		baseViewHolder.setText(R.id.TvNewAmount, entity.getDiscount_price()+"");

@@ -3,6 +3,7 @@ package com.slb.factory.ui.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -112,16 +113,19 @@ public class HomeFragment
         });
 
         //brands 品牌
+        RvHotSellingBrand.setLayoutManager(new GridLayoutManager(_mActivity,3));
         mHomeBrandsListAdapter = new HomeBrandsListAdapter(mBrandsList ,getActivity());
         RvHotSellingBrand.setAdapter(mHomeBrandsListAdapter);
 
         //秒杀
+        RvLimitedTime.setLayoutManager(new LinearLayoutManager(_mActivity));
         mHomeLimitListAdapter = new HomeLimitListAdapter(mSeckillsList ,getActivity());
         RvLimitedTime.setAdapter(mHomeLimitListAdapter);
 
         //商品
+        RvHotGoods.setLayoutManager(new LinearLayoutManager(_mActivity));
         mHomeGoodsListAdapter = new HomeGoodsListAdapter(mGoodsList ,getActivity());
-        RvLimitedTime.setAdapter(mHomeLimitListAdapter);
+        RvHotGoods.setAdapter(mHomeGoodsListAdapter);
 
         mPresenter.onRefresh();
         return rootView;
@@ -140,17 +144,22 @@ public class HomeFragment
 
     @Override
     public void setHotBrandListData(List<Brand> entity) {
-        mHomeBrandsListAdapter.setNewData(entity);
+        mBrandsList = entity;
+        mHomeBrandsListAdapter.setNewData(mBrandsList);
     }
 
     @Override
     public void setSeckillListData(List<Seckill> entity) {
-        mHomeLimitListAdapter.setNewData(entity);
+//        mSeckillsList = entity;
+        //测试
+        mSeckillsList.addAll(entity);
+        mSeckillsList.addAll(entity);
+        mHomeLimitListAdapter.setNewData(mSeckillsList);
     }
 
     @Override
     public void addGoodsListData(List<Goods> entity) {
-        mHomeGoodsListAdapter.addData(entity);
+        mHomeGoodsListAdapter.addData(mGoodsList);
     }
 
     @Override

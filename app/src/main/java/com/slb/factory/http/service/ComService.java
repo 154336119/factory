@@ -92,14 +92,14 @@ public interface ComService {
      * 首页 限时秒杀
      */
     @FormUrlEncoded
-    @POST("/app/qiniu/uptoken"  )
+    @POST("/app/seckill/list"  )
     Observable<HttpMjResult<List<Seckill>>> getLimited(@Field("token") String token);
 
     /**
      * 用户- 热门商品
      */
     @FormUrlEncoded
-    @POST("/app/qiniu/uptoken"  )
+    @POST("/app/product/hotList" )
     Observable<HttpMjListResult<Goods>> getHotGoods(@Field("pageSize") int pageSize,
                                                     @Field("pageIndex") int pageNum);
 
