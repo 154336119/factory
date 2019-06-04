@@ -21,6 +21,8 @@ import com.slb.frame.utils.ImageLoadUtil;
 
 import java.util.List;
 
+import cn.iwgang.countdownview.CountdownView;
+
 
 /**
  *
@@ -37,18 +39,13 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 	protected void convert(BaseViewHolder baseViewHolder, Seckill entity) {
 		ImageView imageView = baseViewHolder.getView(R.id.IvImg);
 		TextView tvOldAmount = baseViewHolder.getView(R.id.TvOldAmount);
+		CountdownView countdownView = baseViewHolder.getView(R.id.CountdownView);
 		//数量
 		TextView tvCount = baseViewHolder.getView(R.id.mTvNum);
 		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
-//		Glide.with(mContext)
-//				.load(entity.getHead_img())
-//				.error(com.slb.frame.R.mipmap.default_image)
-//				.placeholder(com.slb.frame.R.mipmap.default_image)
-//				.diskCacheStrategy(DiskCacheStrategy.ALL)
-//				.into(imageView);
 		baseViewHolder.setText(R.id.mTvProductName, entity.getProduct_name());
-		baseViewHolder.setText(R.id.TvNewAmount, entity.getSeckill_price()+"");
-		tvOldAmount.setText(entity.getOriginal_price()+"");
+		baseViewHolder.setText(R.id.TvNewAmount, "￥"+entity.getSeckill_price());
+		tvOldAmount.setText("￥"+entity.getOriginal_price());
 		tvOldAmount.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
 		Integer startTine = Integer.parseInt(DateUtils.sdateToTimestamp3(entity.getStart_time()));
@@ -56,14 +53,14 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 
 		Logger.d("startTine:",startTine);
 		Logger.d("curTime:",curTime);
-
 		if(curTime>startTine){
 			//秒杀开始
 			tvCount.setVisibility(View.VISIBLE);
+			countdownView.setVisibility(View.GONE);
 			tvCount.setText(Html.fromHtml(mContext.getString(R.string.order_limit_num,entity.getTotal_stock()+"",entity.getRemain_stock()+"")));
 
 			baseViewHolder.setText(R.id.mTvStateDes, "秒杀已开始");
-			baseViewHolder.setTextColor(R.id.Btn, R.color.white);
+			baseViewHolder.setTextColor(R.id.Btn, mContext.getResources().getColor(R.color.white));
 			if(entity.getRemain_stock() == 0){
 				//已抢光
 				baseViewHolder.setText(R.id.Btn, "已抢光");
@@ -75,11 +72,21 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 			}
 		}else{
 			//未开始
+			countdownView.setVisibility(View.VISIBLE);
 			tvCount.setVisibility(View.GONE);
-			baseViewHolder.setTextColor(R.id.Btn, R.color.btn_small_stroke);
+			baseViewHolder.setTextColor(R.id.Btn,mContext.getResources().getColor(R.color.btn_small_stroke));
 			baseViewHolder.setBackgroundRes(R.id.Btn,R.drawable.slt_btn_bottom_stroke);
 			baseViewHolder.setText(R.id.Btn, entity.getStart_time()+"开抢");
 			baseViewHolder.setText(R.id.mTvStateDes, "距离开始仅剩");
+			//???开始是时间？
+			countdownView.start(360000);
+			countdownView .setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
+				@Override
+				public void onEnd(CountdownView cv) {
+					//？？？刷新接口？
+				}
+			});
 		}
+
 	}
 }

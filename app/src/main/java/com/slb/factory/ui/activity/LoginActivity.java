@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.orhanobut.logger.Logger;
 import com.slb.factory.R;
 import com.slb.factory.ui.contract.LoginContract;
@@ -16,7 +18,6 @@ import com.slb.factory.weight.CountTimerButton;
 import com.slb.factory.weight.ShareDialog;
 import com.slb.frame.ui.activity.BaseMvpActivity;
 import com.slb.frame.utils.ActivityUtil;
-import com.slb.frame.utils.statusbarutil.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +37,13 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     TextView TvWxLogin;
 
     @Override
+    protected boolean hasToolbar() {
+        return false;
+    }
+
+    @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-//        StatusBarUtil.setTranslucentForImageView(this, 110, findViewById(R.id.btnLogin));
     }
 
     @Override
@@ -46,6 +51,9 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        StatusBarUtil.setTransparentForImageView(this,null);
+        StatusBarUtil.setLightMode(this);
+//        StatusBarUtil.setDarkMode(this);
     }
 
     @Override
@@ -67,27 +75,27 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.BtnGetCode:
-                Logger.d("sdsd");
                 mPresenter.getCode(edtMobile.getText().toString());
                 break;
             case R.id.btnLogin:
                 mPresenter.login(edtMobile.getText().toString(),edtVCode.getText().toString());
                 break;
             case R.id.TvWxLogin:
-                showShareDialog();
+                ActivityUtil.next(this,UploadLicenseActivity.class);
+//                showShareDialog();
                 break;
         }
     }
 
-    @Override
-    public void setStateBar() {
-        //        设置字体颜色为黑色
-        StatusBarUtil.setImmersiveStatusBar(this,true);
-//        设置状态栏透明
-//        StatusBarUtil.setTranslucentStatus(this);
-////        设置状态栏的颜色
-            StatusBarUtil.setStatusBarColor(this, Color.TRANSPARENT);
-    }
+//    @Override
+//    public void setStateBar() {
+//        //        设置字体颜色为黑色
+//        StatusBarUtil.setImmersiveStatusBar(this,true);
+////        设置状态栏透明
+////        StatusBarUtil.setTranslucentStatus(this);
+//////        设置状态栏的颜色
+//            StatusBarUtil.setStatusBarColor(this, Color.TRANSPARENT);
+//    }
 
     /**
      * 测试
@@ -122,7 +130,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     @Override
     public void goUploadLicenseActivity() {
         //测试
-        ActivityUtil.next(this,OrderListActiivty.class);
+        ActivityUtil.next(this,MainActivity.class);
 //        ActivityUtil.next(this,UploadLicenseActivity.class);
     }
 }

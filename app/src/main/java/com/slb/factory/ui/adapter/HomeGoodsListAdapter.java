@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,7 @@ import com.slb.factory.ui.adapter.base.CommonBaseAdapter;
 import com.slb.factory.weight.MyListView;
 import com.slb.frame.utils.DateUtils;
 import com.slb.frame.utils.ImageLoadUtil;
+import com.slb.frame.utils.ScreenUtils;
 
 import java.util.List;
 
@@ -39,12 +41,17 @@ public class HomeGoodsListAdapter extends BaseQuickAdapter<Goods, BaseViewHolder
 	@Override
 	protected void convert(BaseViewHolder baseViewHolder, Goods entity) {
 		ImageView imageView = baseViewHolder.getView(R.id.IvImg);
+		ViewGroup.LayoutParams linearParams =(ViewGroup.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+		linearParams.height = ScreenUtils.getScreenWidth(mContext)/2;
+		linearParams.width = ScreenUtils.getScreenWidth(mContext)/2;
+		imageView.setLayoutParams(linearParams);
+
 		TextView tvOldAmount = baseViewHolder.getView(R.id.TvOldAmount);
 		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
 
 		baseViewHolder.setText(R.id.TvDes, entity.getName());
-		baseViewHolder.setText(R.id.TvNewAmount, entity.getDiscount_price()+"");
-		tvOldAmount.setText(entity.getOriginal_price()+"");
+		baseViewHolder.setText(R.id.TvNewAmount,"￥"+ entity.getDiscount_price());
+		tvOldAmount.setText("￥"+entity.getOriginal_price());
 		tvOldAmount.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 	}
 }

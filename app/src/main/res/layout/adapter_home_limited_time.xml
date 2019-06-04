@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
     android:padding="10dp">
     <ImageView
         android:id="@+id/IvImg"
@@ -76,7 +75,6 @@
         android:text="编号"
         android:textColor="#4a4a4a"
         android:textSize="15sp" />
-        <!--倒计时 -->
         <TextView
             android:id="@+id/mTvNum"
             android:layout_width="wrap_content"
@@ -89,6 +87,30 @@
             android:layout_toRightOf="@+id/IvImg"
             android:layout_above="@+id/Btn"
             android:textSize="15sp" />
+    <!--倒计时 -->
+        <cn.iwgang.countdownview.CountdownView
+            android:id="@+id/CountdownView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isHideTimeBackground="false"
+            app:timeBgRadius="@dimen/distance_5"
+            app:timeBgColor="#f1f1f1"
+            app:isShowTimeBgDivisionLine="false"
+            app:isShowHour="true"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:timeTextColor="#686868"
+            app:timeTextSize="15sp"
+            app:isTimeTextBold="true"
+            app:suffixGravity="center"
+            app:suffixTextColor="#b8b8b8"
+            app:suffixTextSize="12sp"
+            app:suffixHour="时"
+            app:suffixMinute="分"
+            app:suffixSecond="秒"
+            android:layout_toRightOf="@+id/IvImg"
+            android:layout_marginBottom="6dp"
+            android:layout_above="@+id/Btn"/>
         <TextView
             android:id="@+id/Btn"
             android:layout_width="wrap_content"
@@ -98,7 +120,6 @@
             style="@style/btn_small_gradual"
             android:layout_alignBottom="@+id/IvImg"
             android:layout_toRightOf="@+id/IvImg"
-            android:enabled="false"
             android:layout_marginBottom="5dp"/>
 
 </RelativeLayout>

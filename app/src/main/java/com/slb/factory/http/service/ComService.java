@@ -96,11 +96,17 @@ public interface ComService {
     Observable<HttpMjResult<List<Seckill>>> getLimited(@Field("token") String token);
 
     /**
-     * 用户- 热门商品
+     * 首页 热门商品
      */
     @FormUrlEncoded
     @POST("/app/product/hotList" )
     Observable<HttpMjListResult<Goods>> getHotGoods(@Field("pageSize") int pageSize,
                                                     @Field("pageIndex") int pageNum);
 
+    /**
+     * 导航条
+     */
+    @FormUrlEncoded
+    @POST("/app/banner/list"  )
+    Observable<HttpMjResult<List<String>>> getBannerList(@Field("token") String token);
 }

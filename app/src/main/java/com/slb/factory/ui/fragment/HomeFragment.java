@@ -1,5 +1,6 @@
 package com.slb.factory.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -9,10 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.Brand;
@@ -27,6 +32,8 @@ import com.slb.factory.util.LocalImageLoader;
 import com.slb.factory.weight.refresh.CustomRefreshFooter;
 import com.slb.factory.weight.refresh.CustomRefreshHeader;
 import com.slb.frame.ui.fragment.BaseMvpFragment;
+import com.slb.frame.utils.ScreenUtils;
+import com.slb.frame.utils.statusbarutil.StatusBarUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -86,18 +93,15 @@ public class HomeFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-        //banner
-        HomeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                .setImageLoader(new LocalImageLoader())
-//                .setImages(presenter.getBannerImages())
-                .setBannerAnimation(Transformer.Default)
-                .isAutoPlay(true)
-                .setDelayTime(3000)
-                .setIndicatorGravity(BannerConfig.CENTER)
-                .start();
+//        StatusBarUtil.setStatusBarColor(_mActivity, Color.WHITE);
+        //设置banner高度
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) HomeBanner.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = ScreenUtils.getScreenWidth(_mActivity)/3;
+        HomeBanner.setLayoutParams(linearParams);
+
         //页面刷新框架
-        smartRefreshLayout.setRefreshHeader(new CustomRefreshHeader(getActivity()));
-        smartRefreshLayout.setRefreshFooter(new CustomRefreshFooter(getActivity(), "加载中…"));
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         smartRefreshLayout.setEnableScrollContentWhenLoaded(true);//是否在加载完成时滚动列表显示新的内容
         smartRefreshLayout.setEnableFooterFollowWhenLoadFinished(true);
         smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
@@ -123,7 +127,7 @@ public class HomeFragment
         RvLimitedTime.setAdapter(mHomeLimitListAdapter);
 
         //商品
-        RvHotGoods.setLayoutManager(new LinearLayoutManager(_mActivity));
+        RvHotGoods.setLayoutManager(new GridLayoutManager(_mActivity,2));
         mHomeGoodsListAdapter = new HomeGoodsListAdapter(mGoodsList ,getActivity());
         RvHotGoods.setAdapter(mHomeGoodsListAdapter);
 
@@ -159,7 +163,7 @@ public class HomeFragment
 
     @Override
     public void addGoodsListData(List<Goods> entity) {
-        mHomeGoodsListAdapter.addData(mGoodsList);
+        mHomeGoodsListAdapter.addData(entity);
     }
 
     @Override
@@ -169,7 +173,7 @@ public class HomeFragment
 
     @Override
     public void finishLoadmore(boolean success) {
-        smartRefreshLayout.resetNoMoreData();
+        smartRefreshLayout.finishLoadmore(success);
     }
 
     @Override
@@ -190,5 +194,17 @@ public class HomeFragment
     @Override
     public void setHotGoodListData(List<Goods> entity) {
         mHomeGoodsListAdapter.setNewData(entity);
+    }
+
+    @Override
+    public void setBannerListData(List<String> entity) {
+        HomeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                .setImageLoader(new LocalImageLoader())
+                .setImages(entity)
+                .setBannerAnimation(Transformer.Default)
+                .isAutoPlay(true)
+                .setDelayTime(3000)
+                .setIndicatorGravity(BannerConfig.CENTER)
+                .start();
     }
 }

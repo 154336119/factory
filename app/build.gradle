@@ -86,4 +86,7 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'  //最新版本
     //SmartRefreshLayout
     implementation "com.scwang.smartrefresh:SmartRefreshLayout:1.0.4"
+    compile 'com.makeramen:roundedimageview:2.3.0'
+    //倒计时
+    compile 'com.github.iwgang:countdownview:2.1.6'
 }

@@ -6,6 +6,15 @@ public class HomeMergeEntity {
     List<Brand> mBrandList;
     List<Seckill> mSeckillList;
     List<Goods> mGoodsList;
+    List<String> mBannerList;
+
+    public List<String> getmBannerList() {
+        return mBannerList;
+    }
+
+    public void setmBannerList(List<String> mBannerList) {
+        this.mBannerList = mBannerList;
+    }
 
 
     public List<Brand> getmBrandList() {

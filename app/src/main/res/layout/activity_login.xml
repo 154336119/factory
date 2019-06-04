@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
 
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/certified_bg" />
+        android:src="@mipmap/beijing_wode" />
 
     <LinearLayout
         style="@style/match_wrap_margin_distance_bg"

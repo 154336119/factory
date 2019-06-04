@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jaeger.library.StatusBarUtil;
+import com.slb.factory.ui.activity.MainActivity;
 import com.slb.factory.ui.contract.MineContract;
 import com.slb.factory.ui.presenter.MinePresenter;
 import com.slb.frame.ui.fragment.BaseMvpFragment;

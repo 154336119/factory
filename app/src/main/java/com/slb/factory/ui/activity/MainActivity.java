@@ -5,7 +5,9 @@ import android.support.annotation.IdRes;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
+import com.jaeger.library.StatusBarUtil;
 import com.slb.factory.R;
+import com.slb.factory.util.ExitDoubleClick;
 import com.slb.frame.ui.activity.BaseActivity;
 import com.slb.frame.ui.fragment.BaseFragment;
 import com.slb.factory.ui.fragment.HomeFragment;
@@ -57,6 +59,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
+//        StatusBarUtil.setLightMode(this);
         prePosition = 0;
         bottomBar.setOnCheckedChangeListener(this);
         bottomBar.check(R.id.rb_home);
@@ -81,24 +85,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
     }
 
-//    /**
-//     * 获取车辆列表
-//     */
-//    public void getVehicleList(){
-//        OkGo.<LzyResponse<VehiclesEntity>>get(DnsFactory.getInstance().getDns().getCommonBaseUrl()+"api/user/"+Base.getUserEntity().getId()+"/vehicle")
-//                .tag(this)//
-//                .headers("Authorization","Bearer "+Base.getUserEntity().getToken())
-//                .execute(new ActivityDialogCallback<LzyResponse<VehiclesEntity>>(this) {
-//                    @Override
-//                    public void onSuccess(Response<LzyResponse<VehiclesEntity>> response) {
-//                        VehiclesEntity entity = response.body().data;
-////                        if(entity!=null && entity.getVehicles()!=null && entity.getVehicles().size()>0){
-//                            UserEntity userEntity = Base.getUserEntity();
-//                            userEntity.setVehicleEntityList(entity.getVehicles());
-//                            Base.setUserEntity(userEntity);
-//                            RxBus.get().post(new RefreshMineVehicleListtEvent());
-////                        }
-//                    }
-//                });
-//    }
+    @Override
+    public void onBackPressedSupport() {
+        if (this.getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            ExitDoubleClick.getInstance(this).doDoubleClick(3000, null);
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+
 }

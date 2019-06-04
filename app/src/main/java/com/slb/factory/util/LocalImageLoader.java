@@ -6,7 +6,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.luck.picture.lib.tools.ScreenUtils;
 import com.lzy.imagepicker.loader.ImageLoader;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 /**
  * Created by Administrator on 2017/11/22.
@@ -41,5 +43,13 @@ public class LocalImageLoader extends com.youth.banner.loader.ImageLoader implem
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         Glide.with(context).load(path).into(imageView);
+    }
+
+
+    @Override
+    public ImageView createImageView(Context context) {
+        RoundedImageView roundedImg = new RoundedImageView(context, null);
+        roundedImg.setCornerRadius(ScreenUtils.dip2px(context, 10));
+        return roundedImg;
     }
 }

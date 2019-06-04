@@ -275,9 +275,6 @@
     <string name="Please_choise_the_vehicle">请选择车辆</string>
     <string name="Please_choise_start_date">请选择开始时间</string>
     <string name="Please_choise_end_date">请选择结束时间</string>
-
-
-
     <string name="image_error">图片异常</string>
     <string name="choise_pay_wx">将本二维码保存至相册\n打开微信\n微信首页右上角点击“扫一扫”\n在相册中选择此二维码\n扫码成功后进行转账\n转账后，请返回本APP上传转账凭证</string>
     <string name="choise_pay_zfb">将本二维码保存至相册\n打开支付宝\n支付宝首页右上角点击“扫一扫”\n在相册中选择此二维码\n扫码成功后进行转账\n转账后，请返回本APP上传转账凭证</string>
@@ -288,5 +285,7 @@
     <string name="public_4">江苏江南农村商业银行股份有限公司常州市武进支行</string>
 
     <string name="order_limit_num"><Data><![CDATA[<font color="#ff5353">已抢%1$s份</font><font color="#999999">|</font><font color="#ff5353">剩%2$s份</font>]]></Data></string>
+
+
 
 </resources>

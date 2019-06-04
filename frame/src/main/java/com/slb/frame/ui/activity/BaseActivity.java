@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hwangjr.rxbus.RxBus;
+import com.jaeger.library.StatusBarUtil;
 import com.slb.frame.R;
 import com.slb.frame.dialog.CustomDialog;
 import com.slb.frame.ui.toolbar.ToolbarBack;
@@ -45,7 +46,6 @@ import com.slb.frame.utils.PermissionListener;
 import com.slb.frame.utils.hooklistener.HookCore;
 import com.slb.frame.utils.hooklistener.HookListenerContract;
 import com.slb.frame.utils.hooklistener.ListenerManager;
-import com.slb.frame.utils.statusbarutil.StatusBarUtil;
 import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.RxLifecycle;
@@ -114,7 +114,8 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
     @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStateBar();
+//        setStateBar();
+        StatusBarUtil.setLightMode(this);
         keepScreenLongLight(this);
         //注册rxbus
         if (rxBusRegist()){
@@ -513,14 +514,14 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
      * 顶部状态栏和actionbar颜色统一
      */
 
-    public void setStateBar(){
-//        设置字体颜色为黑色
-        StatusBarUtil.setImmersiveStatusBar(this,true);
-//        设置状态栏透明
-//        StatusBarUtil.setTranslucentStatus(Activity activity);
-//        设置状态栏的颜色
-        StatusBarUtil.setStatusBarColor(this, Color.WHITE);
-    }
+//    public void setStateBar(){
+////        设置字体颜色为黑色
+//        StatusBarUtil.setImmersiveStatusBar(this,true);
+////        设置状态栏透明
+////        StatusBarUtil.setTranslucentStatus(Activity activity);
+////        设置状态栏的颜色
+//        StatusBarUtil.setStatusBarColor(this, Color.WHITE);
+//    }
 
     public void setUnderLineVisible(int ishow){
         mUnderLine.setVisibility(ishow);

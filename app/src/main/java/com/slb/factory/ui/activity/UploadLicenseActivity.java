@@ -69,7 +69,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         super.initView();
         ButterKnife.bind(this);
         mImagePicker = ImagePickerUtils.cardSetting(this);
-        mPresenter.getPicToken(Base.getUserEntity().getToken());
+//        mPresenter.getPicToken(Base.getUserEntity().getToken());
     }
 
     @Override
