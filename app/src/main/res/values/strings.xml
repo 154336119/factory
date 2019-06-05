@@ -1,5 +1,5 @@
 <resources>
-<string name="app_name">OBDChecks</string>
+<string name="app_name">工厂联盟</string>
 <string name="action_settings">Settings</string>
 <string name="action_clear_codes">Clear Codes</string>
 <string name="notification_action">Tap to open OBD-Reader</string>
@@ -285,7 +285,7 @@
     <string name="public_4">江苏江南农村商业银行股份有限公司常州市武进支行</string>
 
     <string name="order_limit_num"><Data><![CDATA[<font color="#ff5353">已抢%1$s份</font><font color="#999999">|</font><font color="#ff5353">剩%2$s份</font>]]></Data></string>
-
+    <string name="please_install_weixin">您手机未安装微信客户端，请先安装</string>
 
 
 </resources>

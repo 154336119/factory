@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.slb.factory.BizsConstant;
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.frame.utils.ImageLoadUtil;
 
@@ -137,7 +137,7 @@ public class ImagePickerAdapter1 extends RecyclerView.Adapter<ImagePickerAdapter
             if (isAdded && position == getItemCount() - 1) {
                 iv_img.setImageResource(R.drawable.slt_image_add);
                 iv_delete.setVisibility(View.GONE);
-                clickPosition = BizsConstant.IMAGE_ITEM_ADD;
+                clickPosition = MyConstants.IMAGE_ITEM_ADD;
             } else {
                 iv_delete.setVisibility(View.VISIBLE);
                 ImageLoadUtil.loadFileImage(mContext,item.getPath(),iv_img);

@@ -18,6 +18,9 @@ import com.slb.factory.weight.CountTimerButton;
 import com.slb.factory.weight.ShareDialog;
 import com.slb.frame.ui.activity.BaseMvpActivity;
 import com.slb.frame.utils.ActivityUtil;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareConfig;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +39,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     @BindView(R.id.TvWxLogin)
     TextView TvWxLogin;
 
+    private UMShareAPI mShareAPI ;
     @Override
     protected boolean hasToolbar() {
         return false;
@@ -54,6 +58,11 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
         StatusBarUtil.setTransparentForImageView(this,null);
         StatusBarUtil.setLightMode(this);
 //        StatusBarUtil.setDarkMode(this);
+        mShareAPI = UMShareAPI.get(this);
+        UMShareConfig config = new UMShareConfig();
+        config.setSinaAuthType(UMShareConfig.AUTH_TYPE_SSO);
+        mShareAPI.setShareConfig(config);
+
     }
 
     @Override
@@ -81,21 +90,13 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
                 mPresenter.login(edtMobile.getText().toString(),edtVCode.getText().toString());
                 break;
             case R.id.TvWxLogin:
-                ActivityUtil.next(this,UploadLicenseActivity.class);
+                mPresenter.thirdLogin(SHARE_MEDIA.WEIXIN,mShareAPI,LoginActivity.this);
+//                ActivityUtil.next(this,UploadLicenseActivity.class);
 //                showShareDialog();
                 break;
         }
     }
 
-//    @Override
-//    public void setStateBar() {
-//        //        设置字体颜色为黑色
-//        StatusBarUtil.setImmersiveStatusBar(this,true);
-////        设置状态栏透明
-////        StatusBarUtil.setTranslucentStatus(this);
-//////        设置状态栏的颜色
-//            StatusBarUtil.setStatusBarColor(this, Color.TRANSPARENT);
-//    }
 
     /**
      * 测试
@@ -103,7 +104,6 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     public void showShareDialog(){
         ShareDialog dialog = new ShareDialog();
         dialog.setOnButtonClick(new ShareDialog.OnButtonClick() {
-
             @Override
             public void onBtnVxFriend() {
 
@@ -133,4 +133,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
         ActivityUtil.next(this,MainActivity.class);
 //        ActivityUtil.next(this,UploadLicenseActivity.class);
     }
+
+
+
 }

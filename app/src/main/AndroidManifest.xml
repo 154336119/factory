@@ -35,6 +35,7 @@
             android:name="com.slb.factory.ui.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:theme="@style/App_Theme_no_statebar"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -50,18 +51,35 @@
             <!--android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"-->
             <!--android:configChanges="orientation|keyboardHidden"-->
             <!--android:screenOrientation="portrait"/>-->
-        <!--<activity-->
-            <!--android:name="com.slb.factory.ui.activity.UploadProofsActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:screenOrientation="portrait"/>-->
+        <activity
+            android:name="com.slb.factory.ui.activity.UploadProofsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.slb.factory.ui.activity.SuccessActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-        <!--<activity-->
-            <!--android:name="com.slb.factory.ui.activity.ChoisePayTypeActiivty"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:screenOrientation="portrait"/>-->
+        <activity
+            android:name="com.slb.factory.ui.activity.ChoisePayTypeActiivty"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.slb.factory.ui.activity.InviteFriendsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.slb.factory.ui.activity.MsgListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.slb.factory.ui.activity.OrderListActiivty"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.slb.factory.ui.activity.WebViewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
 
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -69,18 +87,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.slb.factory.ui.activity.InviteFriendsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <!--<activity-->
-            <!--android:name="com.slb.factory.ui.activity.MsgListActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:screenOrientation="portrait"/>-->
-        <activity
-            android:name="com.slb.factory.ui.activity.OrderListActiivty"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

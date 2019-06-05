@@ -526,4 +526,8 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
     public void setUnderLineVisible(int ishow){
         mUnderLine.setVisibility(ishow);
     }
+
+    public void setBackListener(View.OnClickListener listener){
+        mToolbar.setNavigationOnClickListener(listener);
+    }
 }

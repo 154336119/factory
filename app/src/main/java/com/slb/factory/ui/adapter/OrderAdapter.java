@@ -25,6 +25,7 @@ public class OrderAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> 
 
 	public OrderAdapter(List<OrderEntity> data,int orderState, Context ctx) {
 		super(R.layout.adapter_order_item,data);
+		this.orderState= orderState;
 		this.mContext=ctx;
 	}
 

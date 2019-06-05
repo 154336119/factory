@@ -1,0 +1,205 @@
+package com.slb.factory.ui.fragment;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
+import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+
+import com.google.gson.Gson;
+import com.jaeger.library.StatusBarUtil;
+import com.slb.factory.Base;
+import com.slb.factory.MyConstants;
+import com.slb.factory.R;
+import com.slb.factory.http.bean.WebBean;
+import com.slb.factory.ui.activity.LoginActivity;
+import com.slb.factory.ui.activity.MainActivity;
+import com.slb.factory.ui.activity.UploadProofsActivity;
+import com.slb.factory.ui.activity.WebViewActivity;
+import com.slb.factory.util.JavaScriptObject;
+import com.slb.frame.ui.fragment.BaseFragment;
+import com.slb.frame.utils.ActivityUtil;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+public class ShopCarFragment extends BaseFragment {
+    Unbinder unbinder;
+    @BindView(R.id.webView)
+    WebView mWebView;
+    @BindView(R.id.progressbar)
+    ProgressBar progressbar;
+    @BindView(R.id.root)
+    FrameLayout root;
+
+    public static ShopCarFragment newInstance() {
+        ShopCarFragment fragment = new ShopCarFragment();
+        return fragment;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_shopcar;
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        StatusBarUtil.setTransparentForImageView(_mActivity, null);
+        StatusBarUtil.setLightMode(_mActivity);
+        WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDefaultFontSize((int) getResources().getDimension(R.dimen.tv15));
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(false); //设置内置的缩放控件。
+        settings.setSupportMultipleWindows(true);
+        settings.setPluginState(WebSettings.PluginState.ON);
+        settings.setSupportZoom(true);
+        settings.setAllowFileAccess(true);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setLoadsImagesAutomatically(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setGeolocationEnabled(true);
+        String dir = _mActivity.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
+        settings.setGeolocationDatabasePath(dir);
+
+        mWebView.setLongClickable(true);
+        mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+//              return shouldOverrideUrlByMJ(view, url);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+        });
+        mWebView.setWebChromeClient(new WebChromeClient() {
+
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+                callback.invoke(origin, true, false);
+                super.onGeolocationPermissionsShowPrompt(origin, callback);
+            }
+
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+                AlertDialog.Builder b = new AlertDialog.Builder(_mActivity);
+                b.setTitle("Alert");
+                b.setMessage(message);
+                b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.confirm();
+                    }
+                });
+                b.setCancelable(false);
+                b.create().show();
+                return true;
+            }
+
+            //设置响应js 的Confirm()函数
+            @Override
+            public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+                AlertDialog.Builder b = new AlertDialog.Builder(_mActivity);
+                b.setTitle("Confirm");
+                b.setMessage(message);
+                b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.confirm();
+                    }
+                });
+                b.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.cancel();
+                    }
+                });
+                b.create().show();
+                return true;
+            }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (newProgress != 100) {
+                    progressbar.setVisibility(View.VISIBLE);
+                } else {
+                    progressbar.setVisibility(View.GONE);
+                }
+            }
+        });
+        mWebView.addJavascriptInterface(new JavaScriptObject(), "jsAndroid");
+        mWebView.loadUrl(MyConstants.h5Url + MyConstants.url_gouwuche + Base.getUserEntity().getToken());
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+
+    private class JavaScriptObject {
+
+        @JavascriptInterface
+        public void appPush(String json) {
+            WebBean data = new Gson().fromJson(json, WebBean.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("url", MyConstants.h5Url + data.url);
+            bundle.putString("title",data.title);
+            bundle.putBoolean("isRightBtnShare",data.isRightBtnShare);
+            ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+        }
+
+        @JavascriptInterface
+        public void appClose(String json) {
+            WebBean data = new Gson().fromJson(json, WebBean.class);
+        }
+
+        @JavascriptInterface
+        public void appLink(String json) {
+            WebBean data = new Gson().fromJson(json, WebBean.class);
+            //linkType（首页：index，个人中心：my , 上传凭证：upProve ,登录：login） 。
+            if ("index".equals(data.linkType)) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,0);
+                ActivityUtil.next(_mActivity, MainActivity.class,bundle,false);
+            } else if ("my".equals(data.linkType)) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,2);
+                ActivityUtil.next(_mActivity, MainActivity.class,bundle,false);
+            } else if ("upProve".equals(data.linkType)) {
+                ActivityUtil.next(_mActivity, UploadProofsActivity.class);
+            } else if ("login".equals(data.linkType)) {
+                ActivityUtil.next(_mActivity, LoginActivity.class);
+                _mActivity.finish();
+            }
+
+        }
+    }
+
+}

@@ -18,18 +18,12 @@ import com.slb.factory.ui.SharedPreferencesUtil;
 import com.slb.factory.util.config.BizcContant;
 import com.tencent.bugly.Bugly;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-
-/**
- * 刁剑
- * 2017/11/1
- * 注释:
- */
-
 public class MyApplication extends Application{
     @Override
     public void onCreate() {
@@ -39,12 +33,12 @@ public class MyApplication extends Application{
         initOkGo();
         Bugly.init(getApplicationContext(), "60be1128c4", false);
         SharedPreferencesUtil.getInstance(this, BizcContant.SP_OBD);
+        initShare();
     }
 
-    private void initShare(){
-        UMConfigure.init(this,"5cee3747570df3fbb300100","umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
-        //友盟相关平台配置。注意友盟官方新文档中没有这项配置，但是如果不配置会吊不起来相关平台的授权界面
-//        PlatformConfig.setWeixin("你的微信APPID", "你的微信AppSecret");//微信APPID和AppSecret
+    private void initShare() {
+        UMConfigure.init(this, "5cee3747570df3fbb3001003", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        PlatformConfig.setWeixin(MyConstants.WX_APP_ID, "f209badd4ead402cc20a395724325284");
     }
 
     private void initLogUtils(){

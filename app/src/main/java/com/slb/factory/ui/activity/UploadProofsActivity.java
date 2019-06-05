@@ -12,7 +12,7 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewActivity;
 import com.nanchen.compresshelper.CompressHelper;
-import com.slb.factory.BizsConstant;
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.AgencyVoucherShownType;
 import com.slb.factory.ui.adapter.ImagePickerAdapter1;
@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leo.permission.PermissionRequest;
 
-import static com.slb.factory.BizsConstant.REQUEST_CODE_PROOF_IMG_PICK;
+import static com.slb.factory.MyConstants.REQUEST_CODE_PROOF_IMG_PICK;
 
 public class UploadProofsActivity
         extends BaseMvpActivity<UploadlProofsContract.IView, UploadlProofsContract.IPresenter>
@@ -116,7 +116,7 @@ public class UploadProofsActivity
 
             }
         } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
-            if (data != null && requestCode == BizsConstant.REQUEST_CODE_PROOF_IMG_PREVIEW) {
+            if (data != null && requestCode == MyConstants.REQUEST_CODE_PROOF_IMG_PREVIEW) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
                 ImageCompareUtil.getFileImages(mProofList, images);
                 mAdapter.setImages(mProofList);
@@ -136,7 +136,7 @@ public class UploadProofsActivity
 //        mSmallIndex=eventArgs.getIndex();
 //        mCurrAdapter=eventArgs.getAdapter();
 //        switch (mSmallIndex){
-//            case BizsConstant.IMAGE_ITEM_ADD:
+//            case MyConstants.IMAGE_ITEM_ADD:
 //                choosePic();
 //                break;
 //            default:
@@ -160,7 +160,7 @@ public class UploadProofsActivity
     @Override
     public void onItemClick(View view, int position) {
         switch (position) {
-            case BizsConstant.IMAGE_ITEM_ADD:
+            case MyConstants.IMAGE_ITEM_ADD:
                 //添加图片
                 choosePic();
                 break;
@@ -177,7 +177,7 @@ public class UploadProofsActivity
                 intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, ImagePickerUtils.getImageItemForStr(ImageCompareUtil.convert2Str1(mProofList)));
                 intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
                 intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
-                startActivityForResult(intentPreview, BizsConstant.REQUEST_CODE_PROOF_IMG_PREVIEW);
+                startActivityForResult(intentPreview, MyConstants.REQUEST_CODE_PROOF_IMG_PREVIEW);
         }
     }
 }

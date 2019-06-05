@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/beijing_wode" />
+        android:src="@mipmap/beijing_denglu" />
 
     <LinearLayout
         style="@style/match_wrap_margin_distance_bg"

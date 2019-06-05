@@ -12,8 +12,10 @@ import com.slb.frame.http2.retrofit.HttpResult;
 import com.slb.frame.http2.rxjava.HttpMjEntityFun;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -29,6 +31,18 @@ public interface ComService {
                                                @Field("verifyCode") String verifyCode,
                                                @Field("platform") int platform);
 
+    /**
+     * 第三方登录
+     *
+     * @param
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/app/user/login/wechat")
+    Observable<HttpMjResult<UserEntity>> loginThird(@Field("openid") String openid,
+                                                    @Field("nickName") String nickName,
+                                                    @Field("logo") String logo,
+                                                    @Field("platform") int platform);
     /**
      * 用户-发短信验证码
      */

@@ -1,5 +1,6 @@
 package com.slb.factory.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,16 +14,20 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.slb.factory.Base;
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.Brand;
 import com.slb.factory.http.bean.Goods;
 import com.slb.factory.http.bean.Seckill;
+import com.slb.factory.ui.activity.WebViewActivity;
 import com.slb.factory.ui.adapter.HomeBrandsListAdapter;
 import com.slb.factory.ui.adapter.HomeGoodsListAdapter;
 import com.slb.factory.ui.adapter.HomeLimitListAdapter;
@@ -32,6 +37,7 @@ import com.slb.factory.util.LocalImageLoader;
 import com.slb.factory.weight.refresh.CustomRefreshFooter;
 import com.slb.factory.weight.refresh.CustomRefreshHeader;
 import com.slb.frame.ui.fragment.BaseMvpFragment;
+import com.slb.frame.utils.ActivityUtil;
 import com.slb.frame.utils.ScreenUtils;
 import com.slb.frame.utils.statusbarutil.StatusBarUtil;
 import com.youth.banner.Banner;
@@ -120,16 +126,45 @@ public class HomeFragment
         RvHotSellingBrand.setLayoutManager(new GridLayoutManager(_mActivity,3));
         mHomeBrandsListAdapter = new HomeBrandsListAdapter(mBrandsList ,getActivity());
         RvHotSellingBrand.setAdapter(mHomeBrandsListAdapter);
+        mHomeBrandsListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", MyConstants.h5Url + MyConstants.url_pingpaixueche + mHomeBrandsListAdapter.getData().get(position).getId());
+                bundle.putString("title", mHomeBrandsListAdapter.getData().get(position).getName());
+                ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+            }
+        });
 
         //秒杀
         RvLimitedTime.setLayoutManager(new LinearLayoutManager(_mActivity));
         mHomeLimitListAdapter = new HomeLimitListAdapter(mSeckillsList ,getActivity());
         RvLimitedTime.setAdapter(mHomeLimitListAdapter);
+        mHomeLimitListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing + mHomeLimitListAdapter.getData().get(position).getId());
+                bundle.putString("title", "产品详情");
+                ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+            }
+        });
 
         //商品
         RvHotGoods.setLayoutManager(new GridLayoutManager(_mActivity,2));
         mHomeGoodsListAdapter = new HomeGoodsListAdapter(mGoodsList ,getActivity());
         RvHotGoods.setAdapter(mHomeGoodsListAdapter);
+        mHomeGoodsListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("url", MyConstants.h5Url + MyConstants.url_chanpingxiangqing + mHomeGoodsListAdapter.getData().get(position).getId()
+                        +MyConstants.url_token+ Base.getUserEntity().getToken());
+                bundle.putString("title", "产品详情");
+                bundle.putBoolean("isRightBtnShare", true);
+                ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+            }
+        });
 
         mPresenter.onRefresh();
         return rootView;

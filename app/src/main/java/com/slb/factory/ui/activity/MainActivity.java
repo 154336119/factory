@@ -1,12 +1,15 @@
 package com.slb.factory.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.jaeger.library.StatusBarUtil;
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
+import com.slb.factory.ui.fragment.ShopCarFragment;
 import com.slb.factory.util.ExitDoubleClick;
 import com.slb.frame.ui.activity.BaseActivity;
 import com.slb.frame.ui.fragment.BaseFragment;
@@ -43,7 +46,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             mFragments[HOME_HOME] = HomeFragment.newInstance();
-            mFragments[HOME_BUY] = MineFragment.newInstance();
+            mFragments[HOME_BUY] = ShopCarFragment.newInstance();
             mFragments[HOME_MINE] = MineFragment.newInstance();
             loadMultipleRootFragment(R.id.mainFrame, HOME_HOME,
                     mFragments[HOME_HOME],
@@ -51,7 +54,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     mFragments[HOME_MINE]);
         } else {
             mFragments[HOME_HOME] = findFragment(HomeFragment.class);
-            mFragments[HOME_BUY] = findFragment(MineFragment.class);
+            mFragments[HOME_BUY] = findFragment(ShopCarFragment.class);
             mFragments[HOME_MINE] = findFragment(MineFragment.class);
         }
     }
@@ -60,7 +63,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         super.initView();
         ButterKnife.bind(this);
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
-//        StatusBarUtil.setLightMode(this);
+        StatusBarUtil.setLightMode(this);
         prePosition = 0;
         bottomBar.setOnCheckedChangeListener(this);
         bottomBar.check(R.id.rb_home);
@@ -76,7 +79,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             case R.id.rb_buy:
                 showHideFragment(mFragments[1], mFragments[prePosition]);
                 prePosition = 1;
-
                 break;
             case R.id.rb_mine:
                 showHideFragment(mFragments[2], mFragments[prePosition]);
@@ -94,4 +96,14 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+            int selct=intent.getIntExtra(MyConstants.HOME_SELECTED_FRAGMENT,2);
+            if(selct==0){
+                bottomBar.check(R.id.rb_home);
+            }else if(selct == 2){
+                bottomBar.check(R.id.rb_mine);
+            }
+    }
 }

@@ -17,14 +17,16 @@ import com.slb.factory.R;
 
 @SuppressLint("ValidFragment")
 public class ShareDialog extends BottomSheetDialogFragment {
+    public static int VX_CIRCLE = 0;
+    public static int VX_FRIEND = 1;
+
     private BottomSheetBehavior mBehavior;
     public void setOnButtonClick(OnButtonClick onButtonClick){
         mOnButtonClick = onButtonClick;
     }
     public OnButtonClick mOnButtonClick;
     public interface OnButtonClick{
-        void onBtnVxFriend();
-        void onBtnVxCircle();
+        void onShare(int type);
     }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,14 +36,14 @@ public class ShareDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 Logger.d("分享给朋友");
-                mOnButtonClick.onBtnVxFriend();
+                mOnButtonClick.onShare(VX_FRIEND);
             }
         });
         view.findViewById(R.id.TvWxCircle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Logger.d("分享到朋友圈");
-                mOnButtonClick.onBtnVxCircle();
+                mOnButtonClick.onShare(VX_CIRCLE);
             }
         });
         view.findViewById(R.id.TvCancel).setOnClickListener(new View.OnClickListener() {

@@ -33,6 +33,6 @@
     <dimen name="distance_55dp">55dp</dimen>
     <dimen name="distance_104">104dp</dimen>
     <dimen name="list_divider_0dp">0dp</dimen>
-
+    <dimen name="tv15">15sp</dimen>
 
 </resources>

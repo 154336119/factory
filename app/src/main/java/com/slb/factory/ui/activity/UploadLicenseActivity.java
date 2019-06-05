@@ -17,7 +17,7 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewActivity;
 import com.nanchen.compresshelper.CompressHelper;
 import com.slb.factory.Base;
-import com.slb.factory.BizsConstant;
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.AgencyVoucherShownType;
 import com.slb.factory.http.bean.old.InvestorProofEntity;
@@ -105,7 +105,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         mImagePicker.setImageLoader(new ImageLoadUtil());
         mImagePicker.setMultiMode(false);
         Intent intent = new Intent(this, ImageGridActivity.class);
-        startActivityForResult(intent, BizsConstant.REQUEST_CODE_PROOF_IMG_PICK);
+        startActivityForResult(intent, MyConstants.REQUEST_CODE_PROOF_IMG_PICK);
     }
 
     private void checkPic(InvestorProofEntity entity){
@@ -122,7 +122,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, ImagePickerUtils.getImageItemForStr(images));
         intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
         intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
-        startActivityForResult(intentPreview, BizsConstant.REQUEST_CODE_PROOF_IMG_PREVIEW);
+        startActivityForResult(intentPreview, MyConstants.REQUEST_CODE_PROOF_IMG_PREVIEW);
     }
 
     private void delCard(InvestorProofEntity mIdCard,ImageView IvCard,ImageView ivdelete,int rid ){
@@ -139,7 +139,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             //添加图片返回
-            if (data != null  && requestCode == BizsConstant.REQUEST_CODE_PROOF_IMG_PICK) {
+            if (data != null  && requestCode == MyConstants.REQUEST_CODE_PROOF_IMG_PICK) {
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if(images!=null && images.size()==1){
                     File file = null;
@@ -167,7 +167,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
 
         }
 //        else if(resultCode == ImagePicker.RESULT_CODE_BACK) {
-//            if (data != null  && requestCode == BizsConstant.REQUEST_CODE_PROOF_IMG_PREVIEW){
+//            if (data != null  && requestCode == MyConstants.REQUEST_CODE_PROOF_IMG_PREVIEW){
 //                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
 //                if(images==null || images.size()==0){
 //                    delCard(mIdCard1,IvCard1,ivDelete1,R.mipmap.image_add);

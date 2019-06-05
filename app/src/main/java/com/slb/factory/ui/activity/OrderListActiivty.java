@@ -20,6 +20,13 @@ public class OrderListActiivty extends BaseActivity {
     @BindView(R.id.mViewPager)
     ViewPager mViewPager;
     private PayTypePageAdapter mAdapter;
+    private int pos = 0;
+    @Override
+    public void getIntentExtras() {
+        super.getIntentExtras();
+        pos =  getIntent().getIntExtra("POS",0);
+    }
+
     @Override
     protected String setToolbarTitle() {
         return "全部订单";
@@ -39,6 +46,8 @@ public class OrderListActiivty extends BaseActivity {
         mViewPager.setAdapter(mAdapter);
         slidingTabLayout.setViewPager(mViewPager);
         setUnderLineVisible(View.GONE);
+
+        slidingTabLayout.setCurrentTab(pos);
     }
     @Override
     public int getLayoutId() {

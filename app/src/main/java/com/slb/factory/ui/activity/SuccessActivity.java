@@ -3,7 +3,7 @@ package com.slb.factory.ui.activity;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.slb.factory.BizsConstant;
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.old.SuccessTypeEnum;
 import com.slb.frame.ui.activity.BaseActivity;
@@ -44,7 +44,7 @@ public class SuccessActivity extends BaseActivity {
     @Override
     public void getIntentExtras() {
         super.getIntentExtras();
-        type = getIntent().getIntExtra(BizsConstant.TYPE,TYPE_100);
+        type = getIntent().getIntExtra(MyConstants.TYPE,TYPE_100);
 //        type = TYPE_100;
         mSuccessTypeEnum = SuccessTypeEnum.getEnumForType(type);
     }
