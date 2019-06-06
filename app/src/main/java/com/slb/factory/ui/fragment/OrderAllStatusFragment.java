@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
 import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
+import com.slb.factory.R;
+import com.slb.factory.event.OrderRefreshEvent;
 import com.slb.factory.http.RetrofitSerciveFactory;
 import com.slb.factory.http.bean.OrderEntity;
+import com.slb.factory.ui.activity.UploadProofsActivity;
 import com.slb.factory.ui.activity.WebViewActivity;
 import com.slb.factory.ui.adapter.OrderAdapter;
 import com.slb.factory.ui.contract.OrderAllContract;
@@ -71,6 +75,28 @@ public class OrderAllStatusFragment
 	@Override
 	protected void onItemChildClickListener(View view, RecyclerView.Adapter adapter, int position) {
 		super.onItemChildClickListener(view, adapter, position);
+		OrderEntity orderEntity = (OrderEntity)mAdapter.getData().get(position);
+		if(view.getId() == R.id.mTvActionUploadProofs){
+			//上传凭证
+			Bundle bundle = new Bundle();
+			bundle.putString("orderId",orderEntity.getId()+"");
+			ActivityUtil.next(_mActivity, UploadProofsActivity.class,bundle,false);
+		}else if(view.getId() == R.id.mTvActionSeeEms){
+			//查看物流
+			Bundle bundle = new Bundle();
+			bundle.putString("url", MyConstants.h5Url + MyConstants.url_chakanwuliu + orderEntity.getId());
+			bundle.putString("title", "查看物流");
+			ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+		}else if(view.getId() == R.id.mTvActionConfirm){
+			//确认收货
+			mPresenter.orderFinish(orderEntity.getId()+"");
+		}
+
+	}
+
+	@Subscribe
+	public void orderRefresh(OrderRefreshEvent event){
+		onRefresh();
 	}
 
 }

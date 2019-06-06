@@ -4,18 +4,32 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewActivity;
 import com.nanchen.compresshelper.CompressHelper;
+import com.orhanobut.logger.Logger;
+import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
+import com.slb.factory.event.ImageDelectEvent;
+import com.slb.factory.event.OrderRefreshEvent;
 import com.slb.factory.http.bean.AgencyVoucherShownType;
+import com.slb.factory.http.bean.old.InvestorProofEntity;
+import com.slb.factory.ui.adapter.ImagePickerAdapter;
 import com.slb.factory.ui.adapter.ImagePickerAdapter1;
+import com.slb.factory.ui.adapter.base.ImagePickerAdapter2;
 import com.slb.factory.ui.contract.UploadlProofsContract;
 import com.slb.factory.ui.presenter.UploadProofsPresenter;
 import com.slb.factory.util.ImageCompareUtil;
@@ -38,15 +52,23 @@ import static com.slb.factory.MyConstants.REQUEST_CODE_PROOF_IMG_PICK;
 
 public class UploadProofsActivity
         extends BaseMvpActivity<UploadlProofsContract.IView, UploadlProofsContract.IPresenter>
-        implements UploadlProofsContract.IView, ImagePickerAdapter1.OnRecyclerViewItemClickListener {
+        implements UploadlProofsContract.IView, ImagePickerAdapter2.OnRecyclerViewItemClickListener {
     @BindView(R.id.mRvProofs)
     RecyclerView mRvProofs;
     @BindView(R.id.btnComfirm)
     Button btnComfirm;
-    private ImagePickerAdapter1 mAdapter;
+    private ImagePickerAdapter2 mAdapter;
     private ImagePicker mImagePicker;
-    private List<File> mProofList = new ArrayList<>();
+    /** 营业执照*/
     private AgencyVoucherShownType mSource = AgencyVoucherShownType.UPLOAD;
+    private String mQnToken;
+    private String mOrderID;
+
+    @Override
+    public void getIntentExtras() {
+        super.getIntentExtras();
+        mOrderID = getIntent().getStringExtra("orderId");
+    }
 
     @Override
     protected String setToolbarTitle() {
@@ -58,7 +80,7 @@ public class UploadProofsActivity
         super.initView();
         ButterKnife.bind(this);
         mImagePicker = ImagePickerUtils.cardSetting(this);
-        mAdapter = new ImagePickerAdapter1(this, mProofList);
+        mAdapter = new ImagePickerAdapter2(this, new ArrayList<String>());
         MyGridLayoutManager netLayoutManager = new MyGridLayoutManager(this, 3);
         netLayoutManager.setScrollEnabled(false);
         mRvProofs.setLayoutManager(netLayoutManager);
@@ -66,6 +88,7 @@ public class UploadProofsActivity
         mRvProofs.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
         mAdapter.setMixCount(3);
+        mPresenter.getPicToken(Base.getUserEntity().getToken());
     }
 
     @Override
@@ -86,6 +109,18 @@ public class UploadProofsActivity
 
     @OnClick(R.id.btnComfirm)
     public void onViewClicked() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        for(int i=0;i<mAdapter.getImages().size();i++){
+            sb.append("\"");
+            sb.append(mAdapter.getImages().get(i));
+            sb.append("\"");
+            if(i !=mAdapter.getImages().size()-1){
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        mPresenter.uploadlProofs(mOrderID,sb.toString());
     }
 
     @PermissionRequest({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
@@ -105,56 +140,16 @@ public class UploadProofsActivity
                 try {
                     if (images != null || images.size() > 0) {
                         File file = CompressHelper.getDefault(UploadProofsActivity.this).compressToFile(new File(images.get(0).path));
-//                        mPresenter.uploadImageFile(file.getPath());
-                        mProofList.add(file);
-                        mAdapter.setImages(mProofList);
-
+                        mPresenter.uploadQiNiu(file,mQnToken);
                     }
                 }catch (Exception e){
                     showMsg(getString(R.string.image_error));
                 }
 
             }
-        } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
-            if (data != null && requestCode == MyConstants.REQUEST_CODE_PROOF_IMG_PREVIEW) {
-                ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
-                ImageCompareUtil.getFileImages(mProofList, images);
-                mAdapter.setImages(mProofList);
-            }
         }
         btnComfirm.setEnabled(true);
     }
-
-//    @Subscribe(tags = {@Tag(RxBusTag.ELIGIBLE_CHILD_RECYCLER_CLICK)})
-//    public void ChildRecyclerClick(ChildRecyclerClickEventArgs eventArgs){
-//        for(int i=0;i<mEligibleList.size();i++){
-//            if(mEligibleList.get(i).getCode().equals(eventArgs.getEntity().getCode())){
-//                mLargeIndex=i;
-//                break;
-//            }
-//        }
-//        mSmallIndex=eventArgs.getIndex();
-//        mCurrAdapter=eventArgs.getAdapter();
-//        switch (mSmallIndex){
-//            case MyConstants.IMAGE_ITEM_ADD:
-//                choosePic();
-//                break;
-//            default:
-//                //打开预览
-//                mImagePicker.setImageLoader(new LocalImageLoader());
-//                Intent intentPreview;
-//                if(mSource == AgencyVoucherShownType.SEE){
-//                    intentPreview = new Intent(_mActivity, ImagePreviewActivity.class);
-//                }else{
-//                    intentPreview = new Intent(_mActivity, ImagePreviewDelActivity.class);
-//                }
-//                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, ImagePickerUtils.getImageItemForStr(ImageCompareUtil.convert2Str(eventArgs.getEntity().getImgList())));
-//                intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, mSmallIndex);
-//                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
-//                startActivityForResult(intentPreview, REQUEST_CODE_PROOF_IMGPREVIEW);
-//                break;
-//        }
-//    }
 
 
     @Override
@@ -162,6 +157,10 @@ public class UploadProofsActivity
         switch (position) {
             case MyConstants.IMAGE_ITEM_ADD:
                 //添加图片
+                if(TextUtils.isEmpty(mQnToken)){
+                    showMsg("获取token出错");
+                    return;
+                }
                 choosePic();
                 break;
             default:
@@ -174,10 +173,39 @@ public class UploadProofsActivity
                 } else {
                     intentPreview = new Intent(this, ImagePreviewActivity.class);
                 }
-                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, ImagePickerUtils.getImageItemForStr(ImageCompareUtil.convert2Str1(mProofList)));
+                intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, ImagePickerUtils.getImageItemForStr(mAdapter.getImages()));
                 intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
                 intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
                 startActivityForResult(intentPreview, MyConstants.REQUEST_CODE_PROOF_IMG_PREVIEW);
+        }
+    }
+
+
+    @Override
+    public void uploadImageSuccess() {
+        finish();
+        RxBus.get().post(new OrderRefreshEvent());
+    }
+
+    @Override
+    public void getPicTokenSuccess(String token) {
+        mQnToken = token;
+    }
+
+    @Override
+    public void uploadQiNiuSuccess(String img) {
+        List<String> list =  mAdapter.getImages();
+        list.add(img);
+        mAdapter.setImages(list);
+    }
+
+
+    @Override
+    public void onDeleteClick() {
+        if(mAdapter.getImages().size()==0){
+            btnComfirm.setEnabled(false);
+        }else{
+            btnComfirm.setEnabled(true);
         }
     }
 }

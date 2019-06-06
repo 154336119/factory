@@ -11,47 +11,44 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 public class InvestorProofEntity implements Parcelable {
 	@JSONField(serialize=false)
-	private boolean isNeed;
-	private String materialCode;
-	private OssRemoteFile materialValue=new OssRemoteFile();
-	@JSONField(serialize=false)
 	private String name;
 	@JSONField(serialize=false)
 	private boolean isLocalImg;
 	@JSONField(serialize=false)
-	private String localurl;
+	private String url;
 
-	public String getLocalurl() {
-		return localurl;
+	@Override
+	public int describeContents() {
+		return 0;
 	}
 
-	public void setLocalurl(String localurl) {
-		this.localurl = localurl;
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(this.name);
+		dest.writeByte(this.isLocalImg ? (byte) 1 : (byte) 0);
+		dest.writeString(this.url);
 	}
 
-	public boolean isNeed() {
-		return isNeed;
+	public InvestorProofEntity() {
 	}
 
-	public void setNeed(boolean need) {
-		isNeed = need;
+	protected InvestorProofEntity(Parcel in) {
+		this.name = in.readString();
+		this.isLocalImg = in.readByte() != 0;
+		this.url = in.readString();
 	}
 
-	public String getMaterialCode() {
-		return materialCode;
-	}
+	public static final Creator<InvestorProofEntity> CREATOR = new Creator<InvestorProofEntity>() {
+		@Override
+		public InvestorProofEntity createFromParcel(Parcel source) {
+			return new InvestorProofEntity(source);
+		}
 
-	public void setMaterialCode(String materialCode) {
-		this.materialCode = materialCode;
-	}
-
-	public OssRemoteFile getMaterialValue() {
-		return materialValue;
-	}
-
-	public void setMaterialValue(OssRemoteFile materialValue) {
-		this.materialValue = materialValue;
-	}
+		@Override
+		public InvestorProofEntity[] newArray(int size) {
+			return new InvestorProofEntity[size];
+		}
+	};
 
 	public String getName() {
 		return name;
@@ -69,47 +66,11 @@ public class InvestorProofEntity implements Parcelable {
 		isLocalImg = localImg;
 	}
 
-	@Override
-	public int describeContents() {
-		return 0;
+	public String getUrl() {
+		return url;
 	}
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeByte(this.isNeed ? (byte) 1 : (byte) 0);
-		dest.writeString(this.materialCode);
-		dest.writeParcelable(this.materialValue, flags);
-		dest.writeString(this.name);
-		dest.writeByte(this.isLocalImg ? (byte) 1 : (byte) 0);
-		dest.writeString(this.localurl);
-	}
-
-	public InvestorProofEntity() {
-	}
-
-	protected InvestorProofEntity(Parcel in) {
-		this.isNeed = in.readByte() != 0;
-		this.materialCode = in.readString();
-		this.materialValue = in.readParcelable(OssRemoteFile.class.getClassLoader());
-		this.name = in.readString();
-		this.isLocalImg = in.readByte() != 0;
-		this.localurl = in.readString();
-	}
-
-	public static final Creator<InvestorProofEntity> CREATOR = new Creator<InvestorProofEntity>() {
-		@Override
-		public InvestorProofEntity createFromParcel(Parcel source) {
-			return new InvestorProofEntity(source);
-		}
-
-		@Override
-		public InvestorProofEntity[] newArray(int size) {
-			return new InvestorProofEntity[size];
-		}
-	};
-
-	public InvestorProofEntity(String materialCode, OssRemoteFile materialValue) {
-		this.materialCode = materialCode;
-		this.materialValue = materialValue;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

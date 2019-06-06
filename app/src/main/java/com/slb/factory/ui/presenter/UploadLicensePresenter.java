@@ -23,6 +23,8 @@ import com.slb.frame.utils.rx.RxUtil;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Gifford on 2017/11/29.
@@ -32,14 +34,20 @@ public class UploadLicensePresenter extends AbstractBasePresenter<UploadLicenseC
 		implements UploadLicenseContract.IPresenter<UploadLicenseContract.IView> {
 	@Override
 	public void uploadQiNiu(File data, String token) {
+		mView.showLoadingDialog("正在加载");
 		UploadManager uploadManager = new UploadManager();
-		uploadManager.put(data, null, token,
+		// 设置图片名字
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String key = "pic_" + sdf.format(new Date()) + ".jpg";
+		uploadManager.put(data, key, token,
 				new UpCompletionHandler() {
 					@Override
 					public void complete(String key, ResponseInfo info, JSONObject res) {
 						//res包含hash、key等信息，具体字段取决于上传策略的设置
+						mView.loadingDialogDismiss();
 						if(info.isOK()) {
 							Logger.d("Upload Success");
+							mView.uploadQiNiuSuccess("http://img.xikeqiche.com/" + key);
 						} else {
 							Logger.d("Upload Fail");
 							//如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因

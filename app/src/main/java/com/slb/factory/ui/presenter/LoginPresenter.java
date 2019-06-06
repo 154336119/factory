@@ -68,7 +68,6 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 						}else if(entity.getState() == 1 ){
 							mView.showMsg("已上传执照等待审核");
 						}else if(entity.getState() == 2 ){
-							mView.showMsg("登陆成功");
 							mView.loginSuccess();
 						}
 						Base.setUserEntity(entity);
@@ -108,7 +107,6 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 								}else if(entity.getState() == 1 ){
 									mView.showMsg("已上传执照等待审核");
 								}else if(entity.getState() == 2 ){
-									mView.showMsg("登陆成功");
 									mView.loginSuccess();
 								}
 								Base.setUserEntity(entity);

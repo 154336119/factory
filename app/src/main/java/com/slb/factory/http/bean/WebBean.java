@@ -18,7 +18,6 @@ public class WebBean implements Serializable {
 
     public String payType;// 1支付宝、2微信支付;
 
-    public String orderCode;
 
     public boolean isRefresh;
     public boolean isHideNarBar; //是否隐藏导航栏
@@ -42,4 +41,16 @@ public class WebBean implements Serializable {
     public String content;
     //路径：
     public String url;
+
+
+    //分享的标题
+    public String shareTitle;
+    //分享的副标题
+    public String shareSubTitle ;
+    //完整的url路径
+    public String shareUrl ;
+    //分享出去的封面图(logo)地址
+    public String shareLogo ;
+
+    public String orderId;
 }

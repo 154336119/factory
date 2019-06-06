@@ -9,9 +9,8 @@ import com.slb.frame.ui.view.IBaseLoadingDialogView;
 
 public class OrderAllContract {
 	public interface IView extends IBaseLoadingDialogView {
-
 	}
 	public interface IPresenter<T> extends IBaseFragmentPresenter<T> {
-
+		void orderFinish(String orderID);
 	}
 }

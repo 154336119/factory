@@ -70,6 +70,10 @@ public class MyConstants {
      */
     public static final String url_gouwuche = "/shopCar?token=";
 
+    /**
+     * 查看物流
+     */
+    public static final String url_chakanwuliu = "/lookLogistics?orderId=";
 
     //图片选择
     public static final int REQUEST_CODE_PROOF_IMG_PICK=1009;

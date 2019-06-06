@@ -69,7 +69,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         super.initView();
         ButterKnife.bind(this);
         mImagePicker = ImagePickerUtils.cardSetting(this);
-//        mPresenter.getPicToken(Base.getUserEntity().getToken());
+        mPresenter.getPicToken(Base.getUserEntity().getToken());
     }
 
     @Override
@@ -89,14 +89,18 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
                 delCard(mIdCard1,IvCard1,ivDelete1,R.mipmap.image_add);
                 break;
             case R.id.BtnCard1:
-                if(TextUtils.isEmpty(mIdCard1.getMaterialValue().getUrl())){
+                if(TextUtils.isEmpty(mIdCard1.getUrl())){
                     choosePic();
                 }else{
                     checkPic(mIdCard1);
                 }
                 break;
             case R.id.btnComfirm:
-                mPresenter.uploadLicense(Base.getUserEntity().getToken(),mIdCard1.getLocalurl());
+                if(!mIdCard1.isLocalImg()){
+                    mPresenter.uploadLicense(Base.getUserEntity().getToken(),mIdCard1.getUrl());
+                }else{
+                    showToastMsg("选择图片");
+                }
                 break;
         }
     }
@@ -111,7 +115,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     private void checkPic(InvestorProofEntity entity){
         //打开预览
         List<String> images=new ArrayList<>();
-        images.add(entity.getMaterialValue().getUrl());
+        images.add(entity.getUrl());
         mImagePicker.setImageLoader(new LocalImageLoader());
         Intent intentPreview;
         if(mSource == AgencyVoucherShownType.SEE){
@@ -126,8 +130,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     }
 
     private void delCard(InvestorProofEntity mIdCard,ImageView IvCard,ImageView ivdelete,int rid ){
-        mIdCard.getMaterialValue().setUrl(null);
-        mIdCard.setLocalurl(null);
+        mIdCard.setUrl(null);
         mIdCard.setLocalImg(false);
         ivdelete.setVisibility(View.GONE);
         IvCard.setImageResource(rid);
@@ -149,19 +152,13 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
                         showToastMsg(getString(R.string.image_error));
                         return;
                     }
-                    List<InvestorProofEntity> tempProofs=new ArrayList<>();
                     mIdCard1.setLocalImg(true);
-                    mIdCard1.setLocalurl(file.getPath());
-                    mIdCard1.getMaterialValue().setUrl(file.getPath());
+                    mIdCard1.setUrl(file.getPath());
                     IvCard1.setImageBitmap(BitmapFactory.decodeFile(file.getPath()));
-
                     if(mIdCard1.isLocalImg()){
-                        tempProofs.add(mIdCard1);
-                        //还未调试
                         mPresenter.uploadQiNiu(file,mQnToken);
                     }
                     ivDelete1.setVisibility(View.VISIBLE);
-                    btnComfirm.setEnabled(true);
                 }
             }
 
@@ -189,6 +186,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     @Override
     public void uploadQiNiuSuccess(String img) {
         mIdCard1.setLocalImg(false);
-        mIdCard1.setLocalurl(img);
+        mIdCard1.setUrl(img);
+        btnComfirm.setEnabled(true);
     }
 }

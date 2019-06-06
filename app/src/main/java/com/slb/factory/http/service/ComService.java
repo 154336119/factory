@@ -118,9 +118,25 @@ public interface ComService {
                                                     @Field("pageIndex") int pageNum);
 
     /**
-     * 导航条
+     * 首页 - 导航条
      */
     @FormUrlEncoded
     @POST("/app/banner/list"  )
     Observable<HttpMjResult<List<String>>> getBannerList(@Field("token") String token);
+
+    /**
+     * 订单 - 上传打款凭证
+     */
+    @FormUrlEncoded
+    @POST("/app/order/upload/certificate"  )
+    Observable<HttpMjResult<Object>> uploadProofs(@Field("orderId") String orderId,
+                                                 @Field("imgList") String imgList);
+
+    /**
+     * 订单 - 确认收货
+     */
+    @FormUrlEncoded
+    @POST("/app/order/finish"  )
+    Observable<HttpMjResult<Object>> orderFinish(@Field("orderId") String orderId);
+
 }

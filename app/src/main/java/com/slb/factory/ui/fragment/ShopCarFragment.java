@@ -193,7 +193,9 @@ public class ShopCarFragment extends BaseFragment {
                 bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,2);
                 ActivityUtil.next(_mActivity, MainActivity.class,bundle,false);
             } else if ("upProve".equals(data.linkType)) {
-                ActivityUtil.next(_mActivity, UploadProofsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("orderId",data.orderId);
+                ActivityUtil.next(_mActivity, UploadProofsActivity.class,bundle,true);
             } else if ("login".equals(data.linkType)) {
                 ActivityUtil.next(_mActivity, LoginActivity.class);
                 _mActivity.finish();

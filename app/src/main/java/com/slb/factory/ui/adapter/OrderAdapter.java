@@ -68,6 +68,9 @@ public class OrderAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> 
 		myListAdapter.setList(entity.getProductList());
 		myListView.setAdapter(myListAdapter);
 
+		baseViewHolder.addOnClickListener(R.id.mTvActionUploadProofs);
+		baseViewHolder.addOnClickListener(R.id.mTvActionSeeEms);
+		baseViewHolder.addOnClickListener(R.id.mTvActionConfirm);
 	}
 
 

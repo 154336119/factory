@@ -67,7 +67,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
 
     @Override
     public void loginSuccess() {
-
+        ActivityUtil.next(this,MainActivity.class);
     }
 
     @Override
@@ -98,25 +98,6 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     }
 
 
-    /**
-     * 测试
-     */
-    public void showShareDialog(){
-        ShareDialog dialog = new ShareDialog();
-        dialog.setOnButtonClick(new ShareDialog.OnButtonClick() {
-            @Override
-            public void onBtnVxFriend() {
-
-            }
-
-            @Override
-            public void onBtnVxCircle() {
-
-            }
-        });
-        dialog.show(getSupportFragmentManager(), "Dialog");
-    }
-
     @Override
     public void varifyCodeSuccess() {
 
@@ -129,9 +110,7 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
 
     @Override
     public void goUploadLicenseActivity() {
-        //测试
-        ActivityUtil.next(this,MainActivity.class);
-//        ActivityUtil.next(this,UploadLicenseActivity.class);
+        ActivityUtil.next(this,UploadLicenseActivity.class);
     }
 
 

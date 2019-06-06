@@ -67,6 +67,8 @@ public class WebViewActivity extends BaseActivity {
     private String price;
     private boolean isRightBtnShare = false;
 
+    private UMWeb mUMWeb;
+
     private int payType; //支付什么类型 1,会员开通发起支付，2，酒店预订发起支付，3、优惠买单（或）团购套餐发起支付
     private String restId;
 
@@ -96,7 +98,7 @@ public class WebViewActivity extends BaseActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
+        showShareDialog(mUMWeb);
         return super.onOptionsItemSelected(item);
     }
 
@@ -106,9 +108,16 @@ public class WebViewActivity extends BaseActivity {
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
         isRightBtnShare = getIntent().getBooleanExtra("isRightBtnShare",false);
-//        title = getIntent().getStringExtra("title");
-//        url = getIntent().getStringExtra("url");
-//        isHideNarBar = getIntent().getBooleanExtra("isHideNarBar", false);
+
+        isRightBtnShare = getIntent().getBooleanExtra("isRightBtnShare",false);
+
+        if(isRightBtnShare){
+            UMWeb web = new UMWeb(getIntent().getStringExtra("shareUrl"));
+            web.setTitle(getIntent().getStringExtra("shareTitle"));
+            web.setDescription(getIntent().getStringExtra("shareSubTitle"));
+            web.setThumb(new UMImage(WebViewActivity.this,getIntent().getStringExtra("shareLogo")) );
+            mUMWeb = web;
+        }
     }
 
     @Override
@@ -225,6 +234,20 @@ public class WebViewActivity extends BaseActivity {
             bundle.putString("url",MyConstants.h5Url + data.url);
             bundle.putString("title",data.title);
             bundle.putBoolean("isRightBtnShare",data.isRightBtnShare);
+
+            if(!TextUtils.isEmpty(data.shareTitle)){
+                bundle.putString("shareTitle",data.shareTitle);
+            }
+            if(!TextUtils.isEmpty(data.shareSubTitle)){
+                bundle.putString("shareSubTitle",data.shareSubTitle);
+            }
+            if(!TextUtils.isEmpty(data.shareUrl)){
+                bundle.putString("shareUrl",data.shareUrl);
+            }
+            if(!TextUtils.isEmpty(data.shareLogo)){
+                bundle.putString("shareLogo",data.shareLogo);
+            }
+
             ActivityUtil.next(WebViewActivity.this, WebViewActivity.class,bundle,false);
         }
 
@@ -248,8 +271,6 @@ public class WebViewActivity extends BaseActivity {
             web.setTitle(data.title);
             web.setThumb(image);
             web.setDescription(data.content);
-
-            showShareDialog(web);
         }
 
         @JavascriptInterface
@@ -274,7 +295,9 @@ public class WebViewActivity extends BaseActivity {
                 ActivityUtil.next(WebViewActivity.this, MainActivity.class,bundle,true);
                 finish();
             } else if ("upProve".equals(data.linkType)) {
-                ActivityUtil.next(WebViewActivity.this, UploadProofsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("orderId",data.orderId);
+                ActivityUtil.next(WebViewActivity.this, UploadProofsActivity.class,bundle,true);
                 finish();
             } else if ("login".equals(data.linkType)) {
                 ActivityUtil.next(WebViewActivity.this, LoginActivity.class);

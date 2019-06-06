@@ -65,26 +65,5 @@ public class ImageCompareUtil {
 		return tempList;
 	}
 
-	public static List<InvestorProofEntity> getOssCoverProve(List<OssRemoteFile> images, String materialCode){
-		List<InvestorProofEntity> ProofList=new ArrayList<>();
-		for (OssRemoteFile item : images){
-			InvestorProofEntity entity = new InvestorProofEntity();
-			entity.setMaterialValue(item);
-			entity.setMaterialCode(materialCode);
-			ProofList.add(entity);
-		}
-		return ProofList;
-	}
 
-	public static List<OssRemoteFile> getProveCoverOss(List<InvestorProofEntity> images){
-		List<OssRemoteFile> ossRemoteFileList=new ArrayList<>();
-		for (InvestorProofEntity item : images){
-			OssRemoteFile entity = new OssRemoteFile();
-			entity.setObjectKey(item.getMaterialValue().getObjectKey());
-			entity.setBucketName(item.getMaterialValue().getBucketName());
-			entity.setUrl(item.getMaterialValue().getUrl());
-			ossRemoteFileList.add(entity);
-		}
-		return ossRemoteFileList;
-	}
 }

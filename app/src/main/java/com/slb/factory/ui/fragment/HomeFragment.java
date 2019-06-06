@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.slb.factory.MyConstants.url_token;
 
 
 public class HomeFragment
@@ -144,8 +147,16 @@ public class HomeFragment
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing + mHomeLimitListAdapter.getData().get(position).getId());
+                bundle.putString("url", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing + mHomeLimitListAdapter.getData().get(position).getId()
+                + url_token + Base.getUserEntity().getToken());
                 bundle.putString("title", "产品详情");
+                //分享参数
+                bundle.putString("shareTitle",mHomeLimitListAdapter.getData().get(position).getProduct_name());
+                bundle.putString("shareSubTitle",mHomeLimitListAdapter.getData().get(position).getProduct_name());
+                bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing
+                        + mHomeLimitListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
+                bundle.putString("shareLogo",mHomeLimitListAdapter.getData().get(position).getHead_img());
+
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }
         });
@@ -159,9 +170,15 @@ public class HomeFragment
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("url", MyConstants.h5Url + MyConstants.url_chanpingxiangqing + mHomeGoodsListAdapter.getData().get(position).getId()
-                        +MyConstants.url_token+ Base.getUserEntity().getToken());
+                        + url_token+ Base.getUserEntity().getToken());
                 bundle.putString("title", "产品详情");
                 bundle.putBoolean("isRightBtnShare", true);
+                //分享参数
+                bundle.putString("shareTitle",mHomeGoodsListAdapter.getData().get(position).getName());
+                bundle.putString("shareSubTitle",mHomeGoodsListAdapter.getData().get(position).getName());
+                bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_chanpingxiangqing
+                        + mHomeGoodsListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
+                bundle.putString("shareLogo",mHomeGoodsListAdapter.getData().get(position).getHead_img());
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }
         });
