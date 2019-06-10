@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
 import com.orhanobut.logger.Logger;
+import com.slb.factory.Base;
 import com.slb.factory.R;
 import com.slb.factory.ui.contract.LoginContract;
 import com.slb.factory.ui.presenter.LoginPresenter;
@@ -18,6 +19,8 @@ import com.slb.factory.weight.CountTimerButton;
 import com.slb.factory.weight.ShareDialog;
 import com.slb.frame.ui.activity.BaseMvpActivity;
 import com.slb.frame.utils.ActivityUtil;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -67,7 +70,14 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
 
     @Override
     public void loginSuccess() {
-        ActivityUtil.next(this,MainActivity.class);
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.setAlias("xikeqiche", Base.getUserEntity().getToken(), new UTrack.ICallBack() {
+            @Override
+            public void onMessage(boolean b, String s) {
+                Logger.d(b + s);
+            }
+        });
+        ActivityUtil.next(this,MainActivity.class,null,true);
     }
 
     @Override
@@ -112,7 +122,4 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     public void goUploadLicenseActivity() {
         ActivityUtil.next(this,UploadLicenseActivity.class);
     }
-
-
-
 }

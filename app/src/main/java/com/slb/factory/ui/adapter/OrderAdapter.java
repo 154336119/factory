@@ -13,6 +13,7 @@ import com.slb.factory.R;
 import com.slb.factory.http.bean.OrderEntity;
 import com.slb.factory.weight.MyListView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class OrderAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> 
 	protected void convert(BaseViewHolder baseViewHolder, OrderEntity entity) {
 		baseViewHolder.setText(R.id.mTvOrderNo,entity.getOrder_code());
 		baseViewHolder.setText(R.id.mTvDate,entity.getCreate_time());
-		baseViewHolder.setText(R.id.mTvOrderMoney,"¥"+entity.getPay_money()+"");
+		baseViewHolder.setText(R.id.mTvOrderMoney,"¥"+new DecimalFormat(".00").format(entity.getPay_money()));
 		if(orderState == 0){
 			//已下单 - 上传凭证
 			baseViewHolder.setVisible(R.id.mTvActionUploadProofs,true);

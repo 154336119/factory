@@ -1,6 +1,8 @@
 package com.slb.factory.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.widget.FrameLayout;
@@ -9,9 +11,14 @@ import android.widget.RadioGroup;
 import com.jaeger.library.StatusBarUtil;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
+import com.slb.factory.http.bean.UpdateEntity;
+import com.slb.factory.ui.contract.MainContract;
+import com.slb.factory.ui.contract.UploadLicenseContract;
 import com.slb.factory.ui.fragment.ShopCarFragment;
+import com.slb.factory.ui.presenter.MainPresenter;
 import com.slb.factory.util.ExitDoubleClick;
 import com.slb.frame.ui.activity.BaseActivity;
+import com.slb.frame.ui.activity.BaseMvpActivity;
 import com.slb.frame.ui.fragment.BaseFragment;
 import com.slb.factory.ui.fragment.HomeFragment;
 import com.slb.factory.ui.fragment.MineFragment;
@@ -19,7 +26,7 @@ import com.slb.factory.ui.fragment.MineFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
+public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContract.IPresenter>implements MainContract.IView , RadioGroup.OnCheckedChangeListener{
     public static final int HOME_HOME = 0;
     public static final int HOME_BUY= 1;
     public static final int HOME_MINE = 2;
@@ -41,9 +48,16 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     protected boolean rxBusRegist() {
         return true;
     }
+
+    @Override
+    public MainContract.IPresenter initPresenter() {
+        return new MainPresenter();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.getUpdateInfo();
         if (savedInstanceState == null) {
             mFragments[HOME_HOME] = HomeFragment.newInstance();
             mFragments[HOME_BUY] = ShopCarFragment.newInstance();
@@ -105,5 +119,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             }else if(selct == 2){
                 bottomBar.check(R.id.rb_mine);
             }
+    }
+
+    @Override
+    public void tipUpdate(final UpdateEntity entity) {
+        showUpadateDialog("更新提示！", entity.getUpgrade_desc(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Uri uri = Uri.parse(entity.getUpgrade_url());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 }

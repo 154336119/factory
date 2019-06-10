@@ -5,57 +5,60 @@ package com.slb.factory.http.bean;
  */
 public class Seckill {
 
+
     /**
-     * id : 3
-     * product_id : 4
-     * seckill_price : 10
-     * start_time : 2019-05-31 04:36:03
-     * stop_time : 2019-06-10 04:36:14
-     * total_stock : 10
-     * remain_stock : 0
-     * purchase_limit : 1
+     * id : 1
+     * product_id : 2
+     * seckill_price : 22
+     * start_time : 2019-06-01 12:00:00
+     * stop_time : 2019-06-25 12:00:00
+     * total_stock : 1000
+     * remain_stock : 1000
+     * purchase_limit : 2
      * is_delete : 0
-     * create_time : 2019-06-01 04:33:58
+     * create_time : 2019-05-31 15:33:53
      * product_name : 车窗自动升降器obd关窗器 老款和新款科鲁兹
      * head_img : https://img14.360buyimg.com/n0/jfs/t1/44317/14/3743/190497/5ccfd6a3E73157811/567d3edc74a7b40b.jpg
      * original_price : 77
+     * serverTime : 1560140176685
      */
 
-    private Integer id;
-    private Integer product_id;
-    private Integer seckill_price;
+    private int id;
+    private int product_id;
+    private int seckill_price;
     private String start_time;
     private String stop_time;
-    private Integer total_stock;
-    private Integer remain_stock;
-    private Integer purchase_limit;
-    private Integer is_delete;
+    private int total_stock;
+    private int remain_stock;
+    private int purchase_limit;
+    private int is_delete;
     private String create_time;
     private String product_name;
     private String head_img;
-    private Integer original_price;
+    private int original_price;
+    private long serverTime;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getProduct_id() {
+    public int getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(Integer product_id) {
+    public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 
-    public Integer getSeckill_price() {
+    public int getSeckill_price() {
         return seckill_price;
     }
 
-    public void setSeckill_price(Integer seckill_price) {
+    public void setSeckill_price(int seckill_price) {
         this.seckill_price = seckill_price;
     }
 
@@ -75,35 +78,35 @@ public class Seckill {
         this.stop_time = stop_time;
     }
 
-    public Integer getTotal_stock() {
+    public int getTotal_stock() {
         return total_stock;
     }
 
-    public void setTotal_stock(Integer total_stock) {
+    public void setTotal_stock(int total_stock) {
         this.total_stock = total_stock;
     }
 
-    public Integer getRemain_stock() {
+    public int getRemain_stock() {
         return remain_stock;
     }
 
-    public void setRemain_stock(Integer remain_stock) {
+    public void setRemain_stock(int remain_stock) {
         this.remain_stock = remain_stock;
     }
 
-    public Integer getPurchase_limit() {
+    public int getPurchase_limit() {
         return purchase_limit;
     }
 
-    public void setPurchase_limit(Integer purchase_limit) {
+    public void setPurchase_limit(int purchase_limit) {
         this.purchase_limit = purchase_limit;
     }
 
-    public Integer getIs_delete() {
+    public int getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Integer is_delete) {
+    public void setIs_delete(int is_delete) {
         this.is_delete = is_delete;
     }
 
@@ -131,11 +134,19 @@ public class Seckill {
         this.head_img = head_img;
     }
 
-    public Integer getOriginal_price() {
+    public int getOriginal_price() {
         return original_price;
     }
 
-    public void setOriginal_price(Integer original_price) {
+    public void setOriginal_price(int original_price) {
         this.original_price = original_price;
+    }
+
+    public long getServerTime() {
+        return serverTime;
+    }
+
+    public void setServerTime(long serverTime) {
+        this.serverTime = serverTime;
     }
 }

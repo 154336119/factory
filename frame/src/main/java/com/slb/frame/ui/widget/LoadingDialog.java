@@ -19,11 +19,11 @@ public class LoadingDialog extends ProgressDialog {
 	private String message;
 	private Button btnRight;
 	public LoadingDialog(Context context) {
-		super(context, R.style.LoadingDialog);
+		super(context, R.style.Dialog);
 	}
 
 	public LoadingDialog(Context context, String message) {
-		super(context, R.style.LoadingDialog);
+		super(context, R.style.Dialog);
 		this.message = message;
 	}
 

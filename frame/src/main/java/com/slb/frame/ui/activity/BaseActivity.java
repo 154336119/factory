@@ -17,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -530,4 +531,44 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
     public void setBackListener(View.OnClickListener listener){
         mToolbar.setNavigationOnClickListener(listener);
     }
+
+    //新
+
+    /**
+     * 描述：对话框dialog （确认，取消）.
+     *
+     * @param title              对话框标题内容
+     * @param msg                对话框提示内容
+     * @param mOkOnClickListener 点击确认按钮的事件监听
+     */
+    public void showDialog(String title, String msg,
+                           DialogInterface.OnClickListener mOkOnClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg);
+        builder.setTitle(title);
+        builder.setPositiveButton("确认", mOkOnClickListener);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    public void showUpadateDialog(String title, String msg,
+                                  DialogInterface.OnClickListener mOkOnClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg);
+        builder.setTitle(title);
+        builder.setPositiveButton("现在更新", mOkOnClickListener);
+        builder.setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
 }

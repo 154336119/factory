@@ -17,6 +17,13 @@ package com.slb.factory;
  *  微信：
  * //          APP ID ：wx6e626c6693c3c055
  * //        AppSecret ：f209badd4ead402cc20a395724325284
+ *
+ * 接口
+ * http://api.xikeqiche.com/swagger-ui.html
+ * meijiang
+ * meijiang666
+ *
+ *
  */
 public class MyConstants {
     public static final String url = "http://yclx.api.kaixuanhotels.cn/";

@@ -27,25 +27,6 @@ public class CustomRefreshFooter extends LinearLayout implements RefreshFooter {
         tv.setText(text);
     }
 
-    @Override
-    public void onPullingUp(float percent, int offset, int footerHeight, int extendHeight) {
-
-    }
-
-    @Override
-    public void onPullReleasing(float percent, int offset, int footerHeight, int extendHeight) {
-
-    }
-
-    @Override
-    public void onLoadmoreReleased(RefreshLayout layout, int footerHeight, int extendHeight) {
-
-    }
-
-    @Override
-    public boolean setLoadmoreFinished(boolean finished) {
-        return false;
-    }
 
     @NonNull
     @Override
@@ -65,6 +46,16 @@ public class CustomRefreshFooter extends LinearLayout implements RefreshFooter {
 
     @Override
     public void onInitialized(RefreshKernel kernel, int height, int extendHeight) {
+
+    }
+
+    @Override
+    public void onMoving(boolean isDragging, float percent, int offset, int height, int maxDragHeight) {
+
+    }
+
+    @Override
+    public void onReleased(@NonNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
 
     }
 
@@ -91,5 +82,10 @@ public class CustomRefreshFooter extends LinearLayout implements RefreshFooter {
     @Override
     public void onStateChanged(RefreshLayout refreshLayout, RefreshState oldState, RefreshState newState) {
 
+    }
+
+    @Override
+    public boolean setNoMoreData(boolean noMoreData) {
+        return false;
     }
 }

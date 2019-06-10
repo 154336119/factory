@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.slb.factory.R;
+import com.slb.factory.http.bean.PayTypeEntity;
 import com.slb.factory.ui.contract.WxPayContract;
 import com.slb.factory.ui.presenter.WxPayPresenter;
 import com.slb.frame.ui.fragment.BaseMvpFragment;
+import com.slb.frame.utils.ImageLoadUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +35,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.leo.permission.PermissionRequest;
+
+import static com.slb.factory.ui.activity.ChoisePayTypeActiivty.TYPE_WX;
+import static com.slb.factory.ui.activity.ChoisePayTypeActiivty.TYPE_ZFB;
 
 /**
  * 刁剑
@@ -50,13 +56,25 @@ public class WxPayFragment extends BaseMvpFragment<WxPayContract.IView, WxPayCon
     Button BtnGoHome;
     @BindView(R.id.BtnGoUpload)
     Button BtnGoUpload;
-
-    public static WxPayFragment newInstance() {
+    PayTypeEntity payTypeEntity;
+    int type = 1 ;
+    public static WxPayFragment newInstance(PayTypeEntity entity,int type) {
         WxPayFragment fragment = new WxPayFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("PayTypeEntity",entity);
+        bundle.putInt("type",type);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     Unbinder unbinder;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        payTypeEntity = getArguments().getParcelable("PayTypeEntity");
+        type = getArguments().getInt("type");
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -78,6 +96,15 @@ public class WxPayFragment extends BaseMvpFragment<WxPayContract.IView, WxPayCon
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+        if("1".equals( payTypeEntity.getShowPay())){
+            if(type == TYPE_WX){
+                ImageLoadUtil.loadCircleImage(_mActivity,payTypeEntity.getWechatQrcode(),IvPay);
+            }else if(type == TYPE_ZFB){
+                ImageLoadUtil.loadCircleImage(_mActivity,payTypeEntity.getAlipayQrcode(),IvPay);
+            }
+        }else{
+            IvPay.setVisibility(View.GONE);
+        }
         return rootView;
     }
 

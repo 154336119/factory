@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="App_Theme_no_statebar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <!--<item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>-->
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#ffffff</item>
@@ -17,16 +17,16 @@
         <item name="android:textViewStyle">@style/BaseTextView</item>
         <item name="android:buttonStyle">@style/btn_bottom_single</item>
         <item name="android:editTextStyle">@style/edit_base</item>
-        <item name="buttonTextColor">@color/blue</item>
-        <item name="buttonBg">@color/colors_b2</item>
-        <item name="buttonBgClick">@color/colors_b2</item>
+        <item name="buttonTextColor">@color/colors_0293ff</item>
+        <item name="buttonBg">@color/colors_0293ff</item>
+        <item name="buttonBgClick">@color/colors_0293ff</item>
         <item name="buttonBgEnable">@color/colors_b3</item>
         <item name="buttonBarPositiveButtonStyle">@style/positiveBtnStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/negativeBtnstyle</item>
     </style>
 
     <style name="App_Theme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <!--<item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>-->
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#ffffff</item>
@@ -195,6 +195,11 @@
         <item name="android:textColor">@color/colors_a5</item>
         <item name="android:paddingLeft">@dimen/distance_10</item>
         <item name="android:paddingRight">@dimen/distance_10</item>
+    </style>
+    <!-- 小按钮 登录-->
+    <style name="btn_small_stroke_login" parent="btn_small_base">
+        <item name="android:background">@drawable/slt_btn_small_stroke_login</item>
+        <item name="android:textColor">@color/btn_small_stroke</item>
     </style>
     <!-- 小按钮 描边-->
     <style name="btn_small_stroke" parent="btn_small_base">
@@ -563,5 +568,18 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/tab_height</item>
     </style>
-
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <!--用于设置打开新的Activity并进入新的Activity展示的动画-->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <!--用于设置打开新的Activity并销毁之前的Activity展示的动画-->
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <!--用于设置关闭当前Activity进入上一个Activity展示的动画-->
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <!--用于设置关闭当前Activity时展示的动画-->
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
 </resources>

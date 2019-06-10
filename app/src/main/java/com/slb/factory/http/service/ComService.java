@@ -1,10 +1,13 @@
 package com.slb.factory.http.service;
 
 import com.slb.factory.http.bean.Brand;
+import com.slb.factory.http.bean.ConfigEntity;
 import com.slb.factory.http.bean.Goods;
 import com.slb.factory.http.bean.MsgEntity;
 import com.slb.factory.http.bean.OrderEntity;
+import com.slb.factory.http.bean.PayTypeEntity;
 import com.slb.factory.http.bean.Seckill;
+import com.slb.factory.http.bean.UpdateEntity;
 import com.slb.factory.http.bean.UserEntity;
 import com.slb.frame.http2.retrofit.HttpMjListResult;
 import com.slb.frame.http2.retrofit.HttpMjResult;
@@ -138,5 +141,27 @@ public interface ComService {
     @FormUrlEncoded
     @POST("/app/order/finish"  )
     Observable<HttpMjResult<Object>> orderFinish(@Field("orderId") String orderId);
+
+    /**
+     * 升级
+     */
+    @FormUrlEncoded
+    @POST("/app/version/check"  )
+    Observable<HttpMjResult<UpdateEntity>> getUpdateInfo(@Field("platform") int platform);
+
+    /**
+     * 支付
+     */
+    @FormUrlEncoded
+    @POST("/app/config/paymentCode"  )
+    Observable<HttpMjResult<PayTypeEntity>> getPayTypeConfig(@Field("token") Integer token);
+
+    /**
+     * 我的- 用户协议
+     */
+    @FormUrlEncoded
+    @POST("/app/config/aboutus"  )
+    Observable<HttpMjResult<ConfigEntity>> getConfig(@Field("token") Integer token);
+
 
 }

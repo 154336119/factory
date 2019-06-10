@@ -1096,7 +1096,7 @@ public class DateUtils {
    		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		ParsePosition pos = new ParsePosition(0);
 		Date strtodate = formatter.parse(strDate, pos);
-		return String.valueOf(strtodate.getTime()/1000);
+		return String.valueOf(strtodate.getTime());
 	}
 	
 	/**

@@ -69,7 +69,7 @@ public class HomePresenter extends AbstractBaseFragmentPresenter<HomeContract.IV
                         if (entity.getList() == null || entity.getList().size() == 0) {
                             //没有更多数据了
                             isNoMoreData = true;
-                            mView.setRefreshFooter(new CustomRefreshFooter(Base.getContext(), "没有更多啦"));
+//                            mView.setRefreshFooter(new CustomRefreshFooter(Base.getContext(), "没有更多啦"));
                             mView.finishLoadmoreWithNoMoreData();
                             return;
                         }

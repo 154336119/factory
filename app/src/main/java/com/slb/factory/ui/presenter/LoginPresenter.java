@@ -18,6 +18,7 @@ import com.slb.frame.http2.rxjava.HttpMjEntityFun;
 import com.slb.frame.ui.presenter.AbstractBasePresenter;
 import com.slb.factory.ui.contract.LoginContract;
 import com.slb.frame.utils.rx.RxUtil;
+import com.umeng.message.PushAgent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -62,6 +63,7 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 					@Override
 					public void onNext(UserEntity entity) {
 						super.onNext(entity);
+						Base.setUserEntity(entity);
 						//账号状态state：0等待上传执照、1已上传执照等待审核、2已审核通过
 						if(entity.getState() == 0 ){
 							mView.goUploadLicenseActivity();
@@ -70,7 +72,6 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 						}else if(entity.getState() == 2 ){
 							mView.loginSuccess();
 						}
-						Base.setUserEntity(entity);
 					}
 				});
 
@@ -102,6 +103,7 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 							public void onNext(UserEntity entity) {
 								super.onNext(entity);
 								//账号状态state：0等待上传执照、1已上传执照等待审核、2已审核通过
+								Base.setUserEntity(entity);
 								if(entity.getState() == 0 ){
 									mView.goUploadLicenseActivity();
 								}else if(entity.getState() == 1 ){

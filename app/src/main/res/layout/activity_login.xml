@@ -67,7 +67,7 @@
                 android:textColor="#b7b7b7" />
             <com.slb.factory.weight.CountTimerButton
                 android:id="@+id/BtnGetCode"
-                style="@style/btn_small_stroke"
+                style="@style/btn_small_stroke_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"

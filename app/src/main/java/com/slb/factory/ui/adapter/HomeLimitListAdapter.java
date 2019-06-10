@@ -19,6 +19,7 @@ import com.slb.factory.http.bean.Seckill;
 import com.slb.frame.utils.DateUtils;
 import com.slb.frame.utils.ImageLoadUtil;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import cn.iwgang.countdownview.CountdownView;
@@ -44,16 +45,14 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 		TextView tvCount = baseViewHolder.getView(R.id.mTvNum);
 		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
 		baseViewHolder.setText(R.id.mTvProductName, entity.getProduct_name());
-		baseViewHolder.setText(R.id.TvNewAmount, "￥"+entity.getSeckill_price());
-		tvOldAmount.setText("￥"+entity.getOriginal_price());
+		baseViewHolder.setText(R.id.TvNewAmount, "￥"+ new DecimalFormat(".00").format(entity.getSeckill_price()));
+		tvOldAmount.setText("￥"+new DecimalFormat(".00").format(entity.getOriginal_price()));
 		tvOldAmount.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 
-		Integer startTine = Integer.parseInt(DateUtils.sdateToTimestamp3(entity.getStart_time()));
-		Integer curTime = Integer.parseInt(DateUtils.getTimestamp());
-
-		Logger.d("startTine:",startTine);
-		Logger.d("curTime:",curTime);
-		if(curTime>startTine){
+		Long startTime = Long.parseLong(DateUtils.sdateToTimestamp3(entity.getStart_time()));
+		Long curTime = Long.parseLong(entity.getServerTime()+"");
+		//测试
+		if(curTime>startTime){
 			//秒杀开始
 			tvCount.setVisibility(View.VISIBLE);
 			countdownView.setVisibility(View.GONE);
@@ -76,10 +75,13 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 			tvCount.setVisibility(View.GONE);
 			baseViewHolder.setTextColor(R.id.Btn,mContext.getResources().getColor(R.color.btn_small_stroke));
 			baseViewHolder.setBackgroundRes(R.id.Btn,R.drawable.slt_btn_bottom_stroke);
-			baseViewHolder.setText(R.id.Btn, entity.getStart_time()+"开抢");
+			baseViewHolder.setText(R.id.Btn, DateUtils.timestampToSdate(startTime+"","HH:mm")+"开抢");
 			baseViewHolder.setText(R.id.mTvStateDes, "距离开始仅剩");
 			//???开始是时间？
-			countdownView.start(360000);
+			Logger.d("=============="+entity.getServerTime());
+			Logger.d("=============="+startTime);
+			Long limitTime = (startTime - curTime) ;
+			countdownView.start(limitTime);
 			countdownView .setOnCountdownEndListener(new CountdownView.OnCountdownEndListener() {
 				@Override
 				public void onEnd(CountdownView cv) {

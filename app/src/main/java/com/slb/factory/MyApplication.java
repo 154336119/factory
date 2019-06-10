@@ -18,6 +18,9 @@ import com.slb.factory.ui.SharedPreferencesUtil;
 import com.slb.factory.util.config.BizcContant;
 import com.tencent.bugly.Bugly;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.message.inapp.InAppMessageManager;
 import com.umeng.socialize.PlatformConfig;
 
 import java.io.IOException;
@@ -37,8 +40,24 @@ public class MyApplication extends Application{
     }
 
     private void initShare() {
-        UMConfigure.init(this, "5cee3747570df3fbb3001003", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.init(this, "5cee3747570df3fbb3001003", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "c03143546167352f2e2de6ee1c0dda3e");
         PlatformConfig.setWeixin(MyConstants.WX_APP_ID, "f209badd4ead402cc20a395724325284");
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+//注册推送服务，每次调用register方法都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+            @Override
+            public void onSuccess(String deviceToken) {
+                //注册成功会返回deviceToken deviceToken是推送消息的唯一标志
+                Logger.d("注册成功：deviceToken：-------->  " + deviceToken);
+            }
+            @Override
+            public void onFailure(String s, String s1) {
+                Logger.e("注册失败：-------->  " + "s:" + s + ",s1:" + s1);
+            }
+        });
+
+        //！！！！！！！！！！！！！！！！！！！！！！！！debug下位开启。正式上线需要关闭
+        InAppMessageManager.getInstance(getBaseContext()).setInAppMsgDebugMode(true);
     }
 
     private void initLogUtils(){

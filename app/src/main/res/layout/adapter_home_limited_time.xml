@@ -105,6 +105,7 @@
             app:suffixGravity="center"
             app:suffixTextColor="#b8b8b8"
             app:suffixTextSize="12sp"
+            app:suffixDay="天"
             app:suffixHour="时"
             app:suffixMinute="分"
             app:suffixSecond="秒"

@@ -27,6 +27,7 @@
                     android:text="收款单位名称"
                     android:textColor="#a5a5a5" />
                 <TextView
+                    android:id="@+id/TvBankCompany"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/public_1"
@@ -66,6 +67,7 @@
                     android:drawablePadding="15dp"
                     android:layout_centerVertical="true"/>
                 <TextView
+                    android:id="@+id/TvBankTax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/public_2"
@@ -99,12 +101,13 @@
                     android:id="@+id/Tv03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="收款单位名称"
+                    android:text="收款单位账户"
                     android:textColor="#a5a5a5"
                     android:gravity="center"
                     android:drawablePadding="15dp"
                     android:layout_centerVertical="true"/>
                 <TextView
+                    android:id="@+id/TvBankAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/public_3"
@@ -144,6 +147,7 @@
                     android:drawablePadding="15dp"
                     android:layout_centerVertical="true"/>
                 <TextView
+                    android:id="@+id/TvBankName"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/public_4"

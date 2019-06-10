@@ -1,6 +1,7 @@
 package com.slb.factory;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSONObject;
@@ -68,6 +69,23 @@ public class Base {
         Base.mUserEntity = mUserEntity;
     }
 
+    /**
+     * 获取软件版本号
+     *
+     * @param context
+     * @return
+     */
+    public static int getVersionCode(Context context) {
+        int versionCode = 0;
+        try {
+            // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
+            versionCode = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
 
 
 }

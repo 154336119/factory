@@ -13,6 +13,8 @@ import com.slb.factory.R;
 import com.slb.factory.http.bean.ProductEntity;
 import com.slb.factory.ui.adapter.base.CommonBaseAdapter;
 
+import java.text.DecimalFormat;
+
 
 /**
  *
@@ -51,7 +53,7 @@ public class OrderProductListAdapter extends CommonBaseAdapter<ProductEntity> {
 			mHolder.mTvColor.setText("暂无");
 		}
 		if(entity.getSingle_price()!=null){
-			mHolder.mTvMoney.setText("¥"+entity.getSingle_price());
+			mHolder.mTvMoney.setText("¥"+new DecimalFormat(".00").format(entity.getSingle_price()));
 		}else{
 			mHolder.mTvMoney.setText("暂无");
 		}

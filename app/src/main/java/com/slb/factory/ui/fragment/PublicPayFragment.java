@@ -3,6 +3,7 @@ package com.slb.factory.ui.fragment;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.slb.factory.R;
+import com.slb.factory.http.bean.PayTypeEntity;
 import com.slb.frame.ui.fragment.BaseFragment;
 
 import butterknife.BindView;
@@ -36,17 +38,29 @@ public class PublicPayFragment extends BaseFragment {
     Button BtnGoHome;
     @BindView(R.id.BtnGoUpload)
     Button BtnGoUpload;
-
-    public static PublicPayFragment newInstance() {
+    @BindView(R.id.TvBankCompany)
+    TextView TvBankCompany;
+    @BindView(R.id.TvBankTax)
+    TextView TvBankTax;
+    @BindView(R.id.TvBankAccount)
+    TextView TvBankAccount;
+    @BindView(R.id.TvBankName)
+    TextView TvBankName;
+    PayTypeEntity payTypeEntity;
+    public static PublicPayFragment newInstance(PayTypeEntity entity) {
         PublicPayFragment fragment = new PublicPayFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("PayTypeEntity",entity);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     Unbinder unbinder;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        payTypeEntity = getArguments().getParcelable("PayTypeEntity");
     }
 
     @Override
@@ -64,6 +78,10 @@ public class PublicPayFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+        TvBankCompany.setText(payTypeEntity.getBankCompany());
+        TvBankTax.setText(payTypeEntity.getBankTax());
+        TvBankAccount.setText(payTypeEntity.getBankAccount());
+        TvBankName.setText(payTypeEntity.getBankName());
         return rootView;
     }
 
@@ -77,16 +95,16 @@ public class PublicPayFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.BtnPublic1:
-                CopyToClipboard(_mActivity.getString(R.string.public_1));
+                CopyToClipboard(TvBankCompany.getText().toString());
                 break;
             case R.id.BtnPublic2:
-                CopyToClipboard(_mActivity.getString(R.string.public_2));
+                CopyToClipboard(TvBankTax.getText().toString());
                 break;
             case R.id.BtnPublic3:
-                CopyToClipboard(_mActivity.getString(R.string.public_3));
+                CopyToClipboard(TvBankAccount.getText().toString());
                 break;
             case R.id.BtnPublic4:
-                CopyToClipboard(_mActivity.getString(R.string.public_4));
+                CopyToClipboard(TvBankName.getText().toString());
                 break;
             case R.id.BtnGoHome:
                 break;

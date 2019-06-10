@@ -144,10 +144,12 @@ public class ShopCarFragment extends BaseFragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                if (newProgress != 100) {
-                    progressbar.setVisibility(View.VISIBLE);
-                } else {
-                    progressbar.setVisibility(View.GONE);
+                if(progressbar!=null){
+                    if (newProgress != 100) {
+                        progressbar.setVisibility(View.VISIBLE);
+                    } else {
+                        progressbar.setVisibility(View.GONE);
+                    }
                 }
             }
         });

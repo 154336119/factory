@@ -3,6 +3,7 @@ package com.slb.factory.ui.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,12 +17,15 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
@@ -35,12 +39,9 @@ import com.slb.factory.ui.adapter.HomeLimitListAdapter;
 import com.slb.factory.ui.contract.HomeContract;
 import com.slb.factory.ui.presenter.HomePresenter;
 import com.slb.factory.util.LocalImageLoader;
-import com.slb.factory.weight.refresh.CustomRefreshFooter;
-import com.slb.factory.weight.refresh.CustomRefreshHeader;
 import com.slb.frame.ui.fragment.BaseMvpFragment;
 import com.slb.frame.utils.ActivityUtil;
 import com.slb.frame.utils.ScreenUtils;
-import com.slb.frame.utils.statusbarutil.StatusBarUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -107,23 +108,35 @@ public class HomeFragment
         LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) HomeBanner.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
         linearParams.height = ScreenUtils.getScreenWidth(_mActivity)/3;
         HomeBanner.setLayoutParams(linearParams);
-
         //页面刷新框架
-        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
+        smartRefreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(_mActivity).setSpinnerStyle(SpinnerStyle.Scale)
+              );
+//        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         smartRefreshLayout.setEnableScrollContentWhenLoaded(true);//是否在加载完成时滚动列表显示新的内容
         smartRefreshLayout.setEnableFooterFollowWhenLoadFinished(true);
-        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 mPresenter.onLoadMore();
             }
 
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 mPresenter.onRefresh();
             }
         });
+//        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+//            @Override
+//            public void onLoadmore(RefreshLayout refreshlayout) {
+//                mPresenter.onLoadMore();
+//            }
+//
+//            @Override
+//            public void onRefresh(RefreshLayout refreshlayout) {
+//                mPresenter.onRefresh();
+//            }
+//        });
 
         //brands 品牌
         RvHotSellingBrand.setLayoutManager(new GridLayoutManager(_mActivity,3));
@@ -225,7 +238,7 @@ public class HomeFragment
 
     @Override
     public void finishLoadmore(boolean success) {
-        smartRefreshLayout.finishLoadmore(success);
+        smartRefreshLayout.finishLoadMore(success);
     }
 
     @Override
@@ -240,7 +253,7 @@ public class HomeFragment
 
     @Override
     public void finishLoadmoreWithNoMoreData() {
-        smartRefreshLayout.finishLoadmoreWithNoMoreData();
+        smartRefreshLayout.finishLoadMoreWithNoMoreData();
     }
 
     @Override
