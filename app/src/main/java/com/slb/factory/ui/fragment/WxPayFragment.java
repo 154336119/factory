@@ -18,11 +18,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.PayTypeEntity;
+import com.slb.factory.ui.activity.MainActivity;
+import com.slb.factory.ui.activity.OrderListActiivty;
+import com.slb.factory.ui.activity.WebViewActivity;
 import com.slb.factory.ui.contract.WxPayContract;
 import com.slb.factory.ui.presenter.WxPayPresenter;
 import com.slb.frame.ui.fragment.BaseMvpFragment;
+import com.slb.frame.utils.ActivityUtil;
 import com.slb.frame.utils.ImageLoadUtil;
 
 import java.io.File;
@@ -98,8 +103,10 @@ public class WxPayFragment extends BaseMvpFragment<WxPayContract.IView, WxPayCon
         unbinder = ButterKnife.bind(this, rootView);
         if("1".equals( payTypeEntity.getShowPay())){
             if(type == TYPE_WX){
+                TvContent.setText(_mActivity.getString(R.string.choise_pay_wx));
                 ImageLoadUtil.loadCircleImage(_mActivity,payTypeEntity.getWechatQrcode(),IvPay);
             }else if(type == TYPE_ZFB){
+                TvContent.setText(_mActivity.getString(R.string.choise_pay_zfb));
                 ImageLoadUtil.loadCircleImage(_mActivity,payTypeEntity.getAlipayQrcode(),IvPay);
             }
         }else{
@@ -166,14 +173,20 @@ public class WxPayFragment extends BaseMvpFragment<WxPayContract.IView, WxPayCon
 
     @OnClick({R.id.BtnSave, R.id.BtnGoHome, R.id.BtnGoUpload})
     public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.BtnSave:
                 Bitmap bitmap =((BitmapDrawable)IvPay.getDrawable()).getBitmap();
                 saveImageToGallery(bitmap);
                 break;
             case R.id.BtnGoHome:
+                bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,2);
+                ActivityUtil.next(_mActivity, MainActivity.class,bundle,true);
+                _mActivity.finish();
                 break;
             case R.id.BtnGoUpload:
+                bundle.putInt("POS",0);
+                ActivityUtil.next(_mActivity, OrderListActiivty.class,bundle,true);
                 break;
         }
     }

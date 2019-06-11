@@ -17,6 +17,11 @@ public class InviteFriendsActivity extends BaseActivity {
     RelativeLayout RlWxInvite;
 
     @Override
+    protected String setToolbarTitle() {
+        return "邀请好友";
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_invite;
     }

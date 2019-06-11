@@ -6,7 +6,7 @@ public class WebBean implements Serializable {
 
     private static final long serialVersionUID = -2034838654151599403L;
 
-    public int type;
+    public String type;
 
 
     public int isRefund; //0右上角啥也不加， 1酒店订单退款 2团购订单退款 -1会员说明
@@ -53,4 +53,7 @@ public class WebBean implements Serializable {
     public String shareLogo ;
 
     public String orderId;
+
+    public int ifToken = 0;
+    public String addressId;
 }

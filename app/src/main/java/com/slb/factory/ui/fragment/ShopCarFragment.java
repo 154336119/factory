@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
+import com.orhanobut.logger.Logger;
 import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
@@ -35,6 +37,8 @@ import com.slb.frame.utils.ActivityUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.slb.factory.MyConstants.url_token;
 
 public class ShopCarFragment extends BaseFragment {
     Unbinder unbinder;
@@ -171,9 +175,27 @@ public class ShopCarFragment extends BaseFragment {
         public void appPush(String json) {
             WebBean data = new Gson().fromJson(json, WebBean.class);
             Bundle bundle = new Bundle();
-            bundle.putString("url", MyConstants.h5Url + data.url);
+            if(data.ifToken == 1){
+                bundle.putString("url",MyConstants.h5Url + data.url + url_token + Base.getUserEntity().getToken());
+            }else{
+                bundle.putString("url",MyConstants.h5Url + data.url);
+            }
             bundle.putString("title",data.title);
             bundle.putBoolean("isRightBtnShare",data.isRightBtnShare);
+
+            if(!TextUtils.isEmpty(data.shareTitle)){
+                bundle.putString("shareTitle",data.shareTitle);
+            }
+            if(!TextUtils.isEmpty(data.shareSubTitle)){
+                bundle.putString("shareSubTitle",data.shareSubTitle);
+            }
+            if(!TextUtils.isEmpty(data.shareUrl)){
+                bundle.putString("shareUrl",data.shareUrl);
+            }
+            if(!TextUtils.isEmpty(data.shareLogo)){
+                bundle.putString("shareLogo",data.shareLogo);
+            }
+
             ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
         }
 
@@ -206,4 +228,17 @@ public class ShopCarFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            mWebView.loadUrl(MyConstants.h5Url + MyConstants.url_gouwuche + Base.getUserEntity().getToken());
+        }
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+       if(isVisibleToUser){
+           mWebView.loadUrl(MyConstants.h5Url + MyConstants.url_gouwuche + Base.getUserEntity().getToken());
+       }
+    }
 }

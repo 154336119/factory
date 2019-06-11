@@ -36,9 +36,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import com.google.gson.Gson;
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
 import com.jaeger.library.StatusBarUtil;
+import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
+import com.slb.factory.event.FinishAcitivtyEvent;
 import com.slb.factory.http.bean.WebBean;
 import com.slb.factory.weight.MyWebView;
 import com.slb.factory.weight.ShareDialog;
@@ -51,8 +55,12 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
+import java.nio.Buffer;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.slb.factory.MyConstants.url_token;
 
 
 public class WebViewActivity extends BaseActivity {
@@ -64,13 +72,8 @@ public class WebViewActivity extends BaseActivity {
 
     private String url;
     private String title;
-    private String price;
     private boolean isRightBtnShare = false;
-
     private UMWeb mUMWeb;
-
-    private int payType; //支付什么类型 1,会员开通发起支付，2，酒店预订发起支付，3、优惠买单（或）团购套餐发起支付
-    private String restId;
 
     public void setMybackListener(){
         setBackListener(new View.OnClickListener() {
@@ -108,11 +111,8 @@ public class WebViewActivity extends BaseActivity {
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
         isRightBtnShare = getIntent().getBooleanExtra("isRightBtnShare",false);
-
-        isRightBtnShare = getIntent().getBooleanExtra("isRightBtnShare",false);
-
         if(isRightBtnShare){
-            UMWeb web = new UMWeb(getIntent().getStringExtra("shareUrl"));
+            UMWeb web = new UMWeb(getIntent().getStringExtra("shareUrl")+"&ifshare=2");
             web.setTitle(getIntent().getStringExtra("shareTitle"));
             web.setDescription(getIntent().getStringExtra("shareSubTitle"));
             web.setThumb(new UMImage(WebViewActivity.this,getIntent().getStringExtra("shareLogo")) );
@@ -231,7 +231,15 @@ public class WebViewActivity extends BaseActivity {
         public void appPush(String json) {
             WebBean data = new Gson().fromJson(json, WebBean.class);
             Bundle bundle = new Bundle();
-            bundle.putString("url",MyConstants.h5Url + data.url);
+            if(data.ifToken == 1){
+                if(data.url.contains("?")){
+                    bundle.putString("url",MyConstants.h5Url + data.url + url_token + Base.getUserEntity().getToken());
+                }else{
+                    bundle.putString("url",MyConstants.h5Url + data.url + "?token=" + Base.getUserEntity().getToken());
+                }
+            }else{
+                bundle.putString("url",MyConstants.h5Url + data.url);
+            }
             bundle.putString("title",data.title);
             bundle.putBoolean("isRightBtnShare",data.isRightBtnShare);
 
@@ -247,8 +255,7 @@ public class WebViewActivity extends BaseActivity {
             if(!TextUtils.isEmpty(data.shareLogo)){
                 bundle.putString("shareLogo",data.shareLogo);
             }
-
-            ActivityUtil.next(WebViewActivity.this, WebViewActivity.class,bundle,false);
+            ActivityUtil.next(WebViewActivity.this, WebViewActivity.class,bundle,100);
         }
 
 
@@ -257,6 +264,12 @@ public class WebViewActivity extends BaseActivity {
         public void appReturn(String json) {
             WebBean data = new Gson().fromJson(json, WebBean.class);
             Intent intent = new Intent();
+            if(!TextUtils.isEmpty(data.type)){
+                intent.putExtra("type",data.type);
+            }
+            if(!TextUtils.isEmpty(data.addressId)){
+                intent.putExtra("addressId",data.addressId);
+            }
             intent.putExtra("isRefresh", data.isRefresh);
             setResult(100, intent);
             finish();
@@ -302,6 +315,10 @@ public class WebViewActivity extends BaseActivity {
             } else if ("login".equals(data.linkType)) {
                 ActivityUtil.next(WebViewActivity.this, LoginActivity.class);
                 finish();
+            }  else if ("selectpay".equals(data.linkType)) {
+                //选择支付方式
+                RxBus.get().post(new FinishAcitivtyEvent());
+                ActivityUtil.next(WebViewActivity.this, ChoisePayTypeActiivty.class);
             }
 
         }
@@ -339,8 +356,18 @@ public class WebViewActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, intent);
 //        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, intent);
         if (resultCode == 100)
-            if (intent.getBooleanExtra("isRefresh", false))
-                mWebView.loadUrl(this.url);
+            if (intent.getBooleanExtra("isRefresh", false)){
+                StringBuffer sb = new StringBuffer();
+                sb.append(this.url);
+                if(!TextUtils.isEmpty(intent.getStringExtra("type"))){
+                    sb.append("&type="+intent.getStringExtra("type"));
+                }
+                if(!TextUtils.isEmpty(intent.getStringExtra("addressId"))){
+                    sb.append("&addressId="+intent.getStringExtra("addressId"));
+                }
+//                this.url = sb.toString();
+                mWebView.loadUrl(sb.toString());
+            }
         }
 
     /**
@@ -384,5 +411,15 @@ public class WebViewActivity extends BaseActivity {
             }
         });
         dialog.show(getSupportFragmentManager(), "Dialog");
+    }
+
+    @Override
+    protected boolean rxBusRegist() {
+        return true;
+    }
+
+    @Subscribe
+    public void finishActivity(FinishAcitivtyEvent event) {
+        finish();
     }
 }

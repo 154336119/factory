@@ -187,11 +187,11 @@ public class HomeFragment
                 bundle.putString("title", "产品详情");
                 bundle.putBoolean("isRightBtnShare", true);
                 //分享参数
-                bundle.putString("shareTitle",mHomeGoodsListAdapter.getData().get(position).getName());
-                bundle.putString("shareSubTitle",mHomeGoodsListAdapter.getData().get(position).getName());
+                bundle.putString("shareTitle","邀您加入工厂联盟");
+                bundle.putString("shareSubTitle","来自工厂联盟的分享");
                 bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_chanpingxiangqing
                         + mHomeGoodsListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
-                bundle.putString("shareLogo",mHomeGoodsListAdapter.getData().get(position).getHead_img());
+                bundle.putString("shareLogo","http://img.xikeqiche.com/share/200.jpg");
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }
         });

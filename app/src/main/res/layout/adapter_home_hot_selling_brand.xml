@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/IvImg"
         android:layout_alignParentRight="true"
-        android:gravity="center"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:text="编号"
         android:textColor="#3f403f" />
 </LinearLayout>

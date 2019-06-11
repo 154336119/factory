@@ -10,9 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.PayTypeEntity;
+import com.slb.factory.ui.activity.MainActivity;
+import com.slb.factory.ui.activity.OrderListActiivty;
 import com.slb.frame.ui.fragment.BaseFragment;
+import com.slb.frame.utils.ActivityUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +97,7 @@ public class PublicPayFragment extends BaseFragment {
 
     @OnClick({R.id.BtnPublic1, R.id.BtnPublic2, R.id.BtnPublic3, R.id.BtnPublic4, R.id.BtnGoHome, R.id.BtnGoUpload})
     public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.BtnPublic1:
                 CopyToClipboard(TvBankCompany.getText().toString());
@@ -107,8 +112,13 @@ public class PublicPayFragment extends BaseFragment {
                 CopyToClipboard(TvBankName.getText().toString());
                 break;
             case R.id.BtnGoHome:
+                bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,2);
+                ActivityUtil.next(_mActivity, MainActivity.class,bundle,true);
+                _mActivity.finish();
                 break;
             case R.id.BtnGoUpload:
+                bundle.putInt("POS",0);
+                ActivityUtil.next(_mActivity, OrderListActiivty.class,bundle,true);
                 break;
         }
     }

@@ -33,6 +33,7 @@ import rx.subjects.BehaviorSubject;
  * on 2016/9/14.
  */
 public abstract class BaseFragment extends SupportFragment implements LifecycleProvider<FragmentEvent>{
+    private boolean isCanShowing = true;
     public Toast mToast;
     protected View mRootView = null;
     public final String TAG = getClass().getSimpleName();
@@ -275,4 +276,6 @@ public abstract class BaseFragment extends SupportFragment implements LifecycleP
     public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
         return false;
     }
+
+
 }
