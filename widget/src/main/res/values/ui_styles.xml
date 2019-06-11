@@ -5,7 +5,7 @@
         <!--<item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>-->
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#ffffff</item>
-        <item name="colorAccent">@color/colors_b2</item>
+        <item name="colorAccent">@color/colors_0293ff</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -30,7 +30,7 @@
         <!--<item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>-->
         <item name="colorPrimary">#ffffff</item>
         <item name="colorPrimaryDark">#ffffff</item>
-        <item name="colorAccent">@color/colors_b2</item>
+        <item name="colorAccent">@color/colors_0293ff</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="windowNoTitle">true</item>
@@ -44,9 +44,9 @@
         <item name="android:buttonStyle">@style/btn_bottom_single</item>
         <item name="android:editTextStyle">@style/edit_base</item>
         <item name="buttonTextColor">@color/blue</item>
-        <item name="buttonBg">@color/colors_b2</item>
-        <item name="buttonBgClick">@color/colors_b2</item>
-        <item name="buttonBgEnable">@color/colors_b3</item>
+        <item name="buttonBg">@color/colors_0293ff</item>
+        <item name="buttonBgClick">@color/colors_0293ff</item>
+        <item name="buttonBgEnable">@color/colors_0293ff</item>
         <item name="buttonBarPositiveButtonStyle">@style/positiveBtnStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/negativeBtnstyle</item>
     </style>

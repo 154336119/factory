@@ -25,6 +25,7 @@ import com.slb.factory.ui.contract.UploadLicenseContract;
 import com.slb.factory.ui.presenter.UploadLicensePresenter;
 import com.slb.factory.util.LocalImageLoader;
 import com.slb.frame.ui.activity.BaseMvpActivity;
+import com.slb.frame.utils.ActivityUtil;
 import com.slb.frame.utils.ImageLoadUtil;
 import com.slb.frame.utils.ImagePickerUtils;
 
@@ -36,6 +37,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leo.permission.PermissionRequest;
+
+import static com.slb.factory.ui.activity.SuccessActivity.TYPE_100;
 
 public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract.IView, UploadLicenseContract.IPresenter>
         implements UploadLicenseContract.IView {
@@ -175,7 +178,9 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
 
     @Override
     public void uploadImageSuccess() {
-
+        Bundle bundle = new Bundle();
+        bundle.putInt(MyConstants.TYPE,TYPE_100);
+        ActivityUtil.next(this,SuccessActivity.class,bundle,true);
     }
 
     @Override

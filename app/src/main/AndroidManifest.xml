@@ -74,6 +74,7 @@
         <activity
             android:name="com.slb.factory.ui.activity.OrderListActiivty"
             android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.slb.factory.ui.activity.WebViewActivity"

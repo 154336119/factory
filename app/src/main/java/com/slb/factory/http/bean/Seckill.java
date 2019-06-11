@@ -25,7 +25,7 @@ public class Seckill {
 
     private int id;
     private int product_id;
-    private int seckill_price;
+    private Double seckill_price;
     private String start_time;
     private String stop_time;
     private int total_stock;
@@ -35,7 +35,7 @@ public class Seckill {
     private String create_time;
     private String product_name;
     private String head_img;
-    private int original_price;
+    private Double original_price;
     private long serverTime;
 
     public int getId() {
@@ -54,11 +54,11 @@ public class Seckill {
         this.product_id = product_id;
     }
 
-    public int getSeckill_price() {
+    public Double getSeckill_price() {
         return seckill_price;
     }
 
-    public void setSeckill_price(int seckill_price) {
+    public void setSeckill_price(Double seckill_price) {
         this.seckill_price = seckill_price;
     }
 
@@ -134,11 +134,11 @@ public class Seckill {
         this.head_img = head_img;
     }
 
-    public int getOriginal_price() {
+    public Double getOriginal_price() {
         return original_price;
     }
 
-    public void setOriginal_price(int original_price) {
+    public void setOriginal_price(Double original_price) {
         this.original_price = original_price;
     }
 

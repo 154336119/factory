@@ -46,8 +46,8 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
 		baseViewHolder.setText(R.id.mTvProductName, entity.getProduct_name());
 		baseViewHolder.setText(R.id.TvNewAmount, "￥"+ new DecimalFormat(".00").format(entity.getSeckill_price()));
-		tvOldAmount.setText("￥"+new DecimalFormat(".00").format(entity.getOriginal_price()));
-		tvOldAmount.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+		tvOldAmount.setText("￥"+ new DecimalFormat(".00").format(entity.getOriginal_price()));
+		tvOldAmount.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG );
 
 		Long startTime = Long.parseLong(DateUtils.sdateToTimestamp3(entity.getStart_time()));
 		Long curTime = Long.parseLong(entity.getServerTime()+"");
@@ -56,7 +56,7 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 			//秒杀开始
 			tvCount.setVisibility(View.VISIBLE);
 			countdownView.setVisibility(View.GONE);
-			tvCount.setText(Html.fromHtml(mContext.getString(R.string.order_limit_num,entity.getTotal_stock()+"",entity.getRemain_stock()+"")));
+			tvCount.setText(Html.fromHtml(mContext.getString(R.string.order_limit_num,(entity.getTotal_stock()-entity.getRemain_stock())+"",entity.getRemain_stock()+"")));
 
 			baseViewHolder.setText(R.id.mTvStateDes, "秒杀已开始");
 			baseViewHolder.setTextColor(R.id.Btn, mContext.getResources().getColor(R.color.white));

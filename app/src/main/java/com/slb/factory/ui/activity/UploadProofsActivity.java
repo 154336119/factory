@@ -36,6 +36,7 @@ import com.slb.factory.util.ImageCompareUtil;
 import com.slb.factory.util.LocalImageLoader;
 import com.slb.factory.weight.MyGridLayoutManager;
 import com.slb.frame.ui.activity.BaseMvpActivity;
+import com.slb.frame.utils.ActivityUtil;
 import com.slb.frame.utils.ImageLoadUtil;
 import com.slb.frame.utils.ImagePickerUtils;
 
@@ -49,6 +50,8 @@ import butterknife.OnClick;
 import cn.leo.permission.PermissionRequest;
 
 import static com.slb.factory.MyConstants.REQUEST_CODE_PROOF_IMG_PICK;
+import static com.slb.factory.ui.activity.SuccessActivity.TYPE_100;
+import static com.slb.factory.ui.activity.SuccessActivity.TYPE_102;
 
 public class UploadProofsActivity
         extends BaseMvpActivity<UploadlProofsContract.IView, UploadlProofsContract.IPresenter>
@@ -183,7 +186,9 @@ public class UploadProofsActivity
 
     @Override
     public void uploadImageSuccess() {
-        finish();
+        Bundle bundle = new Bundle();
+        bundle.putInt(MyConstants.TYPE,TYPE_102);
+        ActivityUtil.next(this,SuccessActivity.class,bundle,true);
         RxBus.get().post(new OrderRefreshEvent());
     }
 

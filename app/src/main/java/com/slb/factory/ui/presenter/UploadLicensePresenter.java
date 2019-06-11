@@ -68,7 +68,6 @@ public class UploadLicensePresenter extends AbstractBasePresenter<UploadLicenseC
 					@Override
 					public void onNext(Object entity) {
 						super.onNext(entity);
-						mView.showMsg("上传成功");
 						mView.uploadImageSuccess();
 					}
 				});

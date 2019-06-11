@@ -26,35 +26,35 @@ public class OrderEntity implements Parcelable {
      * productList : [{"single_price":44,"num":1,"spec_value":"绿","product_id":6,"name":"车窗自动升降器obd关窗器 老款和新款科鲁兹","head_img":"https://img14.360buyimg.com/n0/jfs/t1/44317/14/3743/190497/5ccfd6a3E73157811/567d3edc74a7b40b.jpg"}]
      */
 
-    private int id;
-    private int user_id;
+    private Long id;
+    private Long user_id;
     private String order_code;
-    private int address_id;
+    private Long address_id;
     private String remark;
-    private int delivery_money;
-    private int product_money;
-    private int pay_money;
+    private Double delivery_money;
+    private Double product_money;
+    private Double pay_money;
     private String create_time;
-    private int pay_type;
+    private Long pay_type;
     private String pay_certificate;
     private String pay_time;
     private String refuse_reason;
-    private int state;
+    private Long state;
     private List<ProductEntity> productList;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 
@@ -66,11 +66,11 @@ public class OrderEntity implements Parcelable {
         this.order_code = order_code;
     }
 
-    public int getAddress_id() {
+    public Long getAddress_id() {
         return address_id;
     }
 
-    public void setAddress_id(int address_id) {
+    public void setAddress_id(Long address_id) {
         this.address_id = address_id;
     }
 
@@ -82,27 +82,27 @@ public class OrderEntity implements Parcelable {
         this.remark = remark;
     }
 
-    public int getDelivery_money() {
+    public Double getDelivery_money() {
         return delivery_money;
     }
 
-    public void setDelivery_money(int delivery_money) {
+    public void setDelivery_money(Double delivery_money) {
         this.delivery_money = delivery_money;
     }
 
-    public int getProduct_money() {
+    public Double getProduct_money() {
         return product_money;
     }
 
-    public void setProduct_money(int product_money) {
+    public void setProduct_money(Double product_money) {
         this.product_money = product_money;
     }
 
-    public int getPay_money() {
+    public Double getPay_money() {
         return pay_money;
     }
 
-    public void setPay_money(int pay_money) {
+    public void setPay_money(Double pay_money) {
         this.pay_money = pay_money;
     }
 
@@ -114,11 +114,11 @@ public class OrderEntity implements Parcelable {
         this.create_time = create_time;
     }
 
-    public int getPay_type() {
+    public Long getPay_type() {
         return pay_type;
     }
 
-    public void setPay_type(int pay_type) {
+    public void setPay_type(Long pay_type) {
         this.pay_type = pay_type;
     }
 
@@ -146,11 +146,11 @@ public class OrderEntity implements Parcelable {
         this.refuse_reason = refuse_reason;
     }
 
-    public int getState() {
+    public Long getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Long state) {
         this.state = state;
     }
 
@@ -169,20 +169,20 @@ public class OrderEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeInt(this.user_id);
+        dest.writeValue(this.id);
+        dest.writeValue(this.user_id);
         dest.writeString(this.order_code);
-        dest.writeInt(this.address_id);
+        dest.writeValue(this.address_id);
         dest.writeString(this.remark);
-        dest.writeInt(this.delivery_money);
-        dest.writeInt(this.product_money);
-        dest.writeInt(this.pay_money);
+        dest.writeValue(this.delivery_money);
+        dest.writeValue(this.product_money);
+        dest.writeValue(this.pay_money);
         dest.writeString(this.create_time);
-        dest.writeInt(this.pay_type);
+        dest.writeValue(this.pay_type);
         dest.writeString(this.pay_certificate);
         dest.writeString(this.pay_time);
         dest.writeString(this.refuse_reason);
-        dest.writeInt(this.state);
+        dest.writeValue(this.state);
         dest.writeList(this.productList);
     }
 
@@ -190,25 +190,25 @@ public class OrderEntity implements Parcelable {
     }
 
     protected OrderEntity(Parcel in) {
-        this.id = in.readInt();
-        this.user_id = in.readInt();
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
+        this.user_id = (Long) in.readValue(Long.class.getClassLoader());
         this.order_code = in.readString();
-        this.address_id = in.readInt();
+        this.address_id = (Long) in.readValue(Long.class.getClassLoader());
         this.remark = in.readString();
-        this.delivery_money = in.readInt();
-        this.product_money = in.readInt();
-        this.pay_money = in.readInt();
+        this.delivery_money = (Double) in.readValue(Double.class.getClassLoader());
+        this.product_money = (Double) in.readValue(Double.class.getClassLoader());
+        this.pay_money = (Double) in.readValue(Double.class.getClassLoader());
         this.create_time = in.readString();
-        this.pay_type = in.readInt();
+        this.pay_type = (Long) in.readValue(Long.class.getClassLoader());
         this.pay_certificate = in.readString();
         this.pay_time = in.readString();
         this.refuse_reason = in.readString();
-        this.state = in.readInt();
+        this.state = (Long) in.readValue(Long.class.getClassLoader());
         this.productList = new ArrayList<ProductEntity>();
         in.readList(this.productList, ProductEntity.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<OrderEntity> CREATOR = new Parcelable.Creator<OrderEntity>() {
+    public static final Creator<OrderEntity> CREATOR = new Creator<OrderEntity>() {
         @Override
         public OrderEntity createFromParcel(Parcel source) {
             return new OrderEntity(source);

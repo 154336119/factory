@@ -1,5 +1,6 @@
 package com.slb.factory.ui.activity;
 
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -7,6 +8,7 @@ import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.old.SuccessTypeEnum;
 import com.slb.frame.ui.activity.BaseActivity;
+import com.slb.frame.utils.ActivityUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,11 +59,11 @@ public class SuccessActivity extends BaseActivity {
     @OnClick(R.id.Btn)
     public void onViewClicked() {
         if(type == TYPE_100){
-
-        }else if(type == TYPE_100){
-
-        }else if(type == TYPE_101){
-
+            ActivityUtil.next(this,MainActivity.class,null,true);
+        }else if(type == TYPE_102){
+            Bundle bundle = new Bundle();
+            bundle.putInt("POS",1);
+            ActivityUtil.next(this, OrderListActiivty.class,bundle,true);
         }
     }
 }

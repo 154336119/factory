@@ -10,17 +10,17 @@ public class Goods {
      * discount_price : 44
      */
 
-    private Integer id;
+    private Long id;
     private String name;
     private String head_img;
-    private Integer original_price;
-    private Integer discount_price;
+    private Double original_price;
+    private Double discount_price;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,19 +40,19 @@ public class Goods {
         this.head_img = head_img;
     }
 
-    public Integer getOriginal_price() {
+    public Double getOriginal_price() {
         return original_price;
     }
 
-    public void setOriginal_price(Integer original_price) {
+    public void setOriginal_price(Double original_price) {
         this.original_price = original_price;
     }
 
-    public Integer getDiscount_price() {
+    public Double getDiscount_price() {
         return discount_price;
     }
 
-    public void setDiscount_price(Integer discount_price) {
+    public void setDiscount_price(Double discount_price) {
         this.discount_price = discount_price;
     }
 }
