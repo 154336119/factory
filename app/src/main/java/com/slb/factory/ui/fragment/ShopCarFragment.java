@@ -181,7 +181,7 @@ public class ShopCarFragment extends BaseFragment {
                 bundle.putString("url",MyConstants.h5Url + data.url);
             }
             bundle.putString("title",data.title);
-            bundle.putBoolean("isRightBtnShare",data.isRightBtnShare);
+            bundle.putInt("isShare",data.isShare);
 
             if(!TextUtils.isEmpty(data.shareTitle)){
                 bundle.putString("shareTitle",data.shareTitle);
@@ -241,4 +241,6 @@ public class ShopCarFragment extends BaseFragment {
            mWebView.loadUrl(MyConstants.h5Url + MyConstants.url_gouwuche + Base.getUserEntity().getToken());
        }
     }
+
+
 }

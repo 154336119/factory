@@ -48,7 +48,6 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 		baseViewHolder.setText(R.id.TvNewAmount, "￥"+ new DecimalFormat(".00").format(entity.getSeckill_price()));
 		tvOldAmount.setText("￥"+ new DecimalFormat(".00").format(entity.getOriginal_price()));
 		tvOldAmount.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG );
-
 		Long startTime = Long.parseLong(DateUtils.sdateToTimestamp3(entity.getStart_time()));
 		Long curTime = Long.parseLong(entity.getServerTime()+"");
 		//测试

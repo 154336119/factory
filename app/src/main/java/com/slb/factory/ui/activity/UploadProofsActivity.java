@@ -24,6 +24,7 @@ import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.event.ImageDelectEvent;
+import com.slb.factory.event.OrderNumRefreshEvent;
 import com.slb.factory.event.OrderRefreshEvent;
 import com.slb.factory.http.bean.AgencyVoucherShownType;
 import com.slb.factory.http.bean.old.InvestorProofEntity;
@@ -42,15 +43,16 @@ import com.slb.frame.utils.ImagePickerUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leo.permission.PermissionRequest;
+import cn.leo.permission.PermissionRequestFailedCallback;
 
 import static com.slb.factory.MyConstants.REQUEST_CODE_PROOF_IMG_PICK;
-import static com.slb.factory.ui.activity.SuccessActivity.TYPE_100;
 import static com.slb.factory.ui.activity.SuccessActivity.TYPE_102;
 
 public class UploadProofsActivity
@@ -190,6 +192,7 @@ public class UploadProofsActivity
         bundle.putInt(MyConstants.TYPE,TYPE_102);
         ActivityUtil.next(this,SuccessActivity.class,bundle,true);
         RxBus.get().post(new OrderRefreshEvent());
+        RxBus.get().post(new OrderNumRefreshEvent());
     }
 
     @Override

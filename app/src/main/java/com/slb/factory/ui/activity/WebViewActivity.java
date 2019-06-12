@@ -72,7 +72,7 @@ public class WebViewActivity extends BaseActivity {
 
     private String url;
     private String title;
-    private boolean isRightBtnShare = false;
+    private int isShare = 0;
     private UMWeb mUMWeb;
 
     public void setMybackListener(){
@@ -94,7 +94,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(isRightBtnShare){
+        if(isShare == 1){
             getMenuInflater().inflate(R.menu.menu_share, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -110,8 +110,8 @@ public class WebViewActivity extends BaseActivity {
         super.getIntentExtras();
         title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
-        isRightBtnShare = getIntent().getBooleanExtra("isRightBtnShare",false);
-        if(isRightBtnShare){
+        isShare = getIntent().getIntExtra("isShare",0);
+        if(isShare == 1){
             UMWeb web = new UMWeb(getIntent().getStringExtra("shareUrl")+"&ifshare=2");
             web.setTitle(getIntent().getStringExtra("shareTitle"));
             web.setDescription(getIntent().getStringExtra("shareSubTitle"));
@@ -120,6 +120,14 @@ public class WebViewActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mWebView == null) {
+            return;
+        }
+        mWebView.onResume();
+    }
     @Override
     protected String setToolbarTitle() {
         return title;
@@ -241,7 +249,7 @@ public class WebViewActivity extends BaseActivity {
                 bundle.putString("url",MyConstants.h5Url + data.url);
             }
             bundle.putString("title",data.title);
-            bundle.putBoolean("isRightBtnShare",data.isRightBtnShare);
+            bundle.putInt("isShare",data.isShare);
 
             if(!TextUtils.isEmpty(data.shareTitle)){
                 bundle.putString("shareTitle",data.shareTitle);
@@ -255,6 +263,9 @@ public class WebViewActivity extends BaseActivity {
             if(!TextUtils.isEmpty(data.shareLogo)){
                 bundle.putString("shareLogo",data.shareLogo);
             }
+            //选择支付方式
+//            RxBus.get().post(new FinishAcitivtyEvent());
+//            ActivityUtil.next(WebViewActivity.this, ChoisePayTypeActiivty.class);
             ActivityUtil.next(WebViewActivity.this, WebViewActivity.class,bundle,100);
         }
 
@@ -355,7 +366,7 @@ public class WebViewActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 //        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, intent);
-        if (resultCode == 100)
+        if (resultCode == 100){
             if (intent.getBooleanExtra("isRefresh", false)){
                 StringBuffer sb = new StringBuffer();
                 sb.append(this.url);
@@ -367,6 +378,7 @@ public class WebViewActivity extends BaseActivity {
                 }
 //                this.url = sb.toString();
                 mWebView.loadUrl(sb.toString());
+              }
             }
         }
 

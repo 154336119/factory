@@ -9,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
 import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
+import com.slb.factory.event.OrderNumRefreshEvent;
+import com.slb.factory.event.OrderRefreshEvent;
 import com.slb.factory.ui.activity.InviteFriendsActivity;
 import com.slb.factory.ui.activity.MsgListActivity;
 import com.slb.factory.ui.activity.OrderListActiivty;
@@ -162,5 +165,32 @@ public class MineFragment
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
                 break;
         }
+    }
+
+    @Override
+    public void getOrderNumSuccess(Integer num) {
+        if(num!=null && num>0){
+            mTvYiXiaDanCount.setVisibility(View.VISIBLE);
+            mTvYiXiaDanCount.setText(num+"");
+        }else{
+            mTvYiXiaDanCount.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            mPresenter.getOurderNum();
+        }
+    }
+
+    @Subscribe
+    public void numRefresh(OrderNumRefreshEvent event){
+        mPresenter.getOurderNum();
+    }
+    @Override
+    protected boolean rxBusRegist() {
+        return true;
     }
 }

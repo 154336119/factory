@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:clickable="true"
     android:padding="10dp">
     <ImageView
         android:id="@+id/IvImg"
@@ -123,6 +124,8 @@
             style="@style/btn_small_gradual"
             android:layout_alignBottom="@+id/IvImg"
             android:layout_toRightOf="@+id/IvImg"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:duplicateParentState="true"
+                android:clickable="false" />
 
 </RelativeLayout>

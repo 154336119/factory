@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:layout_below="@+id/Rl01"
         android:layout_gravity="center"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:src="@mipmap/weixin" />
 
     <TextView
@@ -25,5 +25,5 @@
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="编号"
-        android:textColor="#3f403f" />
+        android:textColor="#131313" />
 </LinearLayout>

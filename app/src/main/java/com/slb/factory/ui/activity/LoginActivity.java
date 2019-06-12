@@ -1,6 +1,7 @@
 package com.slb.factory.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.jaeger.library.StatusBarUtil;
 import com.orhanobut.logger.Logger;
 import com.slb.factory.Base;
+import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.ui.contract.LoginContract;
 import com.slb.factory.ui.presenter.LoginPresenter;
@@ -28,6 +30,8 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.slb.factory.ui.activity.SuccessActivity.TYPE_100;
 
 public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginContract.IPresenter>
         implements LoginContract.IView {
@@ -58,14 +62,22 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        StatusBarUtil.setTransparentForImageView(this,null);
+        StatusBarUtil.setTransparentForImageView(this, null);
         StatusBarUtil.setLightMode(this);
 //        StatusBarUtil.setDarkMode(this);
         mShareAPI = UMShareAPI.get(this);
         UMShareConfig config = new UMShareConfig();
         config.setSinaAuthType(UMShareConfig.AUTH_TYPE_SSO);
         mShareAPI.setShareConfig(config);
-
+        if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 2) {
+            ActivityUtil.next(this, MainActivity.class, null, true);
+        } else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 1) {
+            goUploadLicenseActivity();
+        }else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 0) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(MyConstants.TYPE,TYPE_100);
+            ActivityUtil.next(this,SuccessActivity.class,bundle,true);
+        }
     }
 
     @Override

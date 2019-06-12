@@ -72,7 +72,7 @@ public  class ImageLoadUtil implements ImageLoader {
      */
     public static void loadImage(Context context, String url, ImageView imageView){
 
-        Glide.with(context).load(addheaderUrl(url)).error( getErrorDrawable()).placeholder(getPlaceholderDrawable()).into(imageView);
+        Glide.with(context).load(addheaderUrl(url)).asBitmap().error( getErrorDrawable()).placeholder(getPlaceholderDrawable()).into(imageView);
     }
 
     public static FutureTarget<File> saveImage(Context context, String url){

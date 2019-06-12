@@ -244,34 +244,12 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
      * @param msg
      */
     public void showToastMsg(final String msg) {
-        this. runOnUiThread(new Runnable() {
-
+        runOnUiThread(new Runnable() {
             @Override
-
             public void run() {
-
-                if (mToast != null) {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                        mToast.cancel();
-                    }
-                } else {
-                    mToast = Toast.makeText(BaseActivity.this, "", Toast.LENGTH_LONG);
-                    mToast.setGravity(Gravity.CENTER, 0, 0);
-                    mToast.setDuration(Toast.LENGTH_LONG);
-                }
-                if (TextUtils.isEmpty(msg)) {
-                    return;
-                }
-
-                View contentView = View.inflate(BaseActivity.this, R.layout.base_toast, null);
-                TextView tvMsg =  contentView.findViewById(R.id.tv_toast_msg);
-                mToast.setView(contentView);
-                tvMsg.setText(msg);
-//                mToast.setText(msg);
-                mToast.show();
-
+                Toast.makeText(BaseActivity.this, "" + msg, Toast.LENGTH_SHORT)
+                        .show();
             }
-
         });
 
     }

@@ -77,8 +77,6 @@ public class HomeFragment
     List<Brand> mBrandsList = new ArrayList<>();
     List<Seckill> mSeckillsList = new ArrayList<>();
     List<Goods> mGoodsList = new ArrayList<>();
-
-
     @Override
     protected boolean hasToolbar() {
         return false;
@@ -146,7 +144,8 @@ public class HomeFragment
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("url", MyConstants.h5Url + MyConstants.url_pingpaixueche + mHomeBrandsListAdapter.getData().get(position).getId());
+                bundle.putString("url", MyConstants.h5Url + MyConstants.url_pingpaixueche + mHomeBrandsListAdapter.getData().get(position).getId()
+                        + url_token + Base.getUserEntity().getToken());
                 bundle.putString("title", mHomeBrandsListAdapter.getData().get(position).getName());
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }
@@ -164,12 +163,12 @@ public class HomeFragment
                 + url_token + Base.getUserEntity().getToken());
                 bundle.putString("title", "产品详情");
                 //分享参数
-                bundle.putString("shareTitle",mHomeLimitListAdapter.getData().get(position).getProduct_name());
-                bundle.putString("shareSubTitle",mHomeLimitListAdapter.getData().get(position).getProduct_name());
-                bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing
-                        + mHomeLimitListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
-                bundle.putString("shareLogo",mHomeLimitListAdapter.getData().get(position).getHead_img());
-
+                bundle.putInt("isShare",1);
+                //分享参数
+                bundle.putString("shareTitle","邀您加入工厂联盟");
+                bundle.putString("shareSubTitle","来自工厂联盟APP");
+                bundle.putString("shareUrl", MyConstants.h5Url + "/share");
+                bundle.putString("shareLogo","http://img.xikeqiche.com/share/200.jpg");
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }
         });
@@ -185,12 +184,11 @@ public class HomeFragment
                 bundle.putString("url", MyConstants.h5Url + MyConstants.url_chanpingxiangqing + mHomeGoodsListAdapter.getData().get(position).getId()
                         + url_token+ Base.getUserEntity().getToken());
                 bundle.putString("title", "产品详情");
-                bundle.putBoolean("isRightBtnShare", true);
+                bundle.putInt("isShare",1);
                 //分享参数
                 bundle.putString("shareTitle","邀您加入工厂联盟");
-                bundle.putString("shareSubTitle","来自工厂联盟的分享");
-                bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_chanpingxiangqing
-                        + mHomeGoodsListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
+                bundle.putString("shareSubTitle","来自工厂联盟APP");
+                bundle.putString("shareUrl", MyConstants.h5Url + "/share");
                 bundle.putString("shareLogo","http://img.xikeqiche.com/share/200.jpg");
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }
@@ -219,10 +217,7 @@ public class HomeFragment
 
     @Override
     public void setSeckillListData(List<Seckill> entity) {
-//        mSeckillsList = entity;
-        //测试
-        mSeckillsList.addAll(entity);
-        mSeckillsList.addAll(entity);
+        mSeckillsList = entity;
         mHomeLimitListAdapter.setNewData(mSeckillsList);
     }
 

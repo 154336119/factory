@@ -32,7 +32,7 @@
             android:gravity="center"
             android:textColor="#494949"
             android:lineSpacingExtra="20dp"
-            android:textSize="@dimen/size_18sp"
+            android:textSize="14sp"
             android:layout_marginTop="@dimen/distance_30dp"/>
     </LinearLayout>
     <LinearLayout
@@ -45,15 +45,16 @@
             android:id="@+id/BtnGoHome"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:text="返回首页"
             style="@style/btn_bottom_stroke"/>
         <Button
             android:id="@+id/BtnGoUpload"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:height="@dimen/layout_44"
+            android:height="36dp"
             android:text="上传凭证"
+            android:gravity="center"
             android:layout_marginLeft="@dimen/distance_10"
             style="@style/btn_bottom_single_gradual"/>
     </LinearLayout>

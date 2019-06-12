@@ -104,10 +104,10 @@ public class WxPayFragment extends BaseMvpFragment<WxPayContract.IView, WxPayCon
         if("1".equals( payTypeEntity.getShowPay())){
             if(type == TYPE_WX){
                 TvContent.setText(_mActivity.getString(R.string.choise_pay_wx));
-                ImageLoadUtil.loadCircleImage(_mActivity,payTypeEntity.getWechatQrcode(),IvPay);
+                ImageLoadUtil.loadImage(_mActivity,payTypeEntity.getWechatQrcode(),IvPay);
             }else if(type == TYPE_ZFB){
                 TvContent.setText(_mActivity.getString(R.string.choise_pay_zfb));
-                ImageLoadUtil.loadCircleImage(_mActivity,payTypeEntity.getAlipayQrcode(),IvPay);
+                ImageLoadUtil.loadImage(_mActivity,payTypeEntity.getAlipayQrcode(),IvPay);
             }
         }else{
             IvPay.setVisibility(View.GONE);

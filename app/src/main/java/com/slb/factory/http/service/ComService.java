@@ -163,5 +163,10 @@ public interface ComService {
     @POST("/app/config/aboutus"  )
     Observable<HttpMjResult<ConfigEntity>> getConfig(@Field("token") Integer token);
 
-
+    /**
+     * 订单数目
+     */
+    @FormUrlEncoded
+    @POST("/app/order/num"  )
+    Observable<HttpMjResult<Integer>> getOrderNum(@Field("token") String token);
 }

@@ -1,6 +1,7 @@
 package com.slb.factory.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,6 +41,9 @@ public class SuccessActivity extends BaseActivity {
         ButterKnife.bind(this);
         TvTitle.setText(mSuccessTypeEnum.getTitleContent());
         TvContent.setText(mSuccessTypeEnum.getContent());
+        if(type == TYPE_100){
+            Btn.setVisibility(View.GONE);
+        }
         Btn.setText(mSuccessTypeEnum.getBtnText());
     }
 
@@ -58,9 +62,7 @@ public class SuccessActivity extends BaseActivity {
 
     @OnClick(R.id.Btn)
     public void onViewClicked() {
-        if(type == TYPE_100){
-            ActivityUtil.next(this,MainActivity.class,null,true);
-        }else if(type == TYPE_102){
+         if(type == TYPE_102){
             Bundle bundle = new Bundle();
             bundle.putInt("POS",1);
             ActivityUtil.next(this, OrderListActiivty.class,bundle,true);

@@ -108,6 +108,7 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 								if(entity.getState() == 0 ){
 									mView.goUploadLicenseActivity();
 								}else if(entity.getState() == 1 ){
+									mView.goUploadLicenseActivity();
 									mView.showMsg("已上传执照等待审核");
 								}else if(entity.getState() == 2 ){
 									mView.loginSuccess();

@@ -28,9 +28,6 @@ public class WebBean implements Serializable {
     public String restId;
     public String price;
 
-    //是否显示分享按钮
-    public boolean isRightBtnShare;
-
     // 标题：
     public String title;
     //副标题：
@@ -56,4 +53,8 @@ public class WebBean implements Serializable {
 
     public int ifToken = 0;
     public String addressId;
+
+
+    //是否显示分享按钮
+    public int isShare = 0;
 }
