@@ -32,7 +32,7 @@ public class OrderAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> 
 
 	@Override
 	protected void convert(BaseViewHolder baseViewHolder, OrderEntity entity) {
-		baseViewHolder.setText(R.id.mTvOrderNo,entity.getOrder_code());
+		baseViewHolder.setText(R.id.mTvOrderNo,"订单编号："+entity.getOrder_code());
 		baseViewHolder.setText(R.id.mTvDate,entity.getCreate_time());
 		baseViewHolder.setText(R.id.mTvOrderMoney,"¥"+new DecimalFormat(".00").format(entity.getPay_money()));
 		if(orderState == 0){

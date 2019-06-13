@@ -1,6 +1,8 @@
 package com.slb.factory.ui.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -21,6 +23,8 @@ import com.slb.frame.utils.ActivityUtil;
 
 import danfei.shulaibao.widget.refresh.BaseBrvahRefreshFragment;
 import rx.Observable;
+
+import static com.slb.factory.MyConstants.url_token;
 
 public class OrderAllStatusFragment
 		extends BaseBrvahRefreshFragment<OrderAllContract.IView,OrderAllContract.IPresenter, Object,OrderEntity>
@@ -79,8 +83,9 @@ public class OrderAllStatusFragment
 		if(view.getId() == R.id.mTvActionUploadProofs){
 			//上传凭证
 			Bundle bundle = new Bundle();
-			bundle.putString("orderId",orderEntity.getId()+"");
-			ActivityUtil.next(_mActivity, UploadProofsActivity.class,bundle,false);
+			bundle.putString("url", MyConstants.h5Url + MyConstants.url_dingdanxiangqing + orderEntity.getId());
+			bundle.putString("title", "订单详情");
+			ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
 		}else if(view.getId() == R.id.mTvActionSeeEms){
 			//查看物流
 			Bundle bundle = new Bundle();
@@ -89,7 +94,7 @@ public class OrderAllStatusFragment
 			ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
 		}else if(view.getId() == R.id.mTvActionConfirm){
 			//确认收货
-			mPresenter.orderFinish(orderEntity.getId()+"");
+			showDialog(orderEntity.getId());
 		}
 
 	}
@@ -99,4 +104,24 @@ public class OrderAllStatusFragment
 		onRefresh();
 	}
 
+
+	public void showDialog(final long id){
+		AlertDialog.Builder builder = new AlertDialog.Builder(_mActivity);
+		builder.setMessage("是否确认收货");
+		builder.setTitle("温馨提示");
+		builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				mPresenter.orderFinish(id+"");
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		builder.create().show();
+	}
 }

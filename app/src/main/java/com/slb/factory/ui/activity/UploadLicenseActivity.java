@@ -42,6 +42,9 @@ import static com.slb.factory.ui.activity.SuccessActivity.TYPE_100;
 
 public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract.IView, UploadLicenseContract.IPresenter>
         implements UploadLicenseContract.IView {
+    public static final int TYPE_FIRST = 1; //第一次进入
+    public static final int TYPE_FAILED = 2; //失败
+
     @BindView(R.id.mTvWarning1)
     TextView mTvWarning1;
     @BindView(R.id.IvCard1)
@@ -52,11 +55,25 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     RelativeLayout BtnCard1;
     @BindView(R.id.btnComfirm)
     Button btnComfirm;
+    @BindView(R.id.TvFailedTip)
+    TextView TvFailedTip;
+    @BindView(R.id.TvReason)
+    TextView TvReason;
     private ImagePicker mImagePicker;
     AgencyVoucherShownType mSource;
-    /** 营业执照*/
+    /**
+     * 营业执照
+     */
     private InvestorProofEntity mIdCard1 = new InvestorProofEntity();
     private String mQnToken;
+    private int type;
+
+    @Override
+    public void getIntentExtras() {
+        super.getIntentExtras();
+        type = getIntent().getIntExtra("type", TYPE_FIRST);
+    }
+
     @Override
     public void getPicTokenSuccess(String token) {
         mQnToken = token;
@@ -73,6 +90,11 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         ButterKnife.bind(this);
         mImagePicker = ImagePickerUtils.cardSetting(this);
         mPresenter.getPicToken(Base.getUserEntity().getToken());
+        if (type == TYPE_FAILED){
+            TvFailedTip.setVisibility(View.VISIBLE);
+            TvReason.setVisibility(View.VISIBLE);
+            TvReason.setText("拒绝原因：\n" + Base.getUserEntity().getRefuse_reason());
+        }
     }
 
     @Override
@@ -89,24 +111,25 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_delete1:
-                delCard(mIdCard1,IvCard1,ivDelete1,R.mipmap.image_add);
+                delCard(mIdCard1, IvCard1, ivDelete1, R.mipmap.image_add);
                 break;
             case R.id.BtnCard1:
-                if(TextUtils.isEmpty(mIdCard1.getUrl())){
+                if (TextUtils.isEmpty(mIdCard1.getUrl())) {
                     choosePic();
-                }else{
+                } else {
                     checkPic(mIdCard1);
                 }
                 break;
             case R.id.btnComfirm:
-                if(!mIdCard1.isLocalImg()){
-                    mPresenter.uploadLicense(Base.getUserEntity().getToken(),mIdCard1.getUrl());
-                }else{
+                if (!mIdCard1.isLocalImg()) {
+                    mPresenter.uploadLicense(Base.getUserEntity().getToken(), mIdCard1.getUrl());
+                } else {
                     showToastMsg("选择图片");
                 }
                 break;
         }
     }
+
     @PermissionRequest({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
     public void choosePic() {
         mImagePicker.setImageLoader(new ImageLoadUtil());
@@ -115,15 +138,15 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         startActivityForResult(intent, MyConstants.REQUEST_CODE_PROOF_IMG_PICK);
     }
 
-    private void checkPic(InvestorProofEntity entity){
+    private void checkPic(InvestorProofEntity entity) {
         //打开预览
-        List<String> images=new ArrayList<>();
+        List<String> images = new ArrayList<>();
         images.add(entity.getUrl());
         mImagePicker.setImageLoader(new LocalImageLoader());
         Intent intentPreview;
-        if(mSource == AgencyVoucherShownType.SEE){
+        if (mSource == AgencyVoucherShownType.SEE) {
             intentPreview = new Intent(this, ImagePreviewActivity.class);
-        }else{
+        } else {
             intentPreview = new Intent(this, ImagePreviewActivity.class);
         }
         intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, ImagePickerUtils.getImageItemForStr(images));
@@ -132,7 +155,7 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         startActivityForResult(intentPreview, MyConstants.REQUEST_CODE_PROOF_IMG_PREVIEW);
     }
 
-    private void delCard(InvestorProofEntity mIdCard,ImageView IvCard,ImageView ivdelete,int rid ){
+    private void delCard(InvestorProofEntity mIdCard, ImageView IvCard, ImageView ivdelete, int rid) {
         mIdCard.setUrl(null);
         mIdCard.setLocalImg(false);
         ivdelete.setVisibility(View.GONE);
@@ -145,21 +168,21 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             //添加图片返回
-            if (data != null  && requestCode == MyConstants.REQUEST_CODE_PROOF_IMG_PICK) {
+            if (data != null && requestCode == MyConstants.REQUEST_CODE_PROOF_IMG_PICK) {
                 List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                if(images!=null && images.size()==1){
+                if (images != null && images.size() == 1) {
                     File file = null;
                     try {
                         file = CompressHelper.getDefault(this).compressToFile(new File(images.get(0).path));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         showToastMsg(getString(R.string.image_error));
                         return;
                     }
                     mIdCard1.setLocalImg(true);
                     mIdCard1.setUrl(file.getPath());
                     IvCard1.setImageBitmap(BitmapFactory.decodeFile(file.getPath()));
-                    if(mIdCard1.isLocalImg()){
-                        mPresenter.uploadQiNiu(file,mQnToken);
+                    if (mIdCard1.isLocalImg()) {
+                        mPresenter.uploadQiNiu(file, mQnToken);
                     }
                     ivDelete1.setVisibility(View.VISIBLE);
                 }
@@ -179,8 +202,8 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
     @Override
     public void uploadImageSuccess() {
         Bundle bundle = new Bundle();
-        bundle.putInt(MyConstants.TYPE,TYPE_100);
-        ActivityUtil.next(this,SuccessActivity.class,bundle,true);
+        bundle.putInt(MyConstants.TYPE, TYPE_100);
+        ActivityUtil.next(this, SuccessActivity.class, bundle, true);
     }
 
     @Override

@@ -24,6 +24,15 @@ public class UserEntity {
     private Integer state;
     private String token;
 
+    public String getRefuse_reason() {
+        return refuse_reason;
+    }
+
+    public void setRefuse_reason(String refuse_reason) {
+        this.refuse_reason = refuse_reason;
+    }
+
+    private String refuse_reason;//失败原因
     public Integer getId() {
         return id;
     }

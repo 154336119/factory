@@ -112,7 +112,7 @@ public class PublicPayFragment extends BaseFragment {
                 CopyToClipboard(TvBankName.getText().toString());
                 break;
             case R.id.BtnGoHome:
-                bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,2);
+                bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,0);
                 ActivityUtil.next(_mActivity, MainActivity.class,bundle,true);
                 _mActivity.finish();
                 break;

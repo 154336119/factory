@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
 import com.slb.factory.Base;
 import com.slb.factory.R;
 import com.slb.factory.http.RetrofitSerciveFactory;
 import com.slb.factory.http.bean.UserEntity;
+import com.slb.factory.ui.activity.UploadLicenseActivity;
 import com.slb.frame.http2.retrofit.HttpMjResult;
 import com.slb.frame.http2.rxjava.BaseSubscriber;
 import com.slb.frame.http2.rxjava.BindPrssenterOpterator;
@@ -63,16 +65,7 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 					@Override
 					public void onNext(UserEntity entity) {
 						super.onNext(entity);
-						Base.setUserEntity(entity);
-						//账号状态state：0等待上传执照、1已上传执照等待审核、2已审核通过
-						if(entity.getState() == 0 ){
-							mView.goUploadLicenseActivity();
-						}else if(entity.getState() == 1 ){
-//							mView.showMsg("已上传执照等待审核");
-							mView.loginSuccess();
-						}else if(entity.getState() == 2 ){
-							mView.loginSuccess();
-						}
+						setLoginUserInfo(entity);
 					}
 				});
 
@@ -94,7 +87,6 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 			@Override
 			public void onComplete(final SHARE_MEDIA share_media, int i, final Map<String, String> map) {
 				Logger.d("========================="+map);
-
 				RetrofitSerciveFactory.provideComService().loginThird(map.get("uid"),map.get("name"),map.get("iconurl"),1)
 						.lift(new BindPrssenterOpterator<HttpMjResult<UserEntity>>(LoginPresenter.this))
 						.compose(RxUtil.<HttpMjResult<UserEntity>>applySchedulersForRetrofit())
@@ -103,17 +95,7 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 							@Override
 							public void onNext(UserEntity entity) {
 								super.onNext(entity);
-								//账号状态state：0等待上传执照、1已上传执照等待审核、2已审核通过
-								Base.setUserEntity(entity);
-								if(entity.getState() == 0 ){
-									mView.goUploadLicenseActivity();
-								}else if(entity.getState() == 1 ){
-									mView.goUploadLicenseActivity();
-									mView.showMsg("已上传执照等待审核");
-								}else if(entity.getState() == 2 ){
-									mView.loginSuccess();
-								}
-								Base.setUserEntity(entity);
+								setLoginUserInfo(entity);
 							}
 						});
 			}
@@ -147,5 +129,36 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 		}
 		return false;
 	}
+	@Override
+	public void getUserInfo(String token) {
+		RetrofitSerciveFactory.provideComService().getUserInfo(token)
+				.lift(new BindPrssenterOpterator<HttpMjResult<UserEntity>>(LoginPresenter.this))
+				.compose(RxUtil.<HttpMjResult<UserEntity>>applySchedulersForRetrofit())
+				.map(new HttpMjEntityFun<UserEntity>())
+				.subscribe(new BaseSubscriber<UserEntity>(LoginPresenter.this.mView) {
+					@Override
+					public void onNext(UserEntity entity) {
+						super.onNext(entity);
+						setLoginUserInfo(entity);
+					}
+				});
+	}
 
+
+	private void setLoginUserInfo(UserEntity entity){
+		//账号状态state：0等待上传执照、1已上传执照等待审核、2已审核通过
+		Base.setUserEntity(entity);
+		if(entity.getState() == 0 ){
+			if(!TextUtils.isEmpty(entity.getRefuse_reason())){
+				mView.goUploadLicenseActivity(UploadLicenseActivity.TYPE_FAILED);
+			}else{
+				mView.goUploadLicenseActivity(UploadLicenseActivity.TYPE_FIRST);
+			}
+		}else if(entity.getState() == 1 ){
+			mView.goUploadLicenseActivity(UploadLicenseActivity.TYPE_FIRST);
+			mView.showMsg("已上传执照等待审核");
+		}else if(entity.getState() == 2 ){
+			mView.loginSuccess();
+		}
+	}
 }

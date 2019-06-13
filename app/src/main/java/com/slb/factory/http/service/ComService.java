@@ -169,4 +169,11 @@ public interface ComService {
     @FormUrlEncoded
     @POST("/app/order/num"  )
     Observable<HttpMjResult<Integer>> getOrderNum(@Field("token") String token);
+
+    /**
+     *  用户信息
+     */
+    @FormUrlEncoded
+    @POST("/app/user/info"  )
+    Observable<HttpMjResult<UserEntity>> getUserInfo(@Field("token") String token);
 }

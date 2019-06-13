@@ -85,14 +85,24 @@
                         android:text="限时秒杀"/>
                 </FrameLayout>
                 <!--限时秒杀 -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/RvLimitedTime"
+                        android:background="@drawable/bg_home_banner"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:overScrollMode="never"
                         android:nestedScrollingEnabled="false"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_home_banner"
-                        android:layout_margin="@dimen/distance_10" />
+                        android:layout_marginBottom="10dp" />
+                </RelativeLayout>
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

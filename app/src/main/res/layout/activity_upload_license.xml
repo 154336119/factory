@@ -8,15 +8,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/distance_bg">
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/TvFailedTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="您提交的信息被驳回，请重新上传"
+            android:textColor="#ff3115"
+            android:background="#ffefed"
+            android:drawableLeft="@mipmap/tishi_jujue"
+            android:padding="8dp"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/mTvWarning1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="上传营业执照"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/distance_bg"
             />
         <RelativeLayout
             android:id="@+id/BtnCard1"
@@ -42,6 +52,17 @@
                 android:visibility="gone"
                 />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/TvReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/distance_bg"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <Button

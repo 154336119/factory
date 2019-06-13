@@ -26,7 +26,7 @@
     <dimen name="btn_bottom_radius">22dp</dimen>
     <dimen name="btn_bottom_height">44dp</dimen>
     <dimen name="textview_hint_height">42dp</dimen>
-    <dimen name="btn_small_radius">16dp</dimen>
+    <dimen name="btn_small_radius">20dp</dimen>
     <dimen name="btn_small_height">24dp</dimen>
     <dimen name="btn_small_width">90dp</dimen>
     <dimen name="distance_drawablePadding">6dp</dimen>

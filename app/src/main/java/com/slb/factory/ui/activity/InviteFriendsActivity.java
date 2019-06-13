@@ -3,6 +3,7 @@ package com.slb.factory.ui.activity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
+import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.weight.ShareDialog;
@@ -44,8 +45,8 @@ public class InviteFriendsActivity extends BaseActivity {
     public void onViewClicked() {
         //分享参数
         UMWeb web = new UMWeb( MyConstants.h5Url +url_yaoqinghaoyou);
-        web.setTitle("邀您加入工厂联盟");
-        web.setDescription("来自工厂联盟APP");
+        web.setTitle(Base.getUserEntity().getNick_name()+"邀您加入工厂联盟");
+        web.setDescription("工厂联盟APP");
         web.setThumb(new UMImage(this,"http://img.xikeqiche.com/share/200.jpg") );
         new ShareAction(this)
                 .setPlatform(SHARE_MEDIA.WEIXIN)//传入平台

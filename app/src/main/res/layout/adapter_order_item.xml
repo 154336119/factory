@@ -6,19 +6,21 @@
      android:layout_height="wrap_content"
      android:background="@drawable/bg_order_item"
      android:orientation="vertical"
-    android:layout_margin="13dp">
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
     <TextView
         android:id="@+id/mTvOrderNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="测测"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:textColor="#a6a6a6"
-        android:padding="@dimen/distance_20dp"/>
+        android:padding="@dimen/distance_10"/>
     <TextView
         android:id="@+id/mTvDate"
-        android:padding="@dimen/distance_20dp"
-        android:textSize="15sp"
+        android:padding="@dimen/distance_10"
+        android:textSize="13sp"
         android:textColor="#a6a6a6"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
@@ -45,25 +47,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/heigt_edit"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_below="@+id/Line">
 
         <TextView
             android:id="@+id/Tv01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="14dp"
+            android:layout_centerVertical="true"
             android:text="实际总付："
             android:textColor="#565656"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
         <TextView
             android:id="@+id/mTvOrderMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="取消"
-            android:textSize="14sp"
+            android:text="取消取消"
+            android:textSize="13sp"
             android:textColor="#ff563f"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/Tv01"/>
@@ -92,10 +93,10 @@
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:paddingEnd="@dimen/distance_bg"
-            android:paddingStart="@dimen/distance_bg"
-            android:text="上传凭证"
-            android:minWidth="96dp"
+            android:paddingEnd="@dimen/distance_10"
+            android:paddingStart="@dimen/distance_10"
+            android:text="上传转账凭证"
+            android:minWidth="70dp"
             android:layout_marginLeft="@dimen/distance_8"
             android:visibility="gone"/>
 
@@ -116,22 +117,23 @@
                 android:layout_toLeftOf="@+id/mTvActionConfirm"
                 android:gravity="center"
                 android:lines="1"
-                android:minWidth="96dp"
-                android:paddingStart="@dimen/distance_bg"
-                android:paddingEnd="@dimen/distance_bg"
+                android:minWidth="70dp"
+                android:paddingStart="@dimen/distance_10"
+                android:paddingEnd="@dimen/distance_10"
                 android:text="查看物流"
                 />
             <TextView
                 android:id="@+id/mTvActionConfirm"
                 style="@style/btn_small_gradual"
                 android:layout_width="wrap_content"
+                android:textSize="13sp"
                 android:layout_height="28dp"
                 android:gravity="center"
                 android:lines="1"
-                android:paddingEnd="@dimen/distance_bg"
-                android:paddingStart="@dimen/distance_bg"
+                android:paddingEnd="@dimen/distance_10"
+                android:paddingStart="@dimen/distance_10"
                 android:text="确认收货"
-                android:minWidth="96dp"
+                android:minWidth="70dp"
                 android:layout_marginLeft="@dimen/distance_8"/>
         </LinearLayout>
 

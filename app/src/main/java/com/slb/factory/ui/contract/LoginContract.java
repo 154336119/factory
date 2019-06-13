@@ -19,7 +19,7 @@ public class LoginContract {
 		void varifyCodeSuccess();
 		void showCountdown();
 		//去上传营业执照的页面
-		void goUploadLicenseActivity();
+		void goUploadLicenseActivity(int type);
 	}
 	public interface IPresenter<T> extends IBasePresenter<T> {
 		/*** 获取验证码*/
@@ -28,5 +28,8 @@ public class LoginContract {
 		void login( String mobile, String verifyCode);
 		/*** 微信登陆*/
 		void thirdLogin(SHARE_MEDIA platform, UMShareAPI mShareAPI, Activity context);
+		/*** 查询用户信息*/
+		void getUserInfo(String token);
+
 	}
 }

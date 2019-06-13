@@ -164,10 +164,10 @@ public class HomeFragment
                 bundle.putString("title", "产品详情");
                 //分享参数
                 bundle.putInt("isShare",1);
-                //分享参数
-                bundle.putString("shareTitle","邀您加入工厂联盟");
-                bundle.putString("shareSubTitle","来自工厂联盟APP");
-                bundle.putString("shareUrl", MyConstants.h5Url + "/share");
+                bundle.putString("shareTitle",mHomeLimitListAdapter.getData().get(position).getProduct_name());
+                bundle.putString("shareSubTitle","工厂联盟APP");
+                bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing
+                        + mHomeLimitListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
                 bundle.putString("shareLogo","http://img.xikeqiche.com/share/200.jpg");
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }
@@ -186,9 +186,11 @@ public class HomeFragment
                 bundle.putString("title", "产品详情");
                 bundle.putInt("isShare",1);
                 //分享参数
-                bundle.putString("shareTitle","邀您加入工厂联盟");
-                bundle.putString("shareSubTitle","来自工厂联盟APP");
-                bundle.putString("shareUrl", MyConstants.h5Url + "/share");
+                bundle.putInt("isShare",1);
+                bundle.putString("shareTitle",mHomeGoodsListAdapter.getData().get(position).getName());
+                bundle.putString("shareSubTitle","工厂联盟APP");
+                bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_chanpingxiangqing
+                        + mHomeGoodsListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
                 bundle.putString("shareLogo","http://img.xikeqiche.com/share/200.jpg");
                 ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
             }

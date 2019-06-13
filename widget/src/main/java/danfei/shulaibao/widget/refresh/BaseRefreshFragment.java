@@ -53,7 +53,7 @@ public abstract class BaseRefreshFragment<V,T extends IBaseFragmentPresenter> ex
         super.initView(view);
         hideHead= (ViewGroup) view.findViewById(R.id.hidehead);
         mRecyclerView= (RecyclerView) view.findViewById(R.id.can_content_view);
-        mRecyclerView.addItemDecoration(setItemDecoration());
+//        mRecyclerView.addItemDecoration(setItemDecoration());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         mRecyclerView.setAdapter(initAdapter());
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -69,15 +70,19 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
         UMShareConfig config = new UMShareConfig();
         config.setSinaAuthType(UMShareConfig.AUTH_TYPE_SSO);
         mShareAPI.setShareConfig(config);
-        if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 2) {
+        if (Base.getUserEntity() != null &&  !TextUtils.isEmpty(Base.getUserEntity().getToken()) && Base.getUserEntity().getState() == 2) {
             ActivityUtil.next(this, MainActivity.class, null, true);
-        } else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 1) {
-            goUploadLicenseActivity();
-        }else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 0) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(MyConstants.TYPE,TYPE_100);
-            ActivityUtil.next(this,SuccessActivity.class,bundle,true);
+        } else if(Base.getUserEntity() != null && !TextUtils.isEmpty(Base.getUserEntity().getToken())){
+            mPresenter.getUserInfo(Base.getUserEntity().getToken());
         }
+
+//        else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 1) {
+//            goUploadLicenseActivity();
+//        }else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 0) {
+//            Bundle bundle = new Bundle();
+//            bundle.putInt(MyConstants.TYPE,TYPE_100);
+//            ActivityUtil.next(this,SuccessActivity.class,bundle,true);
+//        }
     }
 
     @Override
@@ -131,7 +136,9 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     }
 
     @Override
-    public void goUploadLicenseActivity() {
-        ActivityUtil.next(this,UploadLicenseActivity.class);
+    public void goUploadLicenseActivity(int type) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("type",type);
+        ActivityUtil.next(this,UploadLicenseActivity.class,bundle,false);
     }
 }

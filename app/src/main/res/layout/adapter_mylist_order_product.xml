@@ -19,7 +19,7 @@
             android:id="@+id/mTvProductName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:textColor="#4a4a4a"
             android:layout_toRightOf="@+id/IvImg"
             android:maxLines="2"
@@ -37,7 +37,7 @@
         android:lineSpacingExtra="3dp"
         android:text="编号"
         android:textColor="#bababa"
-        android:textSize="15sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/mTvMoney"
@@ -50,7 +50,7 @@
         android:lineSpacingExtra="3dp"
         android:text="编号"
         android:textColor="#ff381d"
-        android:textSize="15sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/TvNum"
