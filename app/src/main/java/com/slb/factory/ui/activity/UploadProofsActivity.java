@@ -216,4 +216,10 @@ public class UploadProofsActivity
             btnComfirm.setEnabled(true);
         }
     }
+
+    @PermissionRequestFailedCallback
+    private void failed(String[] failedPermissions) {
+        showToastMsg("获取权限失败，操作无法完成");
+    }
+
 }

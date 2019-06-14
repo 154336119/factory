@@ -59,6 +59,8 @@ import java.util.List;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
+import static com.lzy.okgo.OkGo.getContext;
+
 /**
  * 描述：非MVP模式的activity基类
  * Created by Lee
@@ -247,8 +249,14 @@ public abstract class BaseActivity extends ShakeActivity implements LifecyclePro
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(BaseActivity.this, "" + msg, Toast.LENGTH_SHORT)
-                        .show();
+                mToast = new Toast(BaseActivity.this);
+                View view = LayoutInflater.from(BaseActivity.this).inflate(R.layout.view_transient_notification, null, false);
+                TextView textView = view.findViewById(R.id.message);
+                textView.setText(msg);
+                mToast.setView(view);
+                mToast.setDuration(Toast.LENGTH_SHORT);
+                mToast.setGravity(Gravity.CENTER, 0, 0);
+                mToast.show();
             }
         });
 

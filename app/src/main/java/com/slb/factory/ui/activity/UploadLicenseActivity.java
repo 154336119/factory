@@ -37,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leo.permission.PermissionRequest;
+import cn.leo.permission.PermissionRequestFailedCallback;
 
 import static com.slb.factory.ui.activity.SuccessActivity.TYPE_100;
 
@@ -217,4 +218,9 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         mIdCard1.setUrl(img);
         btnComfirm.setEnabled(true);
     }
+    @PermissionRequestFailedCallback
+    private void failed(String[] failedPermissions) {
+        showToastMsg("获取权限失败，操作无法完成");
+    }
+
 }

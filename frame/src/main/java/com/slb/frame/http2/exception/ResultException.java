@@ -14,7 +14,7 @@ public class ResultException extends RuntimeException {
     /** 未知错误*/
     public static final int API_EXCEPTION_UNKNOWN = 999;
     /** 需要登录*/
-    public static final int API_EXCEPTION_NEED_LOGIN = 1000;
+    public static final int API_EXCEPTION_NEED_LOGIN = 500;
     /** 资源不存在*/
     public static final int API_EXCEPTION_RESOURCE_NO_EXIST = 1001;
     /** 非法参数*/
@@ -45,30 +45,14 @@ public class ResultException extends RuntimeException {
      */
     private static String getResultException(int code,String msg){
         String message = msg;
-//        switch (code) {
-//            case API_EXCEPTION_UNKNOWN:
-//                message = "未知错误";
-//                break;
-//            case API_EXCEPTION_NEED_LOGIN:
-////                message = "需要登录";
-//                RxBus.getInstance().post(new ResponseExceptionEventArgs(code,msg));
-//                break;
-//            case API_EXCEPTION_RESOURCE_NO_EXIST:
-//                message = "资源不存在";
-//                break;
-//            case API_EXCEPTION_ILLEGE_PARARM:
-//                message = msg;
-//                break;
-//            case API_EXCEPTION_UNAUTHORIZED:
-//                message = "服务端未授权";
-//                break;
-//            case API_EXCEPTION_FORCIBLY_UPDATE:
-//                message = "强制更新";
-//                break;
-//            default:
-//                message = "未知错误";
+        switch (code) {
+            case API_EXCEPTION_NEED_LOGIN:
+                RxBus.getInstance().post(new ResponseExceptionEventArgs(code,msg));
+                break;
+            default:
+                message = msg;
 
-//        }
+        }
         return message;
     }
 

@@ -21,6 +21,7 @@ import com.slb.frame.ui.presenter.AbstractBasePresenter;
 import com.slb.factory.ui.contract.LoginContract;
 import com.slb.frame.utils.rx.RxUtil;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -130,7 +131,7 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 		return false;
 	}
 	@Override
-	public void getUserInfo(String token) {
+	public void getUserInfo(final String token) {
 		RetrofitSerciveFactory.provideComService().getUserInfo(token)
 				.lift(new BindPrssenterOpterator<HttpMjResult<UserEntity>>(LoginPresenter.this))
 				.compose(RxUtil.<HttpMjResult<UserEntity>>applySchedulersForRetrofit())
@@ -139,6 +140,7 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 					@Override
 					public void onNext(UserEntity entity) {
 						super.onNext(entity);
+						entity.setToken(token);
 						setLoginUserInfo(entity);
 					}
 				});
@@ -146,16 +148,26 @@ public class LoginPresenter extends AbstractBasePresenter<LoginContract.IView>
 
 
 	private void setLoginUserInfo(UserEntity entity){
-		//账号状态state：0等待上传执照、1已上传执照等待审核、2已审核通过
 		Base.setUserEntity(entity);
+		PushAgent mPushAgent = PushAgent.getInstance(Base.getContext());
+		mPushAgent.setAlias(Base.getUserEntity().getToken(), "xikeqiche", new UTrack.ICallBack() {
+			@Override
+			public void onMessage(boolean b, String s) {
+				Logger.d(b + s);
+			}
+		});
 		if(entity.getState() == 0 ){
+			//state：0等待上传执照
 			if(!TextUtils.isEmpty(entity.getRefuse_reason())){
+				//失败
 				mView.goUploadLicenseActivity(UploadLicenseActivity.TYPE_FAILED);
 			}else{
+				//第一次
 				mView.goUploadLicenseActivity(UploadLicenseActivity.TYPE_FIRST);
 			}
 		}else if(entity.getState() == 1 ){
-			mView.goUploadLicenseActivity(UploadLicenseActivity.TYPE_FIRST);
+			//审核中
+			mView.goUploadLicenseSuccess();
 			mView.showMsg("已上传执照等待审核");
 		}else if(entity.getState() == 2 ){
 			mView.loginSuccess();

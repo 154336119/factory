@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.jaeger.library.StatusBarUtil;
+import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.http.bean.UpdateEntity;
@@ -17,16 +18,26 @@ import com.slb.factory.ui.contract.UploadLicenseContract;
 import com.slb.factory.ui.fragment.ShopCarFragment;
 import com.slb.factory.ui.presenter.MainPresenter;
 import com.slb.factory.util.ExitDoubleClick;
+import com.slb.frame.http2.exception.ResponseExceptionEventArgs;
 import com.slb.frame.ui.activity.BaseActivity;
 import com.slb.frame.ui.activity.BaseMvpActivity;
 import com.slb.frame.ui.fragment.BaseFragment;
 import com.slb.factory.ui.fragment.HomeFragment;
 import com.slb.factory.ui.fragment.MineFragment;
+import com.slb.frame.utils.rx.RxBus;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscription;
+import rx.functions.Action1;
 
 public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContract.IPresenter>implements MainContract.IView , RadioGroup.OnCheckedChangeListener{
+    private Subscription loginOutSub;
+    public static final String RESPONSE_EXCEPTION_LOGINOUT = "ResponseExceptionEventArgs";
+    private Observable<ResponseExceptionEventArgs> loginOutObservable;
     public static final int HOME_HOME = 0;
     public static final int HOME_BUY= 1;
     public static final int HOME_MINE = 2;
@@ -81,6 +92,28 @@ public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContr
         prePosition = 0;
         bottomBar.setOnCheckedChangeListener(this);
         bottomBar.check(R.id.rb_home);
+//        loginOutObservable = RxBus.getInstance().register(RESPONSE_EXCEPTION_LOGINOUT);
+//        loginOutSub = loginOutObservable.subscribeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+//                .unsubscribeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+//                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<ResponseExceptionEventArgs>() {
+//                    @Override
+//                    public void call(ResponseExceptionEventArgs args) {
+//                        PushAgent mPushAgent = PushAgent.getInstance(Base.getContext());
+//                        mPushAgent.deleteAlias("xikeqiche", Base.getUserEntity().getToken(), new UTrack.ICallBack() {
+//                            @Override
+//                            public void onMessage(boolean b, String s) {
+//
+//                            }
+//                        });
+//                        Base.setUserEntity(null);
+//                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                });
+
     }
 
     @Override
@@ -133,4 +166,6 @@ public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContr
             }
         });
     }
+
+
 }

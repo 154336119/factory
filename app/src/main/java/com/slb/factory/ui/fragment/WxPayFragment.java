@@ -26,6 +26,7 @@ import com.slb.factory.ui.activity.OrderListActiivty;
 import com.slb.factory.ui.activity.WebViewActivity;
 import com.slb.factory.ui.contract.WxPayContract;
 import com.slb.factory.ui.presenter.WxPayPresenter;
+import com.slb.frame.ui.activity.BaseActivity;
 import com.slb.frame.ui.fragment.BaseMvpFragment;
 import com.slb.frame.utils.ActivityUtil;
 import com.slb.frame.utils.ImageLoadUtil;
@@ -168,7 +169,7 @@ public class WxPayFragment extends BaseMvpFragment<WxPayContract.IView, WxPayCon
             File file1 = new File(relationDir);
             _mActivity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.fromFile(file1.getAbsoluteFile())));
         }
-        showMsg("保存成功");
+        ((BaseActivity)_mActivity).showToastMsg("保存成功");
     }
 
     @OnClick({R.id.BtnSave, R.id.BtnGoHome, R.id.BtnGoUpload})

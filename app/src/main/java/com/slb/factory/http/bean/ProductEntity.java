@@ -11,18 +11,18 @@ public class ProductEntity {
      * head_img : https://img14.360buyimg.com/n0/jfs/t1/44317/14/3743/190497/5ccfd6a3E73157811/567d3edc74a7b40b.jpg
      */
 
-    private Integer single_price;
+    private Double single_price;
     private Integer num;
     private String spec_value;
     private Integer product_id;
     private String name;
     private String head_img;
 
-    public Integer getSingle_price() {
+    public Double getSingle_price() {
         return single_price;
     }
 
-    public void setSingle_price(Integer single_price) {
+    public void setSingle_price(Double single_price) {
         this.single_price = single_price;
     }
 

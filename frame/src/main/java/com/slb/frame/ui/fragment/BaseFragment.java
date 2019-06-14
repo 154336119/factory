@@ -10,10 +10,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hwangjr.rxbus.RxBus;
 import com.slb.frame.R;
+import com.slb.frame.ui.activity.BaseActivity;
 import com.slb.frame.ui.toolbar.ToolbarContext;
 import com.slb.frame.ui.toolbar.ToolbarFragmentBack;
 import com.slb.frame.ui.widget.LoadingDialog;
@@ -179,27 +181,17 @@ public abstract class BaseFragment extends SupportFragment implements LifecycleP
 
     public void showToastMsg(final String msg) {
         getActivity(). runOnUiThread(new Runnable() {
-
             @Override
-
             public void run() {
-
-                if (mToast != null) {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                        mToast.cancel();
-                    }
-                } else {
-                    mToast = Toast.makeText(getContext(), "", Toast.LENGTH_LONG);
-                    mToast.setGravity(Gravity.CENTER, 0, 0);
-                }
-                if (TextUtils.isEmpty(msg)) {
-                    return;
-                }
-                mToast.setText(msg);
+                mToast = new Toast(_mActivity);
+                View view = LayoutInflater.from(_mActivity).inflate(R.layout.view_transient_notification, null, false);
+                TextView textView = view.findViewById(R.id.message);
+                textView.setText(msg);
+                mToast.setView(view);
+                mToast.setDuration(Toast.LENGTH_SHORT);
+                mToast.setGravity(Gravity.CENTER, 0, 0);
                 mToast.show();
-
             }
-
         });
 
     }

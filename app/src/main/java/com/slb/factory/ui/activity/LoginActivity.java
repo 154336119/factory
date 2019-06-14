@@ -75,7 +75,6 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
         } else if(Base.getUserEntity() != null && !TextUtils.isEmpty(Base.getUserEntity().getToken())){
             mPresenter.getUserInfo(Base.getUserEntity().getToken());
         }
-
 //        else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 1) {
 //            goUploadLicenseActivity();
 //        }else if (Base.getUserEntity() != null && Base.getUserEntity().getState() == 0) {
@@ -87,13 +86,6 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
 
     @Override
     public void loginSuccess() {
-        PushAgent mPushAgent = PushAgent.getInstance(this);
-        mPushAgent.setAlias("xikeqiche", Base.getUserEntity().getToken(), new UTrack.ICallBack() {
-            @Override
-            public void onMessage(boolean b, String s) {
-                Logger.d(b + s);
-            }
-        });
         ActivityUtil.next(this,MainActivity.class,null,true);
     }
 
@@ -139,6 +131,13 @@ public class LoginActivity extends BaseMvpActivity<LoginContract.IView, LoginCon
     public void goUploadLicenseActivity(int type) {
         Bundle bundle = new Bundle();
         bundle.putInt("type",type);
-        ActivityUtil.next(this,UploadLicenseActivity.class,bundle,false);
+        ActivityUtil.next(this,UploadLicenseActivity.class,bundle,true);
+    }
+
+    @Override
+    public void goUploadLicenseSuccess() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(MyConstants.TYPE, TYPE_100);
+        ActivityUtil.next(this, SuccessActivity.class, bundle, true);
     }
 }

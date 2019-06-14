@@ -20,6 +20,8 @@ public class LoginContract {
 		void showCountdown();
 		//去上传营业执照的页面
 		void goUploadLicenseActivity(int type);
+		//审核中的页面
+		void goUploadLicenseSuccess();
 	}
 	public interface IPresenter<T> extends IBasePresenter<T> {
 		/*** 获取验证码*/

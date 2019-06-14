@@ -1,6 +1,10 @@
 package com.slb.factory.util;
 
 import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -18,7 +22,14 @@ public abstract class DoubleClick {
 
     public void doDoubleClick(int delayTime, String msg) {
         if(!this.doInDelayTime(delayTime)) {
-            Toast.makeText(this.mContext, msg, delayTime).show();
+            Toast   mToast = new Toast(mContext);
+            View view = LayoutInflater.from(mContext).inflate(com.slb.frame.R.layout.view_transient_notification, null, false);
+            TextView textView = view.findViewById(com.slb.frame.R.id.message);
+            textView.setText(msg);
+            mToast.setView(view);
+            mToast.setDuration(Toast.LENGTH_SHORT);
+            mToast.setGravity(Gravity.CENTER, 0, 0);
+            mToast.show();
         }
 
     }
