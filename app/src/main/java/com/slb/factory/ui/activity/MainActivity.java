@@ -69,6 +69,7 @@ public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.getUpdateInfo();
+        mPresenter.getConfig();
         if (savedInstanceState == null) {
             mFragments[HOME_HOME] = HomeFragment.newInstance();
             mFragments[HOME_BUY] = ShopCarFragment.newInstance();

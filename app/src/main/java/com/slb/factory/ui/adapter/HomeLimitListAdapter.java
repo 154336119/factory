@@ -45,8 +45,8 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 		TextView tvCount = baseViewHolder.getView(R.id.mTvNum);
 		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
 		baseViewHolder.setText(R.id.mTvProductName, entity.getProduct_name());
-		baseViewHolder.setText(R.id.TvNewAmount, "￥"+ new DecimalFormat(".00").format(entity.getSeckill_price()));
-		tvOldAmount.setText("￥"+ new DecimalFormat(".00").format(entity.getOriginal_price()));
+		baseViewHolder.setText(R.id.TvNewAmount, "￥"+ new DecimalFormat("0.00").format(entity.getSeckill_price()));
+		tvOldAmount.setText("￥"+ new DecimalFormat("0.00").format(entity.getOriginal_price()));
 		tvOldAmount.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG );
 		Long startTime = Long.parseLong(DateUtils.sdateToTimestamp3(entity.getStart_time()));
 		Long curTime = Long.parseLong(entity.getServerTime()+"");

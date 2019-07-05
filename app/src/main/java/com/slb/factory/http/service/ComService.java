@@ -5,6 +5,7 @@ import com.slb.factory.http.bean.ConfigEntity;
 import com.slb.factory.http.bean.Goods;
 import com.slb.factory.http.bean.MsgEntity;
 import com.slb.factory.http.bean.OrderEntity;
+import com.slb.factory.http.bean.PayEntity;
 import com.slb.factory.http.bean.PayTypeEntity;
 import com.slb.factory.http.bean.Seckill;
 import com.slb.factory.http.bean.UpdateEntity;
@@ -12,15 +13,14 @@ import com.slb.factory.http.bean.UserEntity;
 import com.slb.frame.http2.retrofit.HttpMjListResult;
 import com.slb.frame.http2.retrofit.HttpMjResult;
 import com.slb.frame.http2.retrofit.HttpResult;
-import com.slb.frame.http2.rxjava.HttpMjEntityFun;
 
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 public interface ComService {
@@ -87,7 +87,7 @@ public interface ComService {
 
     /**
      * 订单列表
-     * 状态：0已下单、1待发货、3待收货、4已完成、5已取消
+     * 状态：0待支付、1待发货、3待收货、4已完成、5已取消
      */
     @FormUrlEncoded
     @POST("app/order/list")
@@ -176,4 +176,32 @@ public interface ComService {
     @FormUrlEncoded
     @POST("/app/user/info"  )
     Observable<HttpMjResult<UserEntity>> getUserInfo(@Field("token") String token);
+
+    /**
+     *  支付参数
+     */
+    @FormUrlEncoded
+    @POST("/app/order/getParams"  )
+    Observable<HttpMjResult<PayEntity>> getPayParams(@Field("payType") int payType , @Field("orderCode") String orderCode);
+
+
+
+    /**
+     *  支付结果
+     */
+    @GET("/app/order/query/payStatus"  )
+    Observable<HttpMjResult<String>> getPayState(@Query("payType") int payType , @Query("orderCode") String orderCode);
+
+
+
+
+//    /**
+//     *  用户信息
+//     */
+//    @FormUrlEncoded
+//    @POST("/app/user/info"  )
+//    Observable<HttpMjResult<UserEntity>> getUserInfo(@Field("token") String token);
+
+
+//    /app/order/query/payStatus
 }

@@ -38,7 +38,7 @@ public class OrderListActiivty extends BaseActivity {
         ButterKnife.bind(this);
         mAdapter = new PayTypePageAdapter(getSupportFragmentManager());
         //状态：0已下单、1待发货、3待收货、4已完成、5已取消
-        mAdapter.addTab(OrderAllStatusFragment.newInstance(0), "已下单");
+        mAdapter.addTab(OrderAllStatusFragment.newInstance(0), "待支付");
         mAdapter.addTab(OrderAllStatusFragment.newInstance(1), "待发货");
         mAdapter.addTab(OrderAllStatusFragment.newInstance(3), "待收货");
 		mAdapter.addTab(OrderAllStatusFragment.newInstance(4), "已完成");

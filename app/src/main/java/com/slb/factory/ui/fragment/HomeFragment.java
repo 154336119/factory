@@ -1,20 +1,16 @@
 package com.slb.factory.ui.fragment;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -22,9 +18,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.slb.factory.Base;
 import com.slb.factory.MyConstants;
@@ -77,6 +71,13 @@ public class HomeFragment
     List<Brand> mBrandsList = new ArrayList<>();
     List<Seckill> mSeckillsList = new ArrayList<>();
     List<Goods> mGoodsList = new ArrayList<>();
+    @BindView(R.id.FlLimitedTimeTips)
+    FrameLayout FlLimitedTimeTips;
+    @BindView(R.id.FlHotGoodsTips)
+    FrameLayout FlHotGoodsTips;
+    @BindView(R.id.RlLimitedTime)
+    RelativeLayout RlLimitedTime;
+
     @Override
     protected boolean hasToolbar() {
         return false;
@@ -103,13 +104,13 @@ public class HomeFragment
         unbinder = ButterKnife.bind(this, rootView);
 //        StatusBarUtil.setStatusBarColor(_mActivity, Color.WHITE);
         //设置banner高度
-        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) HomeBanner.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-        linearParams.height = ScreenUtils.getScreenWidth(_mActivity)/3;
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) HomeBanner.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = ScreenUtils.getScreenWidth(_mActivity) / 3;
         HomeBanner.setLayoutParams(linearParams);
         //页面刷新框架
         smartRefreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(_mActivity).setSpinnerStyle(SpinnerStyle.Scale)
-              );
+        );
 //        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         smartRefreshLayout.setEnableScrollContentWhenLoaded(true);//是否在加载完成时滚动列表显示新的内容
         smartRefreshLayout.setEnableFooterFollowWhenLoadFinished(true);
@@ -137,8 +138,8 @@ public class HomeFragment
 //        });
 
         //brands 品牌
-        RvHotSellingBrand.setLayoutManager(new GridLayoutManager(_mActivity,3));
-        mHomeBrandsListAdapter = new HomeBrandsListAdapter(mBrandsList ,getActivity());
+        RvHotSellingBrand.setLayoutManager(new GridLayoutManager(_mActivity, 4));
+        mHomeBrandsListAdapter = new HomeBrandsListAdapter(mBrandsList, getActivity());
         RvHotSellingBrand.setAdapter(mHomeBrandsListAdapter);
         mHomeBrandsListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -147,52 +148,52 @@ public class HomeFragment
                 bundle.putString("url", MyConstants.h5Url + MyConstants.url_pingpaixueche + mHomeBrandsListAdapter.getData().get(position).getId()
                         + url_token + Base.getUserEntity().getToken());
                 bundle.putString("title", mHomeBrandsListAdapter.getData().get(position).getName());
-                ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+                ActivityUtil.next(_mActivity, WebViewActivity.class, bundle, false);
             }
         });
 
         //秒杀
         RvLimitedTime.setLayoutManager(new LinearLayoutManager(_mActivity));
-        mHomeLimitListAdapter = new HomeLimitListAdapter(mSeckillsList ,getActivity());
+        mHomeLimitListAdapter = new HomeLimitListAdapter(mSeckillsList, getActivity());
         RvLimitedTime.setAdapter(mHomeLimitListAdapter);
         mHomeLimitListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("url", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing + mHomeLimitListAdapter.getData().get(position).getId()
-                + url_token + Base.getUserEntity().getToken());
+                        + url_token + Base.getUserEntity().getToken());
                 bundle.putString("title", "产品详情");
                 //分享参数
-                bundle.putInt("isShare",1);
-                bundle.putString("shareTitle",mHomeLimitListAdapter.getData().get(position).getProduct_name());
-                bundle.putString("shareSubTitle","工厂联盟APP");
+                bundle.putInt("isShare", 1);
+                bundle.putString("shareTitle", mHomeLimitListAdapter.getData().get(position).getProduct_name());
+                bundle.putString("shareSubTitle", "工厂联盟APP");
                 bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_miaoshaxiangqing
-                        + mHomeLimitListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
-                bundle.putString("shareLogo","http://img.xikeqiche.com/share/200.jpg");
-                ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+                        + mHomeLimitListAdapter.getData().get(position).getId() + url_token + Base.getUserEntity().getToken());
+                bundle.putString("shareLogo", "http://img.xikeqiche.com/share/200.jpg");
+                ActivityUtil.next(_mActivity, WebViewActivity.class, bundle, false);
             }
         });
 
         //商品
-        RvHotGoods.setLayoutManager(new GridLayoutManager(_mActivity,2));
-        mHomeGoodsListAdapter = new HomeGoodsListAdapter(mGoodsList ,getActivity());
+        RvHotGoods.setLayoutManager(new GridLayoutManager(_mActivity, 2));
+        mHomeGoodsListAdapter = new HomeGoodsListAdapter(mGoodsList, getActivity());
         RvHotGoods.setAdapter(mHomeGoodsListAdapter);
         mHomeGoodsListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("url", MyConstants.h5Url + MyConstants.url_chanpingxiangqing + mHomeGoodsListAdapter.getData().get(position).getId()
-                        + url_token+ Base.getUserEntity().getToken());
+                        + url_token + Base.getUserEntity().getToken());
                 bundle.putString("title", "产品详情");
-                bundle.putInt("isShare",1);
+                bundle.putInt("isShare", 1);
                 //分享参数
-                bundle.putInt("isShare",1);
-                bundle.putString("shareTitle",mHomeGoodsListAdapter.getData().get(position).getName());
-                bundle.putString("shareSubTitle","工厂联盟APP");
+                bundle.putInt("isShare", 1);
+                bundle.putString("shareTitle", mHomeGoodsListAdapter.getData().get(position).getName());
+                bundle.putString("shareSubTitle", "工厂联盟APP");
                 bundle.putString("shareUrl", MyConstants.h5Url + MyConstants.url_chanpingxiangqing
-                        + mHomeGoodsListAdapter.getData().get(position).getId()+ url_token+ Base.getUserEntity().getToken());
-                bundle.putString("shareLogo","http://img.xikeqiche.com/share/200.jpg");
-                ActivityUtil.next(_mActivity, WebViewActivity.class,bundle,false);
+                        + mHomeGoodsListAdapter.getData().get(position).getId() + url_token + Base.getUserEntity().getToken());
+                bundle.putString("shareLogo", "http://img.xikeqiche.com/share/200.jpg");
+                ActivityUtil.next(_mActivity, WebViewActivity.class, bundle, false);
             }
         });
 
@@ -220,6 +221,13 @@ public class HomeFragment
     @Override
     public void setSeckillListData(List<Seckill> entity) {
         mSeckillsList = entity;
+        if (mSeckillsList != null && mSeckillsList.size() > 0) {
+            FlLimitedTimeTips.setVisibility(View.VISIBLE);
+            RlLimitedTime.setVisibility(View.VISIBLE);
+        } else {
+            FlLimitedTimeTips.setVisibility(View.GONE);
+            RlLimitedTime.setVisibility(View.GONE);
+        }
         mHomeLimitListAdapter.setNewData(mSeckillsList);
     }
 

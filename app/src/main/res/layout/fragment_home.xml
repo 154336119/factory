@@ -69,9 +69,11 @@
                         android:layout_margin="@dimen/distance_10"
                         android:nestedScrollingEnabled="false"/>
                 <FrameLayout
+                    android:id="@+id/FlLimitedTimeTips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/distance_10">
+                    android:layout_marginLeft="@dimen/distance_10"
+                    >
                     <ImageView
                         android:layout_width="120dp"
                         android:layout_height="10dp"
@@ -86,6 +88,7 @@
                 </FrameLayout>
                 <!--限时秒杀 -->
                 <RelativeLayout
+                    android:id="@+id/RlLimitedTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:descendantFocusability="blocksDescendants"
@@ -104,6 +107,7 @@
                         android:layout_marginBottom="10dp" />
                 </RelativeLayout>
                 <FrameLayout
+                    android:id="@+id/FlHotGoodsTips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/distance_10">

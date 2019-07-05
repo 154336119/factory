@@ -388,6 +388,24 @@
                     android:layout_marginLeft="@dimen/distance_20"
                     android:layout_marginRight="@dimen/distance_20"
                     android:background="#f1f1f1"/>
+                <RelativeLayout
+                    android:id="@+id/RlPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/distance_15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/lianxikefu"
+                        android:text="联系客服"
+                        android:textColor="#4b4b4b" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/jiantou_wode"/>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

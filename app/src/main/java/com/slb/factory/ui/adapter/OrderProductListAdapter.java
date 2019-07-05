@@ -53,7 +53,7 @@ public class OrderProductListAdapter extends CommonBaseAdapter<ProductEntity> {
 			mHolder.mTvColor.setText("暂无");
 		}
 		if(entity.getSingle_price()!=null){
-			mHolder.mTvMoney.setText("¥"+new DecimalFormat(".00").format(entity.getSingle_price()));
+			mHolder.mTvMoney.setText("¥"+new DecimalFormat("0.00").format(entity.getSingle_price()));
 		}else{
 			mHolder.mTvMoney.setText("暂无");
 		}

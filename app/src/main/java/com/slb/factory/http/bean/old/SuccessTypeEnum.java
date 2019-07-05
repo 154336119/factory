@@ -11,8 +11,8 @@ import com.slb.factory.ui.activity.SuccessActivity;
 public enum SuccessTypeEnum {
 	TYPE_100("提交成功","恭喜您，信息已提交成功！","我们会在1-3个工作日对您的信息进行审核","去首页", SuccessActivity.TYPE_100),
 	TYPE_101("提交成功","恭喜您，提交成功！","感谢您对本产品的支持","返回个人中心", SuccessActivity.TYPE_101),
-	TYPE_102("上传成功","恭喜您，上传成功！","转账凭证已上传，请耐心等待卖家发货","查看订单", SuccessActivity.TYPE_102);
-
+	TYPE_102("上传成功","恭喜您，上传成功！","转账凭证已上传，请耐心等待卖家发货","查看订单", SuccessActivity.TYPE_102),
+	TYPE_103("支付成功","恭喜您，支付成功！","","返回首页", SuccessActivity.TYPE_103);
 	/**
 	 * TYPE_100 - 成功页面——使用申请
 	 * TYPE_101 - 成功页面——意见反馈

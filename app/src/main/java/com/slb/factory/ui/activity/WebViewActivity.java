@@ -35,19 +35,41 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+
+import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.jaeger.library.StatusBarUtil;
+import com.orhanobut.logger.Logger;
 import com.slb.factory.Base;
+import com.slb.factory.MyApplication;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.event.FinishAcitivtyEvent;
+import com.slb.factory.http.RetrofitSerciveFactory;
+import com.slb.factory.http.bean.PayEntity;
+import com.slb.factory.http.bean.PayResult;
+import com.slb.factory.http.bean.UserEntity;
 import com.slb.factory.http.bean.WebBean;
+import com.slb.factory.ui.contract.ChoisePayTypeContract;
+import com.slb.factory.ui.contract.WebViewContract;
+import com.slb.factory.ui.presenter.LoginPresenter;
+import com.slb.factory.ui.presenter.WebViewPresenter;
 import com.slb.factory.weight.MyWebView;
 import com.slb.factory.weight.ShareDialog;
+import com.slb.frame.http2.retrofit.HttpMjResult;
+import com.slb.frame.http2.rxjava.BaseSubscriber;
+import com.slb.frame.http2.rxjava.BindPrssenterOpterator;
+import com.slb.frame.http2.rxjava.HttpMjEntityFun;
 import com.slb.frame.ui.activity.BaseActivity;
+import com.slb.frame.ui.activity.BaseMvpActivity;
 import com.slb.frame.utils.ActivityUtil;
+import com.slb.frame.utils.rx.RxUtil;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -56,14 +78,19 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.nio.Buffer;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.slb.factory.MyConstants.url_token;
+import static com.slb.factory.ui.activity.SuccessActivity.TYPE_102;
+import static com.slb.factory.ui.activity.SuccessActivity.TYPE_103;
 
 
-public class WebViewActivity extends BaseActivity {
+public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, WebViewContract.IPresenter>
+        implements WebViewContract.IView {
 
     @BindView(R.id.webView)
     WebView mWebView;
@@ -74,6 +101,49 @@ public class WebViewActivity extends BaseActivity {
     private String title;
     private int isShare = 0;
     private UMWeb mUMWeb;
+
+    private int mPayType; //支付什么类型 1,支付宝，2，微信
+    private String mOrderCode;
+    private static final int SDK_PAY_FLAG = 1;
+
+    @Override
+    public WebViewContract.IPresenter initPresenter() {
+        return new WebViewPresenter();
+    }
+    
+    
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    @SuppressWarnings("unchecked")
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    /**
+                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    // 判断resultStatus 为9000则代表支付成功
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+//                        Toast.makeText(WebViewActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        mPresenter.getPayState(mPayType,mOrderCode);
+                    } else {
+                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                        toPayFaildActivity();
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    };
+
+
+
 
     public void setMybackListener(){
         setBackListener(new View.OnClickListener() {
@@ -127,6 +197,16 @@ public class WebViewActivity extends BaseActivity {
             return;
         }
         mWebView.onResume();
+        BaseResp resp = MyApplication.getInstance().getResp();
+        if (resp != null) {
+            if (resp.errCode == 0) {
+                //微信支付成功
+                mPresenter.getPayState(mPayType,mOrderCode);
+            } else {
+                // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                toPayFaildActivity();
+            }
+     }
     }
     @Override
     protected String setToolbarTitle() {
@@ -224,10 +304,10 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                if (newProgress != 100) {
-                    progressbar.setVisibility(View.VISIBLE);
-                } else {
+                if (newProgress > 70) {
                     progressbar.setVisibility(View.GONE);
+                } else {
+                    progressbar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -331,7 +411,16 @@ public class WebViewActivity extends BaseActivity {
                 RxBus.get().post(new FinishAcitivtyEvent());
                 ActivityUtil.next(WebViewActivity.this, ChoisePayTypeActiivty.class);
             }
+        }
 
+
+        @JavascriptInterface
+        public void appPay(String json) {
+            WebBean data = new Gson().fromJson(json, WebBean.class);
+            mPayType = data.payType;
+            mOrderCode = data.orderCode;
+            mPresenter.getPayParam(mPayType,mOrderCode);
+            getPay(data);
         }
     }
 
@@ -433,5 +522,103 @@ public class WebViewActivity extends BaseActivity {
     @Subscribe
     public void finishActivity(FinishAcitivtyEvent event) {
         finish();
+    }
+
+
+    private void getPay(final WebBean webBean) {
+    }
+//        Ref.getService().getPayInfo(webBean.mPayType, webBean.mOrderCode)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<PayEntity>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                    }
+//
+//                    @Override
+//                    public void onNext(PayEntity data) {
+//                        if (data.code == 200) {
+//                            if ("1".equals(webBean.mPayType)) {
+//                                payAli(data.data.payUrl);
+//                            } else {
+//                                payWx(data.data);
+//                            }
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                    }
+//                });
+//    }
+
+    private void payAli(final String payInfo) {
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(WebViewActivity.this);
+                Map<String, String> result = alipay.payV2(payInfo, true);
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+
+    }
+
+    /**
+     * 微信支付
+     */
+    public void payWx(PayEntity signData) {
+        IWXAPI msgApi = WXAPIFactory.createWXAPI(WebViewActivity.this, null);
+        msgApi.registerApp(MyConstants.WX_APP_ID);
+        PayReq req = new PayReq();
+        req.appId = signData.appid;
+        req.partnerId = signData.partnerid;
+        req.prepayId = signData.prepayid;
+        req.packageValue = "Sign=WXPay";
+        req.nonceStr = signData.noncestr;
+        req.timeStamp = signData.timestamp;
+        req.sign = signData.sign;
+        MyApplication.getInstance().setResp(null);
+        msgApi.sendReq(req);
+    }
+
+    @Override
+    public void toPaySuccessActivity() {
+        Logger.d("支付成功");
+        Bundle bundle = new Bundle();
+        bundle.putInt(MyConstants.TYPE,TYPE_103);
+        ActivityUtil.next(this,SuccessActivity.class,bundle,true);
+        RxBus.get().post(new FinishAcitivtyEvent());
+    }
+
+    @Override
+    public void toPayFaildActivity() {
+        Logger.d("支付失败");
+        Bundle bundle = new Bundle();
+        bundle.putInt("POS",0);
+        ActivityUtil.next(this, OrderListActiivty.class,bundle,true);
+        RxBus.get().post(new FinishAcitivtyEvent());
+    }
+
+    @Override
+    public void getPayParamSuccess(PayEntity entity) {
+     if (mPayType == 1) {
+            payAli(entity.payUrl);
+        } else {
+            payWx(entity);
+        }
     }
 }

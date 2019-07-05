@@ -1,20 +1,22 @@
 package com.slb.factory.ui.contract;
 
-import com.slb.factory.http.bean.UpdateEntity;
+import com.slb.factory.http.bean.PayEntity;
 import com.slb.frame.ui.presenter.IBaseFragmentPresenter;
 import com.slb.frame.ui.presenter.IBasePresenter;
 import com.slb.frame.ui.view.IBaseLoadingDialogView;
 
 /**
- * Created by Gifford on 2017/11/29.
+ * Created by Gifford on 2018/1/5.
  */
 
-public class MainContract {
+public class WebViewContract {
 	public interface IView extends IBaseLoadingDialogView {
-		void tipUpdate(UpdateEntity entity);
+		void getPayParamSuccess(PayEntity entity);
+		void toPaySuccessActivity();
+		void toPayFaildActivity();
 	}
 	public interface IPresenter<T> extends IBasePresenter<T> {
-		void getUpdateInfo();
-		void getConfig();
+		void getPayState(int payType,String orderCode);
+		void getPayParam(int payType,String orderCode);
 	}
 }

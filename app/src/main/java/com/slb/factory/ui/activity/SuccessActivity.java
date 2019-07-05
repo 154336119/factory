@@ -19,7 +19,7 @@ public class SuccessActivity extends BaseActivity {
     public static final int TYPE_100 = 100; //使用申请
     public static final int TYPE_101 = 101; //意见反馈
     public static final int TYPE_102 = 102; //上传凭证
-
+    public static final int TYPE_103 = 103; //上传凭证
     @BindView(R.id.TvTitle)
     TextView TvTitle;
     @BindView(R.id.TvContent)
@@ -66,6 +66,11 @@ public class SuccessActivity extends BaseActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("POS",1);
             ActivityUtil.next(this, OrderListActiivty.class,bundle,true);
+        }else if(type == TYPE_103){
+            Bundle bundle = new Bundle();
+             bundle.putInt(MyConstants.HOME_SELECTED_FRAGMENT,0);
+             ActivityUtil.next(this, MainActivity.class,bundle,true);
+             finish();
         }
     }
 }

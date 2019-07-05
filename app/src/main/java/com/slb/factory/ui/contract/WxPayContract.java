@@ -14,5 +14,6 @@ public class WxPayContract {
 	public interface IView extends IBaseLoadingDialogView {
 	}
 	public interface IPresenter<T> extends IBaseFragmentPresenter<T> {
+
 	}
 }

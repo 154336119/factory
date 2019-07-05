@@ -16,7 +16,6 @@ public class WebBean implements Serializable {
 
     public String phoneNumber;
 
-    public String payType;// 1支付宝、2微信支付;
 
 
     public boolean isRefresh;
@@ -24,9 +23,9 @@ public class WebBean implements Serializable {
 
     public String linkType;//（首页：index，酒店详情：hotelDetails）。
 
-    public String id;// 酒店id
-    public String restId;
-    public String price;
+    //支付
+    public int payType;// 1支付宝、2微信支付;
+    public String orderCode;
 
     // 标题：
     public String title;

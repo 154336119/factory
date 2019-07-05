@@ -51,8 +51,8 @@ public class HomeGoodsListAdapter extends BaseQuickAdapter<Goods, BaseViewHolder
 		ImageLoadUtil.loadImage(mContext,entity.getHead_img(),imageView);
 
 		baseViewHolder.setText(R.id.TvDes, entity.getName());
-		baseViewHolder.setText(R.id.TvNewAmount,"￥"+ new DecimalFormat(".00").format(entity.getDiscount_price()));
-		tvOldAmount.setText("￥"+ new DecimalFormat(".00").format(entity.getOriginal_price()));
+		baseViewHolder.setText(R.id.TvNewAmount,"￥"+ new DecimalFormat("0.00").format(entity.getDiscount_price()));
+		tvOldAmount.setText("￥"+ new DecimalFormat("0.00").format(entity.getOriginal_price()));
 		tvOldAmount.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
 	}
 }
