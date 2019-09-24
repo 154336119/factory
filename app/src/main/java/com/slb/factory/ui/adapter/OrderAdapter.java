@@ -47,10 +47,19 @@ public class OrderAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> 
 			baseViewHolder.setVisible(R.id.mTvActionTisp,false);
 		}else if(orderState == 1){
 			//待发货
-			baseViewHolder.setVisible(R.id.LLActionState3,false);
-			baseViewHolder.setVisible(R.id.mTvActionUploadProofs,false);
-			baseViewHolder.setVisible(R.id.mTvActionTisp,true);
-			baseViewHolder.setText(R.id.mTvActionTisp,"已上传凭证，等待发货");
+			 if(entity.getState() == 2){
+				//待发货
+				baseViewHolder.setVisible(R.id.LLActionState3,false);
+				baseViewHolder.setVisible(R.id.mTvActionUploadProofs,false);
+				baseViewHolder.setVisible(R.id.mTvActionTisp,true);
+				baseViewHolder.setText(R.id.mTvActionTisp,"待发货");
+			}else if(entity.getState() == 6){
+				//待发货
+				baseViewHolder.setVisible(R.id.LLActionState3,false);
+				baseViewHolder.setVisible(R.id.mTvActionUploadProofs,false);
+				baseViewHolder.setVisible(R.id.mTvActionTisp,true);
+				baseViewHolder.setText(R.id.mTvActionTisp,"申请退款中");
+			}
 		}else if(orderState == 4){
 			//已完成
 			baseViewHolder.setVisible(R.id.LLActionState3,false);

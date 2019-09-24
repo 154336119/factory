@@ -95,7 +95,7 @@
             android:layout_alignParentRight="true"
             android:paddingEnd="@dimen/distance_10"
             android:paddingStart="@dimen/distance_10"
-            android:text="上传转账凭证"
+            android:text="立即支付"
             android:minWidth="70dp"
             android:layout_marginLeft="@dimen/distance_8"
             android:visibility="gone"/>

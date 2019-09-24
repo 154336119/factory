@@ -45,7 +45,6 @@ public class UploadLicenseActivity extends BaseMvpActivity<UploadLicenseContract
         implements UploadLicenseContract.IView {
     public static final int TYPE_FIRST = 1; //第一次进入
     public static final int TYPE_FAILED = 2; //失败
-
     @BindView(R.id.mTvWarning1)
     TextView mTvWarning1;
     @BindView(R.id.IvCard1)

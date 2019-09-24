@@ -186,11 +186,11 @@ public interface ComService {
 
 
 
-    /**
-     *  支付结果
-     */
-    @GET("/app/order/query/payStatus"  )
-    Observable<HttpMjResult<String>> getPayState(@Query("payType") int payType , @Query("orderCode") String orderCode);
+//    /**
+//     *  支付结果
+//     */
+//    @GET("/app/order/query/payStatus"  )
+//    Observable<HttpMjResult<String>> getPayState(@Query("payType") int payType , @Query("orderCode") String orderCode);
 
 
 

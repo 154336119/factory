@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/distance_20">
+    android:padding="@dimen/dp_10">
 
     <ImageView
         android:id="@+id/IvImg"
@@ -17,13 +17,13 @@
 
     <TextView
         android:id="@+id/TvName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/IvImg"
         android:layout_alignParentRight="true"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="编号"
+        android:text="编号编号"
         android:textColor="#131313" />
 </LinearLayout>

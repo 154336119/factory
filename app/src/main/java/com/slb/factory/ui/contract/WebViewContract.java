@@ -16,7 +16,6 @@ public class WebViewContract {
 		void toPayFaildActivity();
 	}
 	public interface IPresenter<T> extends IBasePresenter<T> {
-		void getPayState(int payType,String orderCode);
 		void getPayParam(int payType,String orderCode);
 	}
 }

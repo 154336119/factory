@@ -81,7 +81,7 @@ public class OrderAllStatusFragment
 		super.onItemChildClickListener(view, adapter, position);
 		OrderEntity orderEntity = (OrderEntity)mAdapter.getData().get(position);
 		if(view.getId() == R.id.mTvActionUploadProofs){
-			//上传凭证
+			//立即支付
 			Bundle bundle = new Bundle();
 			bundle.putString("url", MyConstants.h5Url + MyConstants.url_dingdanxiangqing + orderEntity.getId());
 			bundle.putString("title", "订单详情");

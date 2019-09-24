@@ -19,18 +19,16 @@ public class HomeContract {
 		void setHotBrandListData(List<Brand> entity);
 		void setSeckillListData(List<Seckill> entity);
 		void setHotGoodListData(List<Goods> entity);
+		void setRefreshFooter(RefreshFooter footer);
 		//添加商品数据
 		void addGoodsListData(List<Goods> entity);
 		void finishRefresh(boolean success);
 		void finishLoadmore(boolean success);
-		void setRefreshFooter(RefreshFooter footer);
 		void resetNoMoreData();
 		void finishLoadmoreWithNoMoreData();
 	}
 	public interface IPresenter<T> extends IBaseFragmentPresenter<T> {
-		//
 		void onLoadMore();
-		//
 		void onRefresh();
 	}
 }

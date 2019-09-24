@@ -50,7 +50,6 @@ public class HomeLimitListAdapter extends BaseQuickAdapter<Seckill, BaseViewHold
 		tvOldAmount.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG );
 		Long startTime = Long.parseLong(DateUtils.sdateToTimestamp3(entity.getStart_time()));
 		Long curTime = Long.parseLong(entity.getServerTime()+"");
-		//测试
 		if(curTime>startTime){
 			//秒杀开始
 			tvCount.setVisibility(View.VISIBLE);

@@ -102,7 +102,6 @@ public class HomeFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-//        StatusBarUtil.setStatusBarColor(_mActivity, Color.WHITE);
         //设置banner高度
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) HomeBanner.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
         linearParams.height = ScreenUtils.getScreenWidth(_mActivity) / 3;
@@ -111,7 +110,6 @@ public class HomeFragment
         smartRefreshLayout.setRefreshHeader(new MaterialHeader(getActivity()));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(_mActivity).setSpinnerStyle(SpinnerStyle.Scale)
         );
-//        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(getActivity()));
         smartRefreshLayout.setEnableScrollContentWhenLoaded(true);//是否在加载完成时滚动列表显示新的内容
         smartRefreshLayout.setEnableFooterFollowWhenLoadFinished(true);
         smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
@@ -125,20 +123,9 @@ public class HomeFragment
                 mPresenter.onRefresh();
             }
         });
-//        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
-//            @Override
-//            public void onLoadmore(RefreshLayout refreshlayout) {
-//                mPresenter.onLoadMore();
-//            }
-//
-//            @Override
-//            public void onRefresh(RefreshLayout refreshlayout) {
-//                mPresenter.onRefresh();
-//            }
-//        });
 
         //brands 品牌
-        RvHotSellingBrand.setLayoutManager(new GridLayoutManager(_mActivity, 4));
+        RvHotSellingBrand.setLayoutManager(new GridLayoutManager(_mActivity, 5));
         mHomeBrandsListAdapter = new HomeBrandsListAdapter(mBrandsList, getActivity());
         RvHotSellingBrand.setAdapter(mHomeBrandsListAdapter);
         mHomeBrandsListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

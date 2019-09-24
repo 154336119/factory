@@ -146,7 +146,7 @@ public class MineFragment
 
     @OnClick({R.id.IvSetting, R.id.IvMsg, R.id.RlOrderList, R.id.BtnOrder, R.id.BtnOrderSend
             , R.id.BtnOrderReceive, R.id.BtnOrderDone, R.id.btnOrderCancel
-            , R.id.RlAddr, R.id.RlInvitation, R.id.RlOptinion,R.id.RlPhone})
+            , R.id.RlAddr, R.id.RlInvitation, R.id.RlOptinion,R.id.RlPhone,R.id.TvHead})
     public void onViewClicked(View view) {
         Bundle bundle = new Bundle();
         switch (view.getId()) {
@@ -192,6 +192,11 @@ public class MineFragment
             case R.id.RlOptinion:
                 bundle.putString("url", MyConstants.h5Url + MyConstants.url_yijianfankui + Base.getUserEntity().getToken());
                 bundle.putString("title", "意见反馈");
+                ActivityUtil.next(_mActivity, WebViewActivity.class, bundle, false);
+                break;
+            case R.id.TvHead:
+                bundle.putString("url", MyConstants.h5Url + MyConstants.url_person + Base.getUserEntity().getToken());
+                bundle.putString("title", "个人信息");
                 ActivityUtil.next(_mActivity, WebViewActivity.class, bundle, false);
                 break;
             case R.id.RlPhone:

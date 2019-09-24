@@ -56,4 +56,9 @@ public class WebBean implements Serializable {
 
     //是否显示分享按钮
     public int isShare = 0;
+
+    //发票
+    public String invoiceType;
+    public String invoiceTitle;
+    public String invoiceTax;
 }

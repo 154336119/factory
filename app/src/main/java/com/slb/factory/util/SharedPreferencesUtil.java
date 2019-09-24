@@ -1,4 +1,4 @@
-package com.slb.factory.ui;
+package com.slb.factory.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

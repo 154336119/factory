@@ -7,6 +7,7 @@ import com.slb.factory.http.bean.Brand;
 import com.slb.factory.http.bean.Goods;
 import com.slb.factory.http.bean.HomeMergeEntity;
 import com.slb.factory.http.bean.Seckill;
+import com.slb.factory.http.bean.UserEntity;
 import com.slb.factory.ui.contract.HomeContract;
 import com.slb.factory.weight.refresh.CustomRefreshFooter;
 import com.slb.frame.http2.exception.ResultException;
@@ -28,6 +29,7 @@ import rx.Subscription;
 import rx.functions.Func1;
 import rx.functions.Func3;
 import rx.functions.Func4;
+import rx.functions.Func5;
 
 /**
  * Created by Administrator on 2018/4/10.
@@ -87,13 +89,17 @@ public class HomePresenter extends AbstractBaseFragmentPresenter<HomeContract.IV
         //重置没有更多数据状态
         mView.resetNoMoreData();
         final HomeMergeEntity homeMergeEntity=new HomeMergeEntity();
+        Observable<HttpMjResult<UserEntity>> userInfo =   RetrofitSerciveFactory.provideComService().getUserInfo(Base.getUserEntity().getToken());
         Observable<HttpMjResult<List<String>>> bannerList = RetrofitSerciveFactory.provideComService().getBannerList(null);
         Observable<HttpMjResult<List<Brand>>> brandList = RetrofitSerciveFactory.provideComService().getHotBrandList(null);
         Observable<HttpMjResult<List<Seckill>>> seckillList = RetrofitSerciveFactory.provideComService().getLimited(null);
         Observable<HttpMjListResult<Goods>> goodsList = RetrofitSerciveFactory.provideComService().getHotGoods(PAGE_SIZE, mCurrentPage);
-        Observable.zip(bannerList, brandList, seckillList, goodsList, new Func4<HttpMjResult<List<String>>, HttpMjResult<List<Brand>>, HttpMjResult<List<Seckill>>, HttpMjListResult<Goods>, HomeMergeEntity>() {
+        Observable.zip(userInfo,bannerList, brandList, seckillList, goodsList, new Func5<HttpMjResult<UserEntity>,HttpMjResult<List<String>>, HttpMjResult<List<Brand>>, HttpMjResult<List<Seckill>>, HttpMjListResult<Goods>, HomeMergeEntity>() {
             @Override
-            public HomeMergeEntity call(HttpMjResult<List<String>> bannerListHttpMjResult, HttpMjResult<List<Brand>> brandListHttpResult, HttpMjResult<List<Seckill>> seckillListHttpResult, HttpMjListResult<Goods> goodsListHttpResult) {
+            public HomeMergeEntity call(HttpMjResult<UserEntity>userInfoHttpMjResult, HttpMjResult<List<String>> bannerListHttpMjResult, HttpMjResult<List<Brand>> brandListHttpResult, HttpMjResult<List<Seckill>> seckillListHttpResult, HttpMjListResult<Goods> goodsListHttpResult) {
+                if (userInfoHttpMjResult.getCode() != null && userInfoHttpMjResult.getCode() != 200) {
+                    throw new ResultException(userInfoHttpMjResult.getCode(), userInfoHttpMjResult.getMsg());
+                }
                 if (bannerListHttpMjResult.getCode() != null && bannerListHttpMjResult.getCode() != 200) {
                     throw new ResultException(bannerListHttpMjResult.getCode(), bannerListHttpMjResult.getMsg());
                 }

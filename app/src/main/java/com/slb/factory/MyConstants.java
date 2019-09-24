@@ -41,7 +41,7 @@ public class MyConstants {
     /**
      * 品牌选车
      */
-    public static final String url_pingpaixueche = "/optbrand?brandId=";
+    public static final String url_pingpaixueche = "/optfitting?brandId=";
 
     /**
      * 秒杀详情
@@ -72,6 +72,10 @@ public class MyConstants {
      */
     public static final String url_yijianfankui = "/feedback?token=";
 
+    /**
+     * 个人信息
+     */
+    public static final String url_person = "/person?token=";
     /**
      * 购物车
      */

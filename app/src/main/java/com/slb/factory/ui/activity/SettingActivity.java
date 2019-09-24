@@ -2,6 +2,8 @@ package com.slb.factory.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -60,7 +62,22 @@ public class SettingActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        TvVersion.setText(getVersionName());
     }
+
+
+    public String getVersionName(){
+        PackageManager manager = getPackageManager();
+        String versionName = null;
+        try {
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(),0);
+             versionName = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
 
     @OnClick({R.id.RlAbout, R.id.RlClearCache, R.id.RlAgreement,R.id.TvLoginOut})
     public void onViewClicked(View view) {

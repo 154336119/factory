@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.slb.factory.Base;
@@ -93,13 +95,13 @@ public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContr
         prePosition = 0;
         bottomBar.setOnCheckedChangeListener(this);
         bottomBar.check(R.id.rb_home);
-//        loginOutObservable = RxBus.getInstance().register(RESPONSE_EXCEPTION_LOGINOUT);
-//        loginOutSub = loginOutObservable.subscribeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-//                .unsubscribeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-//                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-//                .subscribe(new Action1<ResponseExceptionEventArgs>() {
-//                    @Override
-//                    public void call(ResponseExceptionEventArgs args) {
+        loginOutObservable = RxBus.getInstance().register(RESPONSE_EXCEPTION_LOGINOUT);
+        loginOutSub = loginOutObservable.subscribeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                .unsubscribeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseExceptionEventArgs>() {
+                    @Override
+                    public void call(ResponseExceptionEventArgs args) {
 //                        PushAgent mPushAgent = PushAgent.getInstance(Base.getContext());
 //                        mPushAgent.deleteAlias("xikeqiche", Base.getUserEntity().getToken(), new UTrack.ICallBack() {
 //                            @Override
@@ -107,13 +109,13 @@ public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContr
 //
 //                            }
 //                        });
-//                        Base.setUserEntity(null);
-//                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                });
+                        Base.setUserEntity(null);
+                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
 
     }
 
@@ -134,14 +136,20 @@ public class MainActivity  extends BaseMvpActivity<MainContract.IView, MainContr
                 break;
         }
     }
-
+    private long exitTime = 0;
     @Override
-    public void onBackPressedSupport() {
-        if (this.getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            ExitDoubleClick.getInstance(this).doDoubleClick(3000, null);
-        } else {
-            getSupportFragmentManager().popBackStack();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), getString(R.string.warning_loginout), Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
         }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

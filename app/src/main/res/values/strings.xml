@@ -232,7 +232,7 @@
 
 <string name="Warning_4">Please first go to Bluetooth setting and pair with the OBD device.</string>
 
-
+    <string name="warning_loginout">再按一次退出</string>
 
 <string name="prompt">提示</string>string>
 <string name="prompt_upload_error_codes_content">是否上传故障码？</string>

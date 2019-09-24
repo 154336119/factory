@@ -47,6 +47,7 @@ import com.slb.factory.MyApplication;
 import com.slb.factory.MyConstants;
 import com.slb.factory.R;
 import com.slb.factory.event.FinishAcitivtyEvent;
+import com.slb.factory.event.OrderRefreshEvent;
 import com.slb.factory.http.RetrofitSerciveFactory;
 import com.slb.factory.http.bean.PayEntity;
 import com.slb.factory.http.bean.PayResult;
@@ -82,7 +83,11 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.slb.factory.MyConstants.url_token;
 import static com.slb.factory.ui.activity.SuccessActivity.TYPE_102;
@@ -129,7 +134,7 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
 //                        Toast.makeText(WebViewActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                        mPresenter.getPayState(mPayType,mOrderCode);
+                        toPaySuccessActivity();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         toPayFaildActivity();
@@ -196,14 +201,16 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
         if (mWebView == null) {
             return;
         }
-        mWebView.onResume();
+        mWebView.onResume() ;
         BaseResp resp = MyApplication.getInstance().getResp();
         if (resp != null) {
             if (resp.errCode == 0) {
                 //微信支付成功
-                mPresenter.getPayState(mPayType,mOrderCode);
+                MyApplication.getInstance().setResp(null);
+                toPaySuccessActivity();
             } else {
                 // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                MyApplication.getInstance().setResp(null);
                 toPayFaildActivity();
             }
      }
@@ -361,6 +368,16 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
             if(!TextUtils.isEmpty(data.addressId)){
                 intent.putExtra("addressId",data.addressId);
             }
+            //发票
+            if(!TextUtils.isEmpty(data.invoiceType)){
+                intent.putExtra("invoiceType",data.invoiceType);
+            }
+            if(!TextUtils.isEmpty(data.invoiceTitle)){
+                intent.putExtra("invoiceTitle",data.invoiceTitle);
+            }
+            if(!TextUtils.isEmpty(data.invoiceTax)){
+                intent.putExtra("invoiceTax",data.invoiceTax);
+            }
             intent.putExtra("isRefresh", data.isRefresh);
             setResult(100, intent);
             finish();
@@ -410,6 +427,12 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
                 //选择支付方式
                 RxBus.get().post(new FinishAcitivtyEvent());
                 ActivityUtil.next(WebViewActivity.this, ChoisePayTypeActiivty.class);
+            } else if ("jumpCsh".equals(data.linkType)) {
+                //客服
+                Bundle bundle = new Bundle();
+                bundle.putString("url", data.url);
+                bundle.putString("title", "联系客服");
+                ActivityUtil.next(WebViewActivity.this, WebViewActivity.class,bundle,false);
             }
         }
 
@@ -420,7 +443,7 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
             mPayType = data.payType;
             mOrderCode = data.orderCode;
             mPresenter.getPayParam(mPayType,mOrderCode);
-            getPay(data);
+//            getPay(data);
         }
     }
 
@@ -464,6 +487,16 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
                 }
                 if(!TextUtils.isEmpty(intent.getStringExtra("addressId"))){
                     sb.append("&addressId="+intent.getStringExtra("addressId"));
+                }
+                //发票数据
+                if(!TextUtils.isEmpty(intent.getStringExtra("invoiceType"))){
+                    sb.append("&invoiceType="+intent.getStringExtra("invoiceType"));
+                }
+                if(!TextUtils.isEmpty(intent.getStringExtra("invoiceTitle"))){
+                    sb.append("&invoiceTitle="+intent.getStringExtra("invoiceTitle"));
+                }
+                if(!TextUtils.isEmpty(intent.getStringExtra("invoiceTax"))){
+                    sb.append("&invoiceTax="+intent.getStringExtra("invoiceTax"));
                 }
 //                this.url = sb.toString();
                 mWebView.loadUrl(sb.toString());
@@ -597,10 +630,12 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
 
     @Override
     public void toPaySuccessActivity() {
+//        hideWaitDialog();
         Logger.d("支付成功");
         Bundle bundle = new Bundle();
         bundle.putInt(MyConstants.TYPE,TYPE_103);
         ActivityUtil.next(this,SuccessActivity.class,bundle,true);
+        RxBus.get().post(new OrderRefreshEvent());
         RxBus.get().post(new FinishAcitivtyEvent());
     }
 
@@ -610,6 +645,7 @@ public class WebViewActivity  extends BaseMvpActivity<WebViewContract.IView, Web
         Bundle bundle = new Bundle();
         bundle.putInt("POS",0);
         ActivityUtil.next(this, OrderListActiivty.class,bundle,true);
+        RxBus.get().post(new OrderRefreshEvent());
         RxBus.get().post(new FinishAcitivtyEvent());
     }
 

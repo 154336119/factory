@@ -1,9 +1,6 @@
 package com.slb.factory;
 
 import android.app.Application;
-import android.content.ComponentName;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -14,7 +11,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.DiskLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.slb.frame.http2.retrofit.HttpLoggingInterceptor;
-import com.slb.factory.ui.SharedPreferencesUtil;
+import com.slb.factory.util.SharedPreferencesUtil;
 import com.slb.factory.util.config.BizcContant;
 import com.tencent.bugly.Bugly;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -24,7 +21,6 @@ import com.umeng.message.PushAgent;
 import com.umeng.message.inapp.InAppMessageManager;
 import com.umeng.socialize.PlatformConfig;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -33,6 +29,7 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        mInstance = this;
         Base.initialize(this);
         initLogUtils();
         initOkGo();
@@ -44,6 +41,7 @@ public class MyApplication extends Application{
     private void initShare() {
         UMConfigure.init(this, "5cee3747570df3fbb3001003", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "c03143546167352f2e2de6ee1c0dda3e");
         PlatformConfig.setWeixin(MyConstants.WX_APP_ID, "f209badd4ead402cc20a395724325284");
+
         PushAgent mPushAgent = PushAgent.getInstance(this);
 //注册推送服务，每次调用register方法都会回调该接口
         mPushAgent.register(new IUmengRegisterCallback() {
@@ -57,9 +55,6 @@ public class MyApplication extends Application{
                 Logger.e("注册失败：-------->  " + "s:" + s + ",s1:" + s1);
             }
         });
-
-        //！！！！！！！！！！！！！！！！！！！！！！！！debug下位开启。正式上线需要关闭
-        InAppMessageManager.getInstance(getBaseContext()).setInAppMsgDebugMode(true);
     }
 
     private void initLogUtils(){
